@@ -14,7 +14,7 @@ import javax.validation.Valid;
 public class AppConfiguration extends Configuration {
     @Valid
     @NotNull
-    @JsonProperty
+    @JsonProperty("database")
     private DataSourceFactory database = new DataSourceFactory();
 
     @NotEmpty

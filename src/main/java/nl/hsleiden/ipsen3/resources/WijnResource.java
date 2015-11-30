@@ -1,11 +1,13 @@
 package nl.hsleiden.ipsen3.resources;
 
 import com.codahale.metrics.annotation.Timed;
+import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.Wijn;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
 
 import javax.ws.rs.GET;
 import javax.ws.rs.Path;
+import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 import java.util.concurrent.atomic.AtomicLong;
@@ -13,7 +15,7 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Created by Daan on 30-Nov-15.
  */
-@Path("/wijn")
+@Path("/wijn/{id}")
 @Produces(MediaType.APPLICATION_JSON)
 public class WijnResource {
 
@@ -31,8 +33,8 @@ public class WijnResource {
 
     @GET
     @Timed
-    public Wijn getAll() {
-        final String value = String.format(template);
-        return new Wijn(counter.incrementAndGet(), value);
+    @UnitOfWork
+    public Wijn getById(@PathParam("id") Long id) {
+        return dao.findById(id);
     }
 }

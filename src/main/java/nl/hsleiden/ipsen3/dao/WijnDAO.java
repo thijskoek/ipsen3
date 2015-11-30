@@ -1,20 +1,30 @@
 package nl.hsleiden.ipsen3.dao;
 
-import nl.hsleiden.ipsen3.mappers.WijnMapper;
-import org.skife.jdbi.v2.sqlobject.Bind;
-import org.skife.jdbi.v2.sqlobject.SqlQuery;
-import org.skife.jdbi.v2.sqlobject.customizers.RegisterMapper;
+import io.dropwizard.hibernate.AbstractDAO;
+import nl.hsleiden.ipsen3.core.Wijn;
+import org.hibernate.SessionFactory;
 
 import java.util.List;
 
-/**
- * Created by Daan on 30-Nov-15.
- */
-@RegisterMapper(WijnMapper.class)
-public interface WijnDAO {
-    @SqlQuery("select * from product where id = :id")
-    String findWijnById(@Bind("id") int id);
+public class WijnDAO extends AbstractDAO<Wijn> {
+    /**
+     * Creates a new DAO with a given session provider.
+     *
+     * @param sessionFactory a session provider
+     */
+    public WijnDAO(SessionFactory sessionFactory) {
+        super(sessionFactory);
+    }
 
-    @SqlQuery("select * from product")
-    List<String> all();
+    public Wijn findById(Long id) {
+        return get(id);
+    }
+
+    public long create(Wijn wijn) {
+        return persist(wijn).getId();
+    }
+
+    public List<Wijn> findAll() {
+        return list(namedQuery("nl.hsleiden.ipsen3.core.Wijn.findAll"));
+    }
 }
