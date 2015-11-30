@@ -13,6 +13,10 @@ In de root folder van dit project staat `ipsen3.yml`. Dit is het configuratie be
 applicatie. Hierin staan onder andere de database verbinding en server gegevens voor dit project.
 Deze zul je moeten aanpassen naar jouw login gegevens etc.
 
-Vervolgens zul je Run/Debug configurations moeten aanmaken. Open het Run/Debug configurations paneel en klik op het plusje rechts bovenin. Kies daar voor Application. Geef je configuration een naam, ik koos voor Server en selecteer de main class, dit is `App.java`. Vervolgens is het belangrijk dat je de volgende program arguments meegeeft: `server ipsen3.yml`. `ipsen3.yml` is hier het configratie bestand.
+Vervolgens zul je Run/Debug configurations moeten aanmaken. Open het Run/Debug configurations 
+paneel en klik op het plusje rechts bovenin. Kies daar voor Application. Geef je configuration een 
+naam, ik koos voor Server en selecteer de main class, dit is `App.java`. Vervolgens is het 
+belangrijk dat je de volgende program arguments meegeeft: `server ipsen3.yml`. `ipsen3.yml` is 
+hier het configratie bestand.
 
 Wanneer je het programma nu uitvoert heb je een server draaien op `127.0.0.1:8080`.
