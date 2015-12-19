@@ -24,7 +24,7 @@ public class WijnDAO extends AbstractDAO<Wijn> {
         return persist(wijn).getId();
     }
 
-    public List<Wijn> findAll() {
-        return list(namedQuery("nl.hsleiden.ipsen3.core.Wijn.findAll"));
+    public List findAll() {
+        return currentSession().createCriteria(Wijn.class).list();
     }
 }

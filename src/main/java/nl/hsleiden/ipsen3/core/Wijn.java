@@ -37,8 +37,9 @@ public class Wijn {
     @Length(max = 255)
     private String type;
 
-    @Column(name = "land_id", nullable = false, length = 11)
-    private int landId;
+    @ManyToOne
+    @JoinColumn(name = "land_id")
+    private Land land;
 
     @Column(name = "rang", nullable = true, length = 11)
     private Integer rang;
@@ -46,14 +47,13 @@ public class Wijn {
     public Wijn() {
     }
 
-    public Wijn(long id, long productnummer, String naam, int jaar, double prijs, String type, int landId, Integer rang) {
+    public Wijn(long id, long productnummer, String naam, int jaar, double prijs, String type, Integer rang) {
         this.id = id;
         this.productnummer = productnummer;
         this.naam = naam;
         this.jaar = jaar;
         this.prijs = prijs;
         this.type = type;
-        this.landId = landId;
         this.rang = rang;
     }
 
@@ -88,8 +88,8 @@ public class Wijn {
     }
 
     @JsonProperty
-    public int getLandId() {
-        return landId;
+    public Land getLand() {
+        return land;
     }
 
     @JsonProperty

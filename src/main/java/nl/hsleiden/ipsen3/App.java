@@ -10,14 +10,13 @@ import nl.hsleiden.ipsen3.dao.WijnDAO;
 import nl.hsleiden.ipsen3.resources.WijnResource;
 
 /**
+ * Bootstrap class for the App. Most of the configuration will be set here.
+ *
+ * @author Daan Rosbergen
  * Created by Daan on 30-Nov-15.
  */
 public class App extends Application<AppConfiguration> {
-    private final HibernateBundle<AppConfiguration> hibernate = new HibernateBundle<AppConfiguration>(Wijn.class) {
-        public PooledDataSourceFactory getDataSourceFactory(AppConfiguration configuration) {
-            return configuration.getDataSourceFactory();
-        }
-    };
+    private final HibernateBundle<AppConfiguration> hibernate = new HibernateConfiguration();
 
     public static void main(String[] args) throws Exception {
         new App().run(args);
