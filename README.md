@@ -20,3 +20,8 @@ belangrijk dat je de volgende program arguments meegeeft: `server ipsen3.yml`. `
 hier het configratie bestand.
 
 Wanneer je het programma nu uitvoert heb je een server draaien op `127.0.0.1:8080`.
+
+## Database
+In het bestand `ipsen3.yml` staan de inloggegevens voor je database. Dit is de database uit het
+vorige project, IPSEN2. Deze kun je aanpassen naar je eigen login gegevens en deze hoef je niet 
+te committen.
