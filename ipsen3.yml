@@ -7,13 +7,13 @@ database:
   driverClass: org.postgresql.Driver
 
   # the username
-  user: daan
+  user: daanrosbergen
 
   # the password
   password:
 
   # the JDBC URL
-  url: jdbc:postgresql://127.0.0.1/lions
+  url: jdbc:postgresql://127.0.0.1/panthera
 
   # any properties specific to your JDBC driver:
   properties:
