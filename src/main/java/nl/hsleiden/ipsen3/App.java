@@ -4,6 +4,8 @@ import io.dropwizard.Application;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
+import nl.hsleiden.ipsen3.config.AppConfiguration;
+import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
 import nl.hsleiden.ipsen3.resources.WijnResource;
 import org.eclipse.jetty.servlets.CrossOriginFilter;

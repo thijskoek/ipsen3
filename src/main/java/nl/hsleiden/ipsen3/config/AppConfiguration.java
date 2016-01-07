@@ -1,4 +1,4 @@
-package nl.hsleiden.ipsen3;
+package nl.hsleiden.ipsen3.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.sun.istack.internal.NotNull;

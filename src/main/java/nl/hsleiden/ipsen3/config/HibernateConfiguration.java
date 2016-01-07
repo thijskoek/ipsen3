@@ -1,4 +1,4 @@
-package nl.hsleiden.ipsen3;
+package nl.hsleiden.ipsen3.config;
 
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
