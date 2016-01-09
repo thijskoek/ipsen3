@@ -24,7 +24,7 @@ public class WijnDAO extends AbstractDAO<Wijn> {
         return persist(wijn).getId();
     }
 
-    public List findAll() {
+    public List<Wijn> findAll() {
         return currentSession().createCriteria(Wijn.class).list();
     }
 }

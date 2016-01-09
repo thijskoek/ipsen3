@@ -32,22 +32,22 @@ public class WijnResource {
     @GET
     @Timed
     @UnitOfWork
-    public List findAll() { return dao.findAll(); }
-
-    @POST
-    @Consumes(MediaType.APPLICATION_JSON)
-    @Timed
-    @UnitOfWork
-    public void create(Wijn wijn) { dao.create(wijn); }
-
-
-    @GET
-    @Path("{id}")
-    @Timed
-    @UnitOfWork
+    @Path("/{id}")
     public Wijn getById(@PathParam("id") Long id) {
         return dao.findById(id);
     }
 
+    @GET
+    @Timed
+    @UnitOfWork
+    public List<Wijn> findAll() {
+        return dao.findAll();
+    }
 
+    @POST
+    @Timed
+    @UnitOfWork
+    public long createWijn(Wijn wijn) {
+        return dao.create(wijn);
+    }
 }
