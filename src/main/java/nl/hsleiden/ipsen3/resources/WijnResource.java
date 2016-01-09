@@ -17,15 +17,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Produces(MediaType.APPLICATION_JSON)
 public class WijnResource {
 
-    private final String template;
-    private final String defaultName;
-    private final AtomicLong counter;
     private final WijnDAO dao;
 
-    public WijnResource(String template, String defaultName, WijnDAO dao) {
-        this.template = template;
-        this.defaultName = defaultName;
-        this.counter = new AtomicLong();
+    public WijnResource(WijnDAO dao) {
         this.dao = dao;
     }
 

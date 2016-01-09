@@ -2,6 +2,9 @@ package nl.hsleiden.ipsen3;
 
 import io.dropwizard.Application;
 import io.dropwizard.ConfiguredBundle;
+import io.dropwizard.auth.AuthDynamicFeature;
+import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -9,10 +12,14 @@ import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
+import nl.hsleiden.ipsen3.core.User;
+import nl.hsleiden.ipsen3.dao.UserDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
 import nl.hsleiden.ipsen3.resources.WijnResource;
+import nl.hsleiden.ipsen3.service.AuthenticationService;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
+import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -26,6 +33,9 @@ import java.util.EnumSet;
  */
 public class App extends Application<AppConfiguration> {
     private final HibernateBundle<AppConfiguration> hibernate = new HibernateConfiguration();
+    private final Object[] resources = {
+
+    };
 
     public static void main(String[] args) throws Exception {
         new App().run(args);
@@ -51,6 +61,19 @@ public class App extends Application<AppConfiguration> {
 
     @Override
     public void run(AppConfiguration appConfiguration, Environment environment) throws Exception {
+        enableCORS(environment);
+
+        final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
+        final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
+
+        final WijnResource resource = new WijnResource(wijnDAO);
+        environment.jersey().register(resource);
+
+        setupAuthentication(environment, userDAO);
+        configureClientFilter(environment);
+    }
+
+    private void enableCORS(Environment environment) {
         // Enable CORS headers
         final FilterRegistration.Dynamic cors =
             environment.servlets().addFilter("CORS", CrossOriginFilter.class);
@@ -62,16 +85,6 @@ public class App extends Application<AppConfiguration> {
 
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-
-        configureClientFilter(environment);
-
-        final WijnDAO dao = new WijnDAO(hibernate.getSessionFactory());
-        final WijnResource resource = new WijnResource(
-                appConfiguration.getTemplate(),
-                appConfiguration.getDefaultName(),
-                dao
-        );
-        environment.jersey().register(resource);
     }
 
     private void configureClientFilter(Environment environment) {
@@ -80,5 +93,22 @@ public class App extends Application<AppConfiguration> {
             "/*",
             EnumSet.allOf(DispatcherType.class)
         );
+    }
+
+    private void setupAuthentication(Environment environment, UserDAO userDAO) {
+        AuthenticationService authenticationService = new AuthenticationService(userDAO);
+        ApiUnauthorizedHandler unauthorizedHandler = new ApiUnauthorizedHandler();
+
+        environment.jersey().register(new AuthDynamicFeature(
+                new BasicCredentialAuthFilter.Builder<User>()
+                        .setAuthenticator(authenticationService)
+                        .setAuthorizer(authenticationService)
+                        .setRealm("SUPER SECRET STUFF")
+                        .setUnauthorizedHandler(unauthorizedHandler)
+                        .buildAuthFilter())
+        );
+
+        environment.jersey().register(RolesAllowedDynamicFeature.class);
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
     }
 }
