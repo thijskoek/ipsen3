@@ -13,7 +13,7 @@ import nl.hsleiden.ipsen3.core.Wijn;
  */
 public class HibernateConfiguration extends HibernateBundle<AppConfiguration> {
 
-    protected HibernateConfiguration() {
+    public HibernateConfiguration() {
         super(Wijn.class, Land.class); // Place all your models here for ORM support
     }
 
