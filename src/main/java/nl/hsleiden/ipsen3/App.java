@@ -1,13 +1,17 @@
 package nl.hsleiden.ipsen3;
 
 import io.dropwizard.Application;
+import io.dropwizard.ConfiguredBundle;
+import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
+import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
 import nl.hsleiden.ipsen3.resources.WijnResource;
+import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 
 import javax.servlet.DispatcherType;
@@ -30,6 +34,8 @@ public class App extends Application<AppConfiguration> {
     @Override
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
         bootstrap.addBundle(hibernate);
+        bootstrap.addBundle((ConfiguredBundle)
+            new ConfiguredAssetsBundle("/assets/", "/client", "index.html"));
     }
 
     @Override
@@ -46,6 +52,8 @@ public class App extends Application<AppConfiguration> {
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
 
+        configureClientFilter(environment);
+
         final WijnDAO dao = new WijnDAO(hibernate.getSessionFactory());
         final WijnResource resource = new WijnResource(
                 appConfiguration.getTemplate(),
@@ -53,5 +61,13 @@ public class App extends Application<AppConfiguration> {
                 dao
         );
         environment.jersey().register(resource);
+    }
+
+    private void configureClientFilter(Environment environment) {
+        environment.getApplicationContext().addFilter(
+            new FilterHolder(new ClientFilter()),
+            "/*",
+            EnumSet.allOf(DispatcherType.class)
+        );
     }
 }

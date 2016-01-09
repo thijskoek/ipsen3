@@ -7,10 +7,10 @@ database:
   driverClass: org.postgresql.Driver
 
   # the username
-  user: postgres
+  user: daanrosbergen
 
   # the password
-  password: Welkom#1
+  password:
 
   # the JDBC URL
   url: jdbc:postgresql://127.0.0.1/panthera
@@ -44,7 +44,9 @@ database:
 
 assets:
   mappings:
-    /assets: /public_html/
+    /assets: /
+  overrides:
+    /: public_html/
 
 server:
   rootPath: /api/*
