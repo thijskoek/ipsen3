@@ -10,7 +10,7 @@
 angular.module('appApp')
   .service('wijnen', function ($http, $q) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    var url = 'http://localhost:8080/wijn';
+    var url = '/api/wijn';
 
     return {
 
@@ -33,7 +33,7 @@ angular.module('appApp')
           method: 'GET',
           url: url + '/' + id
         }).then(function(response){
-          return response.data
+          return response.data;
         }, function(error){
           return error;
         });
