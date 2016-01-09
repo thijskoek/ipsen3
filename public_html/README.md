@@ -5,6 +5,8 @@ version 0.14.0.
 
 ## Build & development
 
+On checkout run `npm install` and `bower install` to fetch dependencies.
+
 Run `grunt` for building and `grunt serve` for preview.
 
 ## Testing
