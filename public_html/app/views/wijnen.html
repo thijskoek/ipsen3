@@ -1,0 +1,19 @@
+<p>This is the wijnen view.</p>
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Productnummer</th>
+    <th>Naam</th>
+    <th>Jaar</th>
+    <th>Prijs</th>
+  </tr>
+  </thead>
+  <tr ng-repeat="wijn in wijnen">
+    <td>{{wijn.productnummer}}</td>
+    <td>{{wijn.naam}}</td>
+    <td>{{wijn.jaar}}</td>
+    <td>{{wijn.prijs | currency}}</td>
+  </tr>
+
+</table>

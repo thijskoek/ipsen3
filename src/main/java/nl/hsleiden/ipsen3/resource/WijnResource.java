@@ -1,4 +1,4 @@
-package nl.hsleiden.ipsen3.resources;
+package nl.hsleiden.ipsen3.resource;
 
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -32,22 +32,22 @@ public class WijnResource {
     @GET
     @Timed
     @UnitOfWork
-    @Path("/{id}")
+    public List findAll() { return dao.findAll(); }
+
+    @POST
+    @Consumes(MediaType.APPLICATION_JSON)
+    @Timed
+    @UnitOfWork
+    public void create(Wijn wijn) { dao.create(wijn); }
+
+
+    @GET
+    @Path("{id}")
+    @Timed
+    @UnitOfWork
     public Wijn getById(@PathParam("id") Long id) {
         return dao.findById(id);
     }
 
-    @GET
-    @Timed
-    @UnitOfWork
-    public List<Wijn> findAll() {
-        return dao.findAll();
-    }
 
-    @POST
-    @Timed
-    @UnitOfWork
-    public long createWijn(Wijn wijn) {
-        return dao.create(wijn);
-    }
 }
