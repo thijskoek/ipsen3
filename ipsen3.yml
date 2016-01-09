@@ -46,7 +46,8 @@ assets:
   mappings:
     /assets: /
   overrides:
-    /: public_html/
+    /: public_html/app/
+    /bower_components: public_html/bower_components
 
 server:
   rootPath: /api/*

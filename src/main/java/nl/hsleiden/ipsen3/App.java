@@ -34,8 +34,19 @@ public class App extends Application<AppConfiguration> {
     @Override
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
         bootstrap.addBundle(hibernate);
+        /**
+         * Creates a new AssetsBundle which will configure the service to serve the static files
+         * located in {@code src/main/resources/${resourcePath}} as {@code /${uriPath}}. If no file name is
+         * in ${uriPath}, ${indexFile} is appended before serving. For example, given a
+         * {@code resourcePath} of {@code "/assets"} and a uriPath of {@code "/js"},
+         * {@code src/main/resources/assets/example.js} would be served up from {@code /js/example.js}.
+         *
+         * @param resourcePath        the resource path (in the classpath) of the static asset files
+         * @param uriPath             the uri path for the static asset files
+         * @param indexFile           the name of the index file to use
+         */
         bootstrap.addBundle((ConfiguredBundle)
-            new ConfiguredAssetsBundle("/assets/", "/client", "index.html"));
+            new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
     }
 
     @Override
