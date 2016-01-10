@@ -34,6 +34,11 @@ angular
         controller: 'WijnenCtrl',
         controllerAs: 'wijnen'
       })
+      .when('/profielbewerken', {
+          templateUrl: 'views/profielbewerken.html',
+          controller: 'ProfielCtrl',
+          controllerAs: 'profiel'
+      })
       .otherwise({
         redirectTo: '/'
       });
