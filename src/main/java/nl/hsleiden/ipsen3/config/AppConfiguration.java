@@ -20,34 +20,22 @@ public class AppConfiguration extends Configuration implements AssetsBundleConfi
     private DataSourceFactory database = new DataSourceFactory();
 
     @NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName = "Stranger";
+    @JsonProperty
+    private String apiName;
 
     @Valid
     @NotNull
     @JsonProperty
     private final AssetsConfiguration assets = new AssetsConfiguration();
 
-    @JsonProperty
-    public String getTemplate() {
-        return template;
+    public String getApiName()
+    {
+        return apiName;
     }
 
-    @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String name) {
-        this.defaultName = name;
+    public void setApiName(String apiName)
+    {
+        this.apiName = apiName;
     }
 
     public DataSourceFactory getDataSourceFactory() {

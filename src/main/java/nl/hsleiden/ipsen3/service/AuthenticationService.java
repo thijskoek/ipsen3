@@ -5,14 +5,15 @@ import io.dropwizard.auth.AuthenticationException;
 import io.dropwizard.auth.Authenticator;
 import io.dropwizard.auth.Authorizer;
 import io.dropwizard.auth.basic.BasicCredentials;
+import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.UserDAO;
 
-public class AuthorizationService implements Authenticator<BasicCredentials, User>, Authorizer<User> {
+public class AuthenticationService implements Authenticator<BasicCredentials, User>, Authorizer<User> {
 
     private final UserDAO userDAO;
 
-    public AuthorizationService(UserDAO userDAO) {
+    public AuthenticationService(UserDAO userDAO) {
         this.userDAO = userDAO;
     }
 
@@ -25,7 +26,7 @@ public class AuthorizationService implements Authenticator<BasicCredentials, Use
         return Optional.absent();
     }
 
-    public boolean authorize(User principal, String role) {
-        return false;
+    public boolean authorize(User user, String role) {
+        return user.hasRole(role);
     }
 }
