@@ -15,11 +15,14 @@ import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.UserDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
-import nl.hsleiden.ipsen3.resources.WijnResource;
+import nl.hsleiden.ipsen3.resource.UserResource;
+import nl.hsleiden.ipsen3.resource.WijnResource;
 import nl.hsleiden.ipsen3.service.AuthenticationService;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
 import org.glassfish.jersey.server.filter.RolesAllowedDynamicFeature;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.servlet.DispatcherType;
 import javax.servlet.FilterRegistration;
@@ -33,9 +36,15 @@ import java.util.EnumSet;
  */
 public class App extends Application<AppConfiguration> {
     private final HibernateBundle<AppConfiguration> hibernate = new HibernateConfiguration();
-    private final Object[] resources = {
+    private final Logger logger = LoggerFactory.getLogger(App.class);
 
-    };
+    private String name;
+
+    @Override
+    public String getName()
+    {
+        return name;
+    }
 
     public static void main(String[] args) throws Exception {
         new App().run(args);
@@ -44,33 +53,27 @@ public class App extends Application<AppConfiguration> {
     @Override
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
         bootstrap.addBundle(hibernate);
-        /**
-         * Creates a new AssetsBundle which will configure the service to serve the static files
-         * located in {@code src/main/resources/${resourcePath}} as {@code /${uriPath}}. If no file name is
-         * in ${uriPath}, ${indexFile} is appended before serving. For example, given a
-         * {@code resourcePath} of {@code "/assets"} and a uriPath of {@code "/js"},
-         * {@code src/main/resources/assets/example.js} would be served up from {@code /js/example.js}.
-         *
-         * @param resourcePath        the resource path (in the classpath) of the static asset files
-         * @param uriPath             the uri path for the static asset files
-         * @param indexFile           the name of the index file to use
-         */
         bootstrap.addBundle((ConfiguredBundle)
             new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
     }
 
     @Override
     public void run(AppConfiguration appConfiguration, Environment environment) throws Exception {
-        enableCORS(environment);
+        name = appConfiguration.getApiName();
+
+        logger.info(String.format("Set API name to %s", name));
 
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
 
-        final WijnResource resource = new WijnResource(wijnDAO);
-        environment.jersey().register(resource);
-
+        enableCORS(environment);
         setupAuthentication(environment, userDAO);
         configureClientFilter(environment);
+
+        final WijnResource wijnResource = new WijnResource(wijnDAO);
+        final UserResource userResource = new UserResource(userDAO);
+        environment.jersey().register(wijnResource);
+        environment.jersey().register(userResource);
     }
 
     private void enableCORS(Environment environment) {
@@ -85,14 +88,6 @@ public class App extends Application<AppConfiguration> {
 
         // Add URL mapping
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
-    }
-
-    private void configureClientFilter(Environment environment) {
-        environment.getApplicationContext().addFilter(
-            new FilterHolder(new ClientFilter()),
-            "/*",
-            EnumSet.allOf(DispatcherType.class)
-        );
     }
 
     private void setupAuthentication(Environment environment, UserDAO userDAO) {
@@ -110,5 +105,13 @@ public class App extends Application<AppConfiguration> {
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+    }
+
+    private void configureClientFilter(Environment environment) {
+        environment.getApplicationContext().addFilter(
+            new FilterHolder(new ClientFilter()),
+            "/*",
+            EnumSet.allOf(DispatcherType.class)
+        );
     }
 }

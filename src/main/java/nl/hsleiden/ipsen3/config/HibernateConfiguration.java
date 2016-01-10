@@ -3,6 +3,8 @@ package nl.hsleiden.ipsen3.config;
 import io.dropwizard.db.PooledDataSourceFactory;
 import io.dropwizard.hibernate.HibernateBundle;
 import nl.hsleiden.ipsen3.core.Land;
+import nl.hsleiden.ipsen3.core.Role;
+import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.core.Wijn;
 
 /**
@@ -14,7 +16,7 @@ import nl.hsleiden.ipsen3.core.Wijn;
 public class HibernateConfiguration extends HibernateBundle<AppConfiguration> {
 
     public HibernateConfiguration() {
-        super(Wijn.class, Land.class); // Place all your models here for ORM support
+        super(Wijn.class, Land.class, User.class, Role.class); // Place all your models here for ORM support
     }
 
     public PooledDataSourceFactory getDataSourceFactory(AppConfiguration appConfiguration) {
