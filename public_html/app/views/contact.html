@@ -1,27 +1,24 @@
 <p>This is the contactpage.</p>
 
-<form role="form">
+<form name="contactForm" role="form" ng-submit="submitContact()">
   <div class="form-group">
     <label for="name">Naam:</label>
-    <input type="text" class="form-control" id="name">
+    <input type="text" class="form-control" ng-model="name" placeholder="Brandon van Wijk" id="name">
   </div>
 
   <div class="form-group">
     <label for="email">Emailadres:</label>
-    <input type="email" class="form-control" id="email" required>
+    <input type="email" class="form-control" ng-model="email" placeholder="Brandonvanwijk@example.com" id="email" required>
   </div>
 
   <div class="form-group">
     <label for="subject">Onderwerp:</label>
-    <input type="text" class="form-control" id="subject">
+    <input type="text" class="form-control" ng-model="subject" id="subject">
   </div>
 
   <div class="form-group">
     <label for="message">Bericht:</label>
-    <input type="textarea" class="form-control" id="message">
+    <input type="textarea" class="form-control" ng-model="message" id="message">
   </div>
-  <div class="checkbox">
-    <label><input type="checkbox"> Remember me</label>
-  </div>
-  <button type="submit" class="btn btn-default">Verstuur</button>
+  <button type="submit" class="btn btn-default" value="versturen">Verstuur</button>
 </form>

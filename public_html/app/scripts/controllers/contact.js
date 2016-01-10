@@ -7,11 +7,10 @@
  * # ContactCtrl
  * Controller of the appApp
  */
-angular.module('appApp')
-  .controller('ContactCtrl', function () {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
+angular.module('appApp').controller('ContactCtrl', function ($scope) {
+
+    $scope.submitContact = function() {
+      alert('bericht is verzonden');
+    };
+
   });
