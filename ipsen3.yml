@@ -42,7 +42,16 @@ database:
 #    type: http
 #    port: 8080
 
+assets:
+  mappings:
+    /assets: /
+  overrides:
+    /: public_html/app/
+    /bower_components: public_html/bower_components
+
 server:
+  rootPath: /api/*
+  adminContextPath: /admin
 #  softNofileLimit: 1000
 #  hardNofileLimit: 1000
   applicationConnectors:
