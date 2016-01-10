@@ -12,9 +12,15 @@ and open the template in the editor.
     </head>
     <body>
         <div>
-            <p>
-                Profiel Bewerken hier.
-            </p>
+            <form ng-submit="bewerkProfiel()" ng-controller="ProfielbewerkenCtrl">
+                <table>
+                    <tr>
+                        <td>Naam</td>
+                        <td><input ng-model="naam" type="text" /></td>
+                    </tr>
+                </table>
+                <input type="submit" value="Bewerken" />
+            </form>
         </div>
     </body>
 </html>
