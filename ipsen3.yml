@@ -1,16 +1,14 @@
-template: Hello, %s!
-
-defaultName: ${DW_DEFAULT_NAME:-Stranger}
+apiName: "IPSEN3"
 
 database:
   # the name of your JDBC driver
   driverClass: org.postgresql.Driver
 
   # the username
-  user: daanrosbergen
+  user: postgres
 
   # the password
-  password:
+  password: Welkom#1
 
   # the JDBC URL
   url: jdbc:postgresql://127.0.0.1/panthera
