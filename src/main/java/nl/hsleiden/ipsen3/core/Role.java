@@ -1,6 +1,10 @@
 package nl.hsleiden.ipsen3.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.hsleiden.ipsen3.View;
+import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -13,13 +17,14 @@ import java.util.Set;
 @Table(name = "role")
 public class Role {
 
-    @Id @GeneratedValue @Column(name = "id")
+    @Id @GeneratedValue @Column(name = "id") @JsonView(View.Public.class)
     private long id;
 
-    @Column(name = "name", nullable = false, length = 255)
+    @JsonView(View.Public.class) @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @ManyToMany
+    @ManyToMany(targetEntity = User.class, mappedBy = "roles")
+    @JsonIgnore
     private Set<User> users = new HashSet<>();
 
     public Role() {
@@ -49,11 +54,15 @@ public class Role {
         this.name = name;
     }
 
-    public Set<User> getUsers() {
+    @JsonIgnore
+    public Set<User> getUsers()
+    {
         return users;
     }
 
-    public void addUser(User user) {
+    @JsonIgnore
+    public void addUser(User user)
+    {
         this.users.add(user);
     }
 }
