@@ -1,26 +1,9 @@
-<!DOCTYPE html>
-<!--
-To change this license header, choose License Headers in Project Properties.
-To change this template file, choose Tools | Templates
-and open the template in the editor.
--->
-<html>
-    <head>
-        <title>Profiel Bewerken</title>
-        <meta charset="windows-1252">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    </head>
-    <body>
-        <div>
-            <form ng-submit="bewerkProfiel()" ng-controller="ProfielbewerkenCtrl">
-                <table>
-                    <tr>
-                        <td>Naam</td>
-                        <td><input ng-model="naam" type="text" /></td>
-                    </tr>
-                </table>
-                <input type="submit" value="Bewerken" />
-            </form>
-        </div>
-    </body>
-</html>
+<form ng-submit="submit()" ng-controller="ProfielCtrl">
+  <table>
+    <tr>
+      <td>Naam</td>
+      <td><input ng-model="naam" type="text"></td>
+    </tr>
+  </table>
+  <input type="submit" value="submit" />
+</form>

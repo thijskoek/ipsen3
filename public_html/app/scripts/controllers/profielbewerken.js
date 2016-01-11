@@ -7,9 +7,9 @@
  * # AboutCtrl
  * Controller of the appApp
  */
-angular.module('appApp').controller('ProfielbewerkenCtrl', function ($scope) {
- 
-    $scope.bewerkProfiel = function() {
+angular.module('appApp').controller('ProfielCtrl', function ($scope) {
+
+    $scope.submit = function() {
       alert($scope.naam);
     };
  });
