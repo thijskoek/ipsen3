@@ -40,7 +40,8 @@ public class UserDAO extends AbstractDAO<User> {
     }
 
     public List findAll() {
-        return criteria().list();
+        return currentSession().createCriteria(User.class).list();
+//        return criteria().list();
     }
 
     public void add(User user) {

@@ -21,14 +21,16 @@ import java.util.List;
 public class UserResource {
     private final UserDAO dao;
 
-    public UserResource(UserDAO userDAO) {
+    public UserResource(UserDAO userDAO)
+    {
         dao = userDAO;
     }
 
     @GET
     @JsonView(View.Public.class)
+    @RolesAllowed("beheerder")
     @UnitOfWork
-    public List<User> retrieveAll()
+    public List<User> retrieveAll(@Auth User user)
     {
         return dao.findAll();
     }
