@@ -15,13 +15,12 @@ angular.module('appApp').controller('ContactCtrl', function ($scope, $http, mail
           console.log("form submitted");
           console.log($scope.formModel);
             mailservice.send($scope.formModel).then(function succesCallback(result) {
-                    console.log("Result: " + result);
-                    console.log("send succes");
+                    console.log("Send succes");
             }, function errorCallback(result) {
-                console.log(result.toString);
                 console.log("Send failed");
             });
         } else {
+            alert("U heeft niet alle velden ingevuld");
             console.log("invalid!");
         }};
 
