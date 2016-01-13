@@ -44,6 +44,11 @@ angular
           controller: 'ProfielCtrl',
           controllerAs: 'profiel'
       })
+      .when('/wachtwoordvergeten', {
+        templateUrl: 'views/wachtwoordvergeten.html',
+        controller: 'WachtwoordCtrl',
+        controllerAs: 'vergeten'
+      })
       .otherwise({
         redirectTo: '/'
       });
