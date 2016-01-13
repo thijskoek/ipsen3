@@ -15,7 +15,7 @@ angular.module('appApp')
 
     self.authenticate = function(onSuccess, onFailure)
     {
-      var uri = '/api/users/me';
+      var uri = '/api/v1/users/me';
 
       $http.get(uri).success(onSuccess).error(function(message, status)
       {
@@ -25,7 +25,7 @@ angular.module('appApp')
 
     self.create = function(name, postcode, streetnumber, email, password, onCreated)
     {
-      var uri = '/api/users';
+      var uri = '/api/v1/users';
       var data =
       {
         fullName: name,
@@ -43,7 +43,7 @@ angular.module('appApp')
 
     self.getAll = function(onReceived)
     {
-      var uri = '/api/users';
+      var uri = '/api/v1/users';
 
       $http.get(uri).success(onReceived).error(function(message, status)
       {
