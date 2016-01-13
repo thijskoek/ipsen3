@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen3.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.google.common.cache.CacheBuilderSpec;
 import io.dropwizard.Configuration;
 import io.dropwizard.bundles.assets.AssetsBundleConfiguration;
 import io.dropwizard.bundles.assets.AssetsConfiguration;
@@ -28,6 +29,9 @@ public class AppConfiguration extends Configuration implements AssetsBundleConfi
     @JsonProperty
     private final AssetsConfiguration assets = new AssetsConfiguration();
 
+    @NotEmpty
+    private String authenticationCachePolicy;
+
     public String getApiName()
     {
         return apiName;
@@ -44,5 +48,10 @@ public class AppConfiguration extends Configuration implements AssetsBundleConfi
 
     public AssetsConfiguration getAssetsConfiguration() {
         return assets;
+    }
+
+    @JsonProperty
+    public CacheBuilderSpec getAuthenticationCachePolicy() {
+        return CacheBuilderSpec.parse(authenticationCachePolicy);
     }
 }

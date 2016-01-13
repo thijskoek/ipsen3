@@ -1,10 +1,13 @@
 package nl.hsleiden.ipsen3;
 
+import com.codahale.metrics.MetricRegistry;
 import io.dropwizard.Application;
 import io.dropwizard.ConfiguredBundle;
 import io.dropwizard.auth.AuthDynamicFeature;
 import io.dropwizard.auth.AuthValueFactoryProvider;
+import io.dropwizard.auth.CachingAuthenticator;
 import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
+import io.dropwizard.auth.basic.BasicCredentials;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.hibernate.HibernateBundle;
 import io.dropwizard.setup.Bootstrap;
@@ -38,6 +41,7 @@ import java.util.EnumSet;
 public class App extends Application<AppConfiguration> {
     private final HibernateBundle<AppConfiguration> hibernate = new HibernateConfiguration();
     private final Logger logger = LoggerFactory.getLogger(App.class);
+    private final MetricRegistry metricRegistry = new MetricRegistry();
 
     private String name;
 
@@ -68,7 +72,7 @@ public class App extends Application<AppConfiguration> {
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
 
         enableCORS(environment);
-        setupAuthentication(environment, userDAO);
+        setupAuthentication(environment, userDAO, appConfiguration);
         configureClientFilter(environment);
 
         final WijnResource wijnResource = new WijnResource(wijnDAO);
@@ -93,13 +97,16 @@ public class App extends Application<AppConfiguration> {
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }
 
-    private void setupAuthentication(Environment environment, UserDAO userDAO) {
+    private void setupAuthentication(Environment environment, UserDAO userDAO, AppConfiguration appConfiguration) {
         AuthenticationService authenticationService = new AuthenticationService(userDAO);
         ApiUnauthorizedHandler unauthorizedHandler = new ApiUnauthorizedHandler();
+        CachingAuthenticator<BasicCredentials, User> cachingAuthenticator = new CachingAuthenticator<BasicCredentials, User>(
+            metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
+        );
 
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
-                        .setAuthenticator(authenticationService)
+                        .setAuthenticator(cachingAuthenticator)
                         .setAuthorizer(authenticationService)
                         .setRealm("SUPER SECRET STUFF")
                         .setUnauthorizedHandler(unauthorizedHandler)
