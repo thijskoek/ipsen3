@@ -9,7 +9,9 @@
   </thead>
   <tr ng-repeat="bestellijst in bestellijsten">
     <td>{{bestellijst.date}}</td>
-    <td>{{bestellijst.naam}}</td>
+    <td>{{bestellijst.name}}</td>
   </tr>
+
+  <pre>{{ bestellijsten | json }}</pre>
 
 </table>
