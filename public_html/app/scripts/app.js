@@ -34,6 +34,11 @@ angular
         controller: 'WijnenCtrl',
         controllerAs: 'wijnen'
       })
+      .when('/bestellijsten', {
+        templateUrl: 'views/bestellijsten.html',
+        controller: 'BestellijstenCtrl',
+        controllerAs: 'bestellijsten'
+      })
       .otherwise({
         redirectTo: '/'
       });

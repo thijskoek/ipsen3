@@ -9,7 +9,9 @@ import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
+import nl.hsleiden.ipsen3.dao.BestellijstDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
+import nl.hsleiden.ipsen3.resources.BestellijstResource;
 import nl.hsleiden.ipsen3.resources.WijnResource;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -71,7 +73,14 @@ public class App extends Application<AppConfiguration> {
                 appConfiguration.getDefaultName(),
                 dao
         );
+        final BestellijstDAO bestellijstDao = new BestellijstDAO(hibernate.getSessionFactory());
+        final BestellijstResource BResource = new BestellijstResource(
+                appConfiguration.getTemplate(),
+                appConfiguration.getDefaultName(),
+                bestellijstDao, dao
+        );
         environment.jersey().register(resource);
+        environment.jersey().register(BResource);
     }
 
     private void configureClientFilter(Environment environment) {
