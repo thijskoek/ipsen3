@@ -1,39 +1,34 @@
 <p>This is the cart view.</p>
 
 <h2>Winkelwagen</h2>
+
+<form name="cartForm" role="form" ng-submit="submitCart()">
 <table class="table table-condensed">
-  <thead>
-  <tr>
-    <th>Product</th>
-    <th>Aantal</th>
-    <th>Prijs</th>
-    <th>Totaal</th>
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Aantal</th>
+      <th>Prijs</th>
+      <th>Totaal</th>
   </tr>
   </thead>
-  <tbody>
-  <tr>
-    <td>Gros Manseng - Cotes de Gascogne</td>
-    <td>Doe</td>
-    <td>$12.95</td>
-    <td></td>
+  <tr ng-repeat="wijn in wijnen">
+    <td>{{wijn.naam}}</td>
+    <td><input type="text" class="form-control" ng-model="$aantal" name="quantity" id="quantity" value="1"></td>
+    <td>{{wijn.prijs}}</td>
+    <td>{{ checkAantal($aantal) * wijn.prijs  }}</td>
   </tr>
-  <tr>
-    <td>Sauvigon Belles du Sud - IGP pays d oc</td>
-    <td>Moe</td>
-    <td>$12.10</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td>Sauvignon Belles du Sud</td>
-    <td>Dooley</td>
-    <td>$6.95</td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td>$100.00</td>
-  </tr>
-  </tbody>
+
 </table>
+
+  <pre>{{ cartForm | json }}</pre>
+
+<div class="col-md-4">
+<button type="submit" class="btn btn-primary" value="bestellen">Bestel</button>
+</div>
+
+</form>
+
+<div class="col-md-8">
+  <button type="submit" class="form-control" ng-click="alterQuantity()" class="btn btn-default" value="bijwerken">Bijwerken</button>
+</div>
