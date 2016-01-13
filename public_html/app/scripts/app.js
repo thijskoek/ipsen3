@@ -46,10 +46,12 @@ angular
       .otherwise({
         redirectTo: '/'
       });
-  }).config(function($httpProvider) {
+  })
+  .config(function($httpProvider) {
     $httpProvider.interceptors.push('requestService');
 
     if(!$httpProvider.defaults.headers.get) {
       $httpProvider.defaults.headers.get = {};
     }
-});
+  })
+  .constant('API_URL', "/api/v1/");

@@ -8,16 +8,15 @@
  * Service in the appApp.
  */
 angular.module('appApp')
-  .service('userService', function ($http) {
-    // AngularJS will instantiate a singleton by calling "new" on this function
+  .service('userService', function ($http, API_URL) {
 
     var self = this;
 
     self.authenticate = function(onSuccess, onFailure)
     {
-      var uri = '/api/v1/users/me';
+      var uri = API_URL + 'users/me';
 
-      $http.get(uri).success(onSuccess).error(function(message, status)
+      $http.get(uri).success(onSuccess).error(onFailure || function(message, status)
       {
         alert('Inloggen mislukt: ' + message);
       });
@@ -25,7 +24,7 @@ angular.module('appApp')
 
     self.create = function(name, postcode, streetnumber, email, password, onCreated)
     {
-      var uri = '/api/v1/users';
+      var uri = API_URL + 'users';
       var data =
       {
         fullName: name,
@@ -43,7 +42,7 @@ angular.module('appApp')
 
     self.getAll = function(onReceived)
     {
-      var uri = '/api/v1/users';
+      var uri = API_URL + 'users';
 
       $http.get(uri).success(onReceived).error(function(message, status)
       {
