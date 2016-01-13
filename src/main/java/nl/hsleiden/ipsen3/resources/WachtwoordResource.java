@@ -9,6 +9,9 @@ import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.MediaType;
+import java.io.UnsupportedEncodingException;
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Roy on 13-1-2016.
@@ -29,10 +32,20 @@ public class WachtwoordResource {
     @POST
     @Timed
     @Path("/generateLink")
-    public String generateLink(@QueryParam("email") String email) throws JsonProcessingException {
-        String link = "http://127.0.0.1:8080/?#/wachtwoordherstellen?key=123";
+    public String generateLink(@QueryParam("email") String email) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException {
+        String link = "http://127.0.0.1:8080/?#/wachtwoordherstellen?key=";
+        link += add_key(email);
         link = mapper.writeValueAsString(link);
         return link;
+    }
+
+    private String add_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        String key;
+        byte[] bytesOfMessage = email.getBytes("UTF-8");
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] thedigest = md.digest(bytesOfMessage);
+        key = thedigest.toString();
+        return key;
     }
 
     @POST
