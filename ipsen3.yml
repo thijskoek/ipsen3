@@ -5,13 +5,13 @@ database:
   driverClass: org.postgresql.Driver
 
   # the username
-  user: postgres
+  user: daanrosbergen
 
   # the password
-  password: Welkom#1
+  password:
 
   # the JDBC URL
-  url: jdbc:postgresql://127.0.0.1/Lions
+  url: jdbc:postgresql://127.0.0.1/panthera
 
   # any properties specific to your JDBC driver:
   properties:
@@ -111,3 +111,7 @@ logging:
 #metrics:
 #  type: graphite
 #  frequency: 10s
+
+# Enable caching for users
+authenticationCachePolicy: maximumSize=10000, expireAfterAccess=10m
+
