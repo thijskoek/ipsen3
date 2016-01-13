@@ -49,6 +49,11 @@ angular
         controller: 'WachtwoordCtrl',
         controllerAs: 'vergeten'
       })
+      .when('/wachtwoordherstellen', {
+              templateUrl: 'views/wachtwoordherstellen.html',
+              controller: 'WachtwoordCtrl',
+              controllerAs: 'herstellen'
+      })
       .otherwise({
         redirectTo: '/'
       });

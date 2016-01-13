@@ -10,7 +10,9 @@ import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
+import nl.hsleiden.ipsen3.resource.MailResource;
 import nl.hsleiden.ipsen3.resources.GebruikersResource;
+import nl.hsleiden.ipsen3.resources.WachtwoordResource;
 import nl.hsleiden.ipsen3.resources.WijnResource;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -82,9 +84,16 @@ public class App extends Application<AppConfiguration> {
                 appConfiguration.getTemplate(),
                 appConfiguration.getDefaultName()
         );
+
+        final WachtwoordResource wachtwoordResource = new WachtwoordResource(
+            appConfiguration.getTemplate(),
+            appConfiguration.getDefaultName()
+        );
+
         environment.jersey().register(resource);
         environment.jersey().register(mailResource);
         environment.jersey().register(gebruikersResource);
+        environment.jersey().register(wachtwoordResource);
     }
 
     private void configureClientFilter(Environment environment) {

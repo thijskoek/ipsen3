@@ -13,7 +13,7 @@ database:
   password: Welkom#1
 
   # the JDBC URL
-  url: jdbc:postgresql://127.0.0.1/Lions
+  url: jdbc:postgresql://127.0.0.1/panthera
 
   # any properties specific to your JDBC driver:
   properties:

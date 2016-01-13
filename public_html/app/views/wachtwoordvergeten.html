@@ -1,13 +1,8 @@
-<form ng-submit="wijzig()" autocomplete="off">
+<form ng-submit="generate_link()" autocomplete="off">
   <table>
     <tr>
-      <td>Nieuw Wachtwoord:</td>
-      <td><input ng-model="wachtwoord" type="password" /></td>
-    </tr>
-
-    <tr>
-      <td>Bevestig Wachtwoord:</td>
-      <td><input ng-model="bevestiging" ng-class="{ error: !compare() }" type="password" /></td>
+      <td>Email</td>
+      <td><input ng-model="email" type="email" /></td>
     </tr>
   </table>
   <button>Annuleer</button>
