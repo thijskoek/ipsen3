@@ -34,6 +34,11 @@ angular
         controller: 'WijnenCtrl',
         controllerAs: 'wijnen'
       })
+      .when('/contact', {
+        templateUrl: 'views/contact.html',
+        controller: 'ContactCtrl',
+        controllerAs: 'contact'
+      })
       .otherwise({
         redirectTo: '/'
       });

@@ -15,6 +15,7 @@ import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.UserDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
+import nl.hsleiden.ipsen3.resource.MailResource;
 import nl.hsleiden.ipsen3.resource.UserResource;
 import nl.hsleiden.ipsen3.resource.WijnResource;
 import nl.hsleiden.ipsen3.service.AuthenticationService;
@@ -72,8 +73,10 @@ public class App extends Application<AppConfiguration> {
 
         final WijnResource wijnResource = new WijnResource(wijnDAO);
         final UserResource userResource = new UserResource(userDAO);
+        final MailResource mailResource = new MailResource();
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);
+        environment.jersey().register(mailResource);
     }
 
     private void enableCORS(Environment environment) {
