@@ -78,7 +78,12 @@ public class App extends Application<AppConfiguration> {
                 appConfiguration.getDefaultName()
         );
 
+        final MailResource mailResource = new MailResource(
+                appConfiguration.getTemplate(),
+                appConfiguration.getDefaultName()
+        );
         environment.jersey().register(resource);
+        environment.jersey().register(mailResource);
         environment.jersey().register(gebruikersResource);
     }
 
