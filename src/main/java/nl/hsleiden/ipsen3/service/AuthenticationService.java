@@ -19,7 +19,7 @@ public class AuthenticationService implements Authenticator<BasicCredentials, Us
     public Optional<User> authenticate(BasicCredentials credentials)
         throws AuthenticationException {
         User user = userDAO.getByEmail(credentials.getUsername());
-        if (user != null && user.getPassword().equals(credentials.getPassword())) {
+        if (user != null && user.checkPassword(credentials.getPassword())) {
             return Optional.of(user);
         }
         return Optional.absent();

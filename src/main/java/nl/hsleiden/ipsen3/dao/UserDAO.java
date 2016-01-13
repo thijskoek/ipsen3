@@ -46,6 +46,7 @@ public class UserDAO extends AbstractDAO<User> {
      */
     public long create(User user)
     {
+        user.hashPassword();
         return persist(user).getId();
     }
 
@@ -78,13 +79,4 @@ public class UserDAO extends AbstractDAO<User> {
         return criteria().list();
     }
 
-    public void update(User authenticator, int id, User user)
-    {
-        persist(user);
-    }
-
-    public void delete(int id)
-    {
-
-    }
 }

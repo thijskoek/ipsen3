@@ -21,8 +21,7 @@ import java.util.List;
 public class UserResource {
     private final UserDAO dao;
 
-    public UserResource(UserDAO userDAO)
-    {
+    public UserResource(UserDAO userDAO) {
         dao = userDAO;
     }
 
@@ -30,8 +29,7 @@ public class UserResource {
     @UnitOfWork
     @JsonView(View.Public.class)
     @RolesAllowed("beheerder")
-    public List<User> retrieveAll(@Auth User user)
-    {
+    public List<User> retrieveAll(@Auth User user) {
         List<User> users = dao.findAll();
         for (User u: users) {
             Hibernate.initialize(u.getRoles());
@@ -43,8 +41,7 @@ public class UserResource {
     @UnitOfWork
     @Path("/{id}")
     @JsonView(View.Public.class)
-    public User retrieve(@PathParam("id") int id)
-    {
+    public User retrieve(@PathParam("id") int id) {
         return dao.findById(id);
     }
 
@@ -52,36 +49,15 @@ public class UserResource {
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
-    public void create(User user)
-    {
+    public void create(User user) {
         dao.create(user);
-    }
-
-    @PUT
-    @UnitOfWork
-    @Path("/{id}")
-    @Consumes(MediaType.APPLICATION_JSON)
-    @JsonView(View.Protected.class)
-    public void update(@PathParam("id") int id, @Auth User authenticator, User user)
-    {
-        dao.update(authenticator, id, user);
-    }
-
-    @DELETE
-    @UnitOfWork
-    @Path("/{id}")
-    @RolesAllowed("beheerder")
-    public void delete(@PathParam("id") int id)
-    {
-        dao.delete(id);
     }
 
     @UnitOfWork
     @GET
     @Path("/me")
     @JsonView(View.Private.class)
-    public User authenticate(@Auth User authenticator)
-    {
+    public User authenticate(@Auth User authenticator) {
         return authenticator;
     }
 }

@@ -1,0 +1,27 @@
+<p>This is the login view.</p>
+
+<form name="loginForm" role="form" ng-submit="login()" novalidate>
+
+  <div class="form-group">
+    <label for="email">E-mailadres</label>
+    <input id="email" name="email" type="email" class="form-control" ng-model="email" ng-required="true">
+  </div>
+
+  <div class="form-group">
+    <label for="password">Wachtwoord</label>
+    <input type="password" class="form-control" id="password" ng-model="password" ng-required="true">
+  </div>
+
+  <div class="form-group">
+    <label for="remember" class="checkbox">
+      <input id="remember" type="checkbox" name="remember" ng-model="remember">
+      Gegevens onthouden?
+    </label>
+  </div>
+
+  <div class="form-group">
+    <button class="btn btn-primary" type="submit">Login</button>
+  </div>
+
+
+</form>

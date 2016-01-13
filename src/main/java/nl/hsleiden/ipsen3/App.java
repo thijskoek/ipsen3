@@ -46,8 +46,7 @@ public class App extends Application<AppConfiguration> {
     private String name;
 
     @Override
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -66,8 +65,6 @@ public class App extends Application<AppConfiguration> {
     public void run(AppConfiguration appConfiguration, Environment environment) throws Exception {
         name = appConfiguration.getApiName();
 
-        logger.info(String.format("Set API name to %s", name));
-
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
 
@@ -83,6 +80,11 @@ public class App extends Application<AppConfiguration> {
         environment.jersey().register(mailResource);
     }
 
+    /**
+     * Enables CORS.
+     *
+     * @param environment
+     */
     private void enableCORS(Environment environment) {
         // Enable CORS headers
         final FilterRegistration.Dynamic cors =
@@ -97,10 +99,19 @@ public class App extends Application<AppConfiguration> {
         cors.addMappingForUrlPatterns(EnumSet.allOf(DispatcherType.class), true, "/*");
     }
 
-    private void setupAuthentication(Environment environment, UserDAO userDAO, AppConfiguration appConfiguration) {
+    /**
+     * Setups authentication via BasicCredentials and adds a caching layer.
+     *
+     * @param environment
+     * @param userDAO
+     * @param appConfiguration
+     */
+    private void setupAuthentication(Environment environment, UserDAO userDAO,
+        AppConfiguration appConfiguration) {
         AuthenticationService authenticationService = new AuthenticationService(userDAO);
         ApiUnauthorizedHandler unauthorizedHandler = new ApiUnauthorizedHandler();
-        CachingAuthenticator<BasicCredentials, User> cachingAuthenticator = new CachingAuthenticator<BasicCredentials, User>(
+        CachingAuthenticator<BasicCredentials, User> cachingAuthenticator =
+            new CachingAuthenticator<BasicCredentials, User>(
             metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
         );
 
@@ -117,6 +128,11 @@ public class App extends Application<AppConfiguration> {
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
     }
 
+    /**
+     * Serves assets from /public_html. Used for serving Angular.
+     *
+     * @param environment
+     */
     private void configureClientFilter(Environment environment) {
         environment.getApplicationContext().addFilter(
             new FilterHolder(new ClientFilter()),

@@ -39,7 +39,17 @@ angular
         controller: 'ContactCtrl',
         controllerAs: 'contact'
       })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });
-  });
+  }).config(function($httpProvider) {
+    $httpProvider.interceptors.push('requestService');
+
+    if(!$httpProvider.defaults.headers.get) {
+      $httpProvider.defaults.headers.get = {};
+    }
+});
