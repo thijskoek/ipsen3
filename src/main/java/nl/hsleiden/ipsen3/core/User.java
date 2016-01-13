@@ -18,7 +18,9 @@ import java.util.Set;
 @Table(name = "\"user\"")
 public class User implements Principal {
 
-    @Id @GeneratedValue @Column(name = "id")
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
     private long id;
 
     @NotEmpty @Email @JsonView(View.Public.class) @Column(name = "email")
@@ -27,9 +29,10 @@ public class User implements Principal {
     @NotEmpty @JsonView(View.Protected.class) @Column(name = "password")
     private String password;
 
-    @ManyToMany(targetEntity = Role.class, fetch = FetchType.EAGER)
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
-    @JsonView(View.Private.class)
+    @ManyToMany
+    @JoinTable(name = "user_role",
+        joinColumns = @JoinColumn(name = "user_id"),
+        inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
     public long getId()
@@ -81,7 +84,7 @@ public class User implements Principal {
     public boolean hasRole(String roleName) {
         if (roles != null)
         {
-            for(Role role : roles)
+            for(Role role : getRoles())
             {
                 if(role.getName().equals(roleName))
                 {

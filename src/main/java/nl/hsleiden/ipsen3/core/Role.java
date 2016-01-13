@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;
 import nl.hsleiden.ipsen3.View;
-import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -17,14 +16,20 @@ import java.util.Set;
 @Table(name = "role")
 public class Role {
 
-    @Id @GeneratedValue @Column(name = "id") @JsonView(View.Public.class)
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Column(name = "id")
+    @JsonView(View.Public.class)
     private long id;
 
-    @JsonView(View.Public.class) @Column(name = "name", nullable = false, length = 255)
+    @JsonView(View.Public.class)
+    @Column(name = "name", nullable = false, length = 255)
     private String name;
 
-    @ManyToMany(targetEntity = User.class, mappedBy = "roles")
-    @JsonIgnore
+    @ManyToMany
+    @JoinTable(name = "user_role",
+        joinColumns = @JoinColumn(name = "role_id"),
+        inverseJoinColumns = @JoinColumn(name = "user_id"))
     private Set<User> users = new HashSet<>();
 
     public Role() {
@@ -58,6 +63,11 @@ public class Role {
     public Set<User> getUsers()
     {
         return users;
+    }
+
+    public void setUsers(Set<User> users)
+    {
+        this.users = users;
     }
 
     @JsonIgnore

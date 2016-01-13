@@ -2,6 +2,7 @@ package nl.hsleiden.ipsen3.dao;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import nl.hsleiden.ipsen3.core.User;
+import org.hibernate.Hibernate;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -33,6 +34,7 @@ public class UserDAO extends AbstractDAO<User> {
      */
     public User findById(long id)
     {
+        initialize(User.class);
         return get(id);
     }
 
@@ -57,8 +59,10 @@ public class UserDAO extends AbstractDAO<User> {
     {
         Session session = sessionFactory.openSession();
         try {
-            return (User) session.createCriteria(User.class).add(Restrictions.eq("email", email))
+            User user = (User) session.createCriteria(User.class).add(Restrictions.eq("email", email))
                 .uniqueResult();
+            Hibernate.initialize(user.getRoles());
+            return user;
         } finally {
             session.clear();
         }
@@ -76,7 +80,7 @@ public class UserDAO extends AbstractDAO<User> {
 
     public void update(User authenticator, int id, User user)
     {
-
+        persist(user);
     }
 
     public void delete(int id)

@@ -6,11 +6,11 @@ import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.View;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.UserDAO;
+import org.hibernate.Hibernate;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
-import java.util.Collection;
 import java.util.List;
 
 /**
@@ -27,55 +27,59 @@ public class UserResource {
     }
 
     @GET
+    @UnitOfWork
     @JsonView(View.Public.class)
     @RolesAllowed("beheerder")
-    @UnitOfWork
     public List<User> retrieveAll(@Auth User user)
     {
-        return dao.findAll();
+        List<User> users = dao.findAll();
+        for (User u: users) {
+            Hibernate.initialize(u.getRoles());
+        }
+        return users;
     }
 
     @GET
+    @UnitOfWork
     @Path("/{id}")
     @JsonView(View.Public.class)
-    @UnitOfWork
     public User retrieve(@PathParam("id") int id)
     {
         return dao.findById(id);
     }
 
     @POST
+    @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
-    @UnitOfWork
     public void create(User user)
     {
         dao.create(user);
     }
 
     @PUT
+    @UnitOfWork
     @Path("/{id}")
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
-    @UnitOfWork
     public void update(@PathParam("id") int id, @Auth User authenticator, User user)
     {
         dao.update(authenticator, id, user);
     }
 
     @DELETE
+    @UnitOfWork
     @Path("/{id}")
     @RolesAllowed("beheerder")
-    @UnitOfWork
     public void delete(@PathParam("id") int id)
     {
         dao.delete(id);
     }
 
+    @UnitOfWork
     @GET
     @Path("/me")
     @JsonView(View.Private.class)
-    @UnitOfWork
     public User authenticate(@Auth User authenticator)
     {
         return authenticator;
