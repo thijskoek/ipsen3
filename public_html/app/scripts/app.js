@@ -44,6 +44,11 @@ angular
         controller: 'ActieCtrl',
         controllerAs: 'actie'
       })
+      .when('/bestellijsten', {
+        templateUrl: 'views/bestellijsten.html',
+        controller: 'BestellijstenCtrl',
+        controllerAs: 'bestellijsten'
+      })
       .otherwise({
         redirectTo: '/'
       });
