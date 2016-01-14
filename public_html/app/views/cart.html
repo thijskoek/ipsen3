@@ -1,6 +1,6 @@
 <h2>Winkelwagen</h2>
 
-<form name="cartForm" role="form" ng-submit="submitCart()">
+<form name="cartForm" role="form" ng-submit="submitCart()" novalidate>
 <table class="table table-condensed">
   <thead>
     <tr>
@@ -26,5 +26,7 @@
   <button type="submit" class="btn btn-primary" value="bestellen">Bestel</button>
 
 </table>
+
+  <pre>{{ cartForm | json }}</pre>
 </form>
 
