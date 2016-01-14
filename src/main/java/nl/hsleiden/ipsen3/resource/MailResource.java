@@ -9,7 +9,6 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
-import java.util.concurrent.atomic.AtomicLong;
 
 /**
  * Created by Brandon on 12-Jan-16.
@@ -18,15 +17,6 @@ import java.util.concurrent.atomic.AtomicLong;
 @Path("mail")
 @Produces(MediaType.APPLICATION_JSON)
 public class MailResource {
-    private final String template;
-    private final String defaultName;
-    private final AtomicLong counter;
-
-    public MailResource(String template, String defaultName) {
-        this.template = template;
-        this.defaultName = defaultName;
-        this.counter = new AtomicLong();
-    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
