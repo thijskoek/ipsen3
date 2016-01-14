@@ -19,11 +19,9 @@ import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.UserDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
 import nl.hsleiden.ipsen3.resource.MailResource;
-import nl.hsleiden.ipsen3.resources.GebruikersResource;
-import nl.hsleiden.ipsen3.resources.WachtwoordResource;
-import nl.hsleiden.ipsen3.resources.WijnResource;
 import nl.hsleiden.ipsen3.resource.UserResource;
 import nl.hsleiden.ipsen3.resource.WijnResource;
+import nl.hsleiden.ipsen3.resources.WachtwoordResource;
 import nl.hsleiden.ipsen3.service.AuthenticationService;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -61,7 +59,7 @@ public class App extends Application<AppConfiguration> {
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
         bootstrap.addBundle(hibernate);
         bootstrap.addBundle((ConfiguredBundle)
-            new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
+                new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
     }
 
     @Override
@@ -78,9 +76,11 @@ public class App extends Application<AppConfiguration> {
         final WijnResource wijnResource = new WijnResource(wijnDAO);
         final UserResource userResource = new UserResource(userDAO);
         final MailResource mailResource = new MailResource();
+        final WachtwoordResource wachtwoordResource = new WachtwoordResource();
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);
         environment.jersey().register(mailResource);
+        environment.jersey().register(wachtwoordResource);
     }
 
     /**
@@ -91,7 +91,7 @@ public class App extends Application<AppConfiguration> {
     private void enableCORS(Environment environment) {
         // Enable CORS headers
         final FilterRegistration.Dynamic cors =
-            environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
         // Configure CORS parameters
         cors.setInitParameter("allowedOrigins", "*");
@@ -110,13 +110,13 @@ public class App extends Application<AppConfiguration> {
      * @param appConfiguration
      */
     private void setupAuthentication(Environment environment, UserDAO userDAO,
-        AppConfiguration appConfiguration) {
+                                     AppConfiguration appConfiguration) {
         AuthenticationService authenticationService = new AuthenticationService(userDAO);
         ApiUnauthorizedHandler unauthorizedHandler = new ApiUnauthorizedHandler();
         CachingAuthenticator<BasicCredentials, User> cachingAuthenticator =
-            new CachingAuthenticator<BasicCredentials, User>(
-            metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
-        );
+                new CachingAuthenticator<BasicCredentials, User>(
+                        metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
+                );
 
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
@@ -129,26 +129,6 @@ public class App extends Application<AppConfiguration> {
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
-
-        final GebruikersResource gebruikersResource = new GebruikersResource(
-                appConfiguration.getTemplate(),
-                appConfiguration.getDefaultName()
-        );
-
-        final MailResource mailResource = new MailResource(
-                appConfiguration.getTemplate(),
-                appConfiguration.getDefaultName()
-        );
-
-        final WachtwoordResource wachtwoordResource = new WachtwoordResource(
-            appConfiguration.getTemplate(),
-            appConfiguration.getDefaultName()
-        );
-
-        environment.jersey().register(resource);
-        environment.jersey().register(mailResource);
-        environment.jersey().register(gebruikersResource);
-        environment.jersey().register(wachtwoordResource);
     }
 
     /**
@@ -158,9 +138,9 @@ public class App extends Application<AppConfiguration> {
      */
     private void configureClientFilter(Environment environment) {
         environment.getApplicationContext().addFilter(
-            new FilterHolder(new ClientFilter()),
-            "/*",
-            EnumSet.allOf(DispatcherType.class)
+                new FilterHolder(new ClientFilter()),
+                "/*",
+                EnumSet.allOf(DispatcherType.class)
         );
     }
 }
