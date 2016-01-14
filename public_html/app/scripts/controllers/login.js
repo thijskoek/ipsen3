@@ -39,7 +39,6 @@ angular.module('appApp')
      * @param user
      */
     self.redirectUser = function (user) {
-      console.log(user);
       user.roles.forEach(function (role, index) {
         if (role.name === ROLES.BEHEERDER) {
           $location.path('/');
