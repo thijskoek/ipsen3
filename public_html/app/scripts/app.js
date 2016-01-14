@@ -49,6 +49,11 @@ angular
         controller: 'BestellijstenCtrl',
         controllerAs: 'bestellijsten'
       })
+      .when('/maakbestellijst', {
+        templateUrl: 'views/maakbestellijst.html',
+        controller: 'MaakBestellijstCtrl',
+        controllerAs: 'maakbestellijst'
+      })
       .otherwise({
         redirectTo: '/'
       });

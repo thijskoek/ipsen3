@@ -26,6 +26,7 @@ angular.module('appApp')
 
     wijnen.all().then(function(data) {
       $scope.wijnen = data;
+
     }, function() {
       throw Error;
     });
