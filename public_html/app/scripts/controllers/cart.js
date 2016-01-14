@@ -14,7 +14,7 @@ angular.module('appApp')
     $scope.aantal = 1;
 
     $scope.submitCart = function() {
-        cartservice.storeCart();
+        $location.path('/bestel');
     }
 
     $scope.getTotal = function(wijn) {
