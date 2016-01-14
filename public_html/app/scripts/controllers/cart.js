@@ -8,10 +8,14 @@
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('CartCtrl', function ($scope, wijnen) {
+  .controller('CartCtrl', function ($rootScope, $scope, wijnen, cartService) {
 
     $scope.cartForm = {};
     $scope.aantal = 1;
+
+    $scope.submitCart = function() {
+        cartservice.storeCart();
+    }
 
     $scope.getTotal = function(wijn) {
 
@@ -38,14 +42,19 @@ angular.module('appApp')
         }
     }
 
-    $scope.submitCart = function() {
-       console.log($scope.cartForm)
-    }
     $scope.wijnen = [];
 
     wijnen.all().then(function(data) {
+      cartService.save(data);
       $scope.wijnen = data;
     }, function() {
       throw Error;
     });
+
+
+
+    $scope.$watch('wijnen', function(newValue, oldValue) {
+      console.log(newValue);
+      cartService.save(newValue);
+    }, true)
   });
