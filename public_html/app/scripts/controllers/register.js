@@ -16,11 +16,12 @@ angular.module('appApp')
         return false;
       }
 
-      console.log(angular.toJson($scope.user));
+      var data = $scope.user;
+      data.debiteur.email = data.email;
 
-      userService.create($scope.user, function (message) {
+      userService.create(data, function () {
         $location.path('/login');
       });
-    }
+    };
 
   });

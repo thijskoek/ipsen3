@@ -2,6 +2,7 @@ package nl.hsleiden.ipsen3.dao;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import nl.hsleiden.ipsen3.core.Land;
+import nl.hsleiden.ipsen3.core.Role;
 import nl.hsleiden.ipsen3.core.User;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -51,7 +52,12 @@ public class UserDAO extends AbstractDAO<User> {
                 .createCriteria(Land.class)
                 .add(Restrictions.eq("name", user.getDebiteur().getLand().getName()))
                 .uniqueResult();
+        Role role = (Role) currentSession()
+                .createCriteria(Role.class)
+                .add(Restrictions.eq("name", "klant"))
+                .uniqueResult();
         user.getDebiteur().setLand(land);
+        user.getRoles().add(role);
         user.hashPassword();
         return persist(user).getId();
     }
