@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen3.dao;
 
 import io.dropwizard.hibernate.AbstractDAO;
+import nl.hsleiden.ipsen3.core.Land;
 import nl.hsleiden.ipsen3.core.User;
 import org.hibernate.Hibernate;
 import org.hibernate.Session;
@@ -46,6 +47,11 @@ public class UserDAO extends AbstractDAO<User> {
      */
     public long create(User user)
     {
+        Land land = (Land) currentSession()
+                .createCriteria(Land.class)
+                .add(Restrictions.eq("name", user.getDebiteur().getLand().getName()))
+                .uniqueResult();
+        user.getDebiteur().setLand(land);
         user.hashPassword();
         return persist(user).getId();
     }
