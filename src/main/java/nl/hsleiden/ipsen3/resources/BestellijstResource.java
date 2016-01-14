@@ -15,6 +15,8 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Created by Victor on 11-1-2016.
  */
+@Path("/bestellijst")
+@Produces(MediaType.APPLICATION_JSON)
 public class BestellijstResource {
 
     private final String template;
@@ -45,6 +47,7 @@ public class BestellijstResource {
     public List<Bestellijst> findAll(){
         return dao.findAll();
     }
+
     @GET
     @Timed
     @UnitOfWork

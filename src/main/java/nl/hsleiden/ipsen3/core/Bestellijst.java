@@ -3,6 +3,7 @@ package nl.hsleiden.ipsen3.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
+import org.joda.time.DateTime;
 
 import javax.persistence.*;
 import java.sql.Timestamp;
@@ -20,17 +21,17 @@ public class Bestellijst {
     private long id;
 
     @Column(name = "date", nullable = false, length = 11)
-    private long date;
+    private DateTime date;
 
     @Column(name = "naam", nullable = false, length = 255)
     @Length(max = 255)
-    private long naam;
+    private String naam;
 
     public Bestellijst(){
 
     }
 
-    public Bestellijst(long id, long date, long naam){
+    public Bestellijst(long id, DateTime date, String naam){
         this.id = id;
         this.date = date;
         this.naam = naam;
@@ -42,12 +43,12 @@ public class Bestellijst {
     }
 
     @JsonProperty
-    public long getDate() {
+    public DateTime getDate() {
         return date;
     }
 
     @JsonProperty
-    public long getName(){
+    public String getName(){
         return naam;
     }
 }
