@@ -27,11 +27,10 @@ angular.module('appApp')
       var uri = API_URL + 'users';
       var data =
       {
-        fullName: name,
-        postcode: postcode,
-        streetnumber: streetnumber,
-        emailAddress: email,
-        password: password
+        id: id,
+        email: email,
+        password: password,
+        roles: roles
       };
 
       $http.post(uri, data).success(onCreated).error(function(message, status)

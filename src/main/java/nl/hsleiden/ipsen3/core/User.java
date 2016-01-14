@@ -3,6 +3,7 @@ package nl.hsleiden.ipsen3.core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonView;
 import nl.hsleiden.ipsen3.View;
+import org.hibernate.annotations.OrderBy;
 import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.NotEmpty;
 import org.mindrot.jbcrypt.BCrypt;
@@ -39,6 +40,7 @@ public class User implements Principal {
     @JoinTable(name = "user_role",
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @OrderBy(clause = "id ASC")
     private Set<Role> roles = new HashSet<>();
 
     public long getId() {

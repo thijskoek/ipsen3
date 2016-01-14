@@ -54,4 +54,10 @@ angular
       $httpProvider.defaults.headers.get = {};
     }
   })
-  .constant('API_URL', "/api/v1/");
+  .constant('API_URL', "/api/v1/")
+  .constant('ROLES', {
+    BEHEERDER: 'beheerder',
+    MSMANGER: 'm&s manager',
+    LID: 'lid',
+    KLANT: 'klant'
+  });

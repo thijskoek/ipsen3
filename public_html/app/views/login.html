@@ -1,19 +1,36 @@
 <p>This is the login view.</p>
 
-<form name="loginForm" role="form" ng-submit="login()" novalidate>
+<form name="loginForm" role="form" ng-submit="login(loginForm.$valid)" novalidate>
 
-  <div class="form-group">
+  <div class="form-group" ng-class="{
+    'has-error':!loginForm.email.$valid && (!loginForm.$pristine || loginForm.$submitted),
+    'has-success':loginForm.email.$valid && (!loginForm.$pristine || loginForm.$submitted)
+   }
+   ">
     <label for="email">E-mailadres</label>
     <input id="email" name="email" type="email" class="form-control" ng-model="email" ng-required="true">
+    <span class="help-block" ng-show="loginForm.email.$error.required && (!loginForm.$pristine || loginForm.$submitted)">
+      Dit veld is verplicht.
+    </span>
+    <span  class="help-block" ng-show="loginForm.email.$error.email && (!loginForm.$pristine || loginForm.$submitted)">
+      Vul een valide mailadres in.
+    </span>
   </div>
 
-  <div class="form-group">
+  <div class="form-group" ng-class="{
+    'has-error':!loginForm.password.$valid && (!loginForm.$pristine || loginForm.$submitted),
+    'has-success':loginForm.password.$valid && (!loginForm.$pristine || loginForm.$submitted)
+   }
+   ">
     <label for="password">Wachtwoord</label>
     <input type="password" class="form-control" id="password" ng-model="password" ng-required="true">
+    <span class="help-block" ng-show="loginForm.password.$error.required && (!loginForm.$pristine || loginForm.$submitted)">
+      Dit veld is verplicht.
+    </span>
   </div>
 
-  <div class="form-group">
-    <label for="remember" class="checkbox">
+  <div class="checkbox">
+    <label for="remember">
       <input id="remember" type="checkbox" name="remember" ng-model="remember">
       Gegevens onthouden?
     </label>

@@ -3,24 +3,55 @@
 /**
  * @ngdoc function
  * @name appApp.controller:LoginCtrl
+ * @author Daan Rosbergen
  * @description
  * # LoginCtrl
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('LoginCtrl', function ($scope, authenticationService, userService, $location) {
+  .controller('LoginCtrl', function ($scope, authenticationService, userService, $location, ROLES) {
 
-    $scope.login = function() {
+    var self = this;
+
+    /**
+     * Try to login the user.
+     *
+     * @param valid
+     * @returns {boolean}
+     */
+    $scope.login = function (valid) {
+      if (!valid) {
+        return false;
+      }
       authenticationService.createAuthentication($scope.email, $scope.password);
 
-      userService.authenticate(function(authenticator)
-      {
+      userService.authenticate(function (authenticator) {
         authenticationService.setAuthenticator(authenticator);
         authenticationService.storeAuthentication($scope.remember);
-        // TODO: Redirect to previous page.
-        $location.path('/');
+        self.redirectUser(authenticationService.getAuthenticator());
+      });
+    };
+
+    /**
+     * Redirect user according to its role.
+     *
+     * TODO: Denk niet dat dit werkt.
+     * @param user
+     */
+    self.redirectUser = function (user) {
+      console.log(user);
+      user.roles.forEach(function (role, index) {
+        if (role.name === ROLES.BEHEERDER) {
+          $location.path('/');
+        } else if (role.name === ROLES.MSMANGER) {
+          $location.path('/');
+        } else if (role.name === ROLES.LID) {
+          $location.path('/');
+        } else if (role.name === ROLES.KLANT) {
+          $location.path('/');
+        }
       });
 
-    }
+    };
 
   });
