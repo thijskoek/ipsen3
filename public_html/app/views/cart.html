@@ -1,34 +1,30 @@
-<p>This is the cart view.</p>
-
 <h2>Winkelwagen</h2>
 
 <form name="cartForm" role="form" ng-submit="submitCart()">
 <table class="table table-condensed">
-    <thead>
+  <thead>
     <tr>
       <th>Product</th>
       <th>Aantal</th>
       <th>Prijs</th>
       <th>Totaal</th>
-  </tr>
+    </tr>
   </thead>
-  <tr ng-repeat="wijn in wijnen">
-    <td>{{wijn.naam}}</td>
-    <td><input type="text" class="form-control" ng-model="$aantal" name="quantity" id="quantity" value="1"></td>
-    <td>{{wijn.prijs}}</td>
-    <td>{{ checkAantal($aantal) * wijn.prijs  }}</td>
-  </tr>
+    <tr ng-repeat="wijn in wijnen">
+      <td>{{wijn.naam}}</td>
+      <td> <div class="col-md-4"> <input type="text" class="form-control input-sm" ng-model="wijn.aantal" name="quantity" id="quantity" value="1"></div></td>
+      <td>{{wijn.prijs | currency: "€"}}</td>
+      <td>{{ getTotal(wijn) | currency: "€"  }}</td>
+    </tr>
+    <tr>
+      <td>Totaal:</td>
+      <td></td>
+      <td></td>
+      <td>{{ getTotalCart() | currency: "€" }} </td>
+    </tr>
+
+  <button type="submit" class="btn btn-primary" value="bestellen">Bestel</button>
 
 </table>
-
-  <pre>{{ cartForm | json }}</pre>
-
-<div class="col-md-4">
-<button type="submit" class="btn btn-primary" value="bestellen">Bestel</button>
-</div>
-
 </form>
 
-<div class="col-md-8">
-  <button type="submit" class="form-control" ng-click="alterQuantity()" class="btn btn-default" value="bijwerken">Bijwerken</button>
-</div>
