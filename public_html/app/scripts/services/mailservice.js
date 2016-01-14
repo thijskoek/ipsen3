@@ -8,9 +8,9 @@
  * Service in the appApp.
  */
 angular.module('appApp')
-  .service('mailservice', function ($http, $q) {
+  .service('mailservice', function ($http, $q, API_URL) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    var url = 'api/mail';
+    var url = API_URL + 'mail';
 
     return {
       send: function(mail) {
