@@ -20,15 +20,8 @@ import java.security.NoSuchAlgorithmException;
 @Path("wachtwoord")
 @Produces(MediaType.APPLICATION_JSON)
 public class WachtwoordResource {
-
-    private final String template;
-    private final String defaultName;
+    
     private ObjectMapper mapper = new ObjectMapper();
-
-    public WachtwoordResource(String template, String defaultName) {
-        this.template = template;
-        this.defaultName = defaultName;
-    }
 
     @POST
     @Timed
