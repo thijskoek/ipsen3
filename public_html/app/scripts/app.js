@@ -48,6 +48,10 @@ angular
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl'
       })
+      .when('/order', {
+        templateUrl: 'views/order.html',
+        controller: 'OrderCtrl'
+      })
       .otherwise({
         redirectTo: '/'
       });

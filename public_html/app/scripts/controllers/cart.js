@@ -8,13 +8,13 @@
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('CartCtrl', function ($rootScope, $scope, wijnen, cartService) {
+  .controller('CartCtrl', function ($rootScope, $scope, wijnen, cartService, $location) {
 
     $scope.cartForm = {};
     $scope.aantal = 1;
 
     $scope.submitCart = function() {
-        $location.path('/bestel');
+        $location.path('/order');
     }
 
     $scope.getTotal = function(wijn) {
