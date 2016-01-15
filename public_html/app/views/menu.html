@@ -19,7 +19,16 @@
         <li ng-class="{'active': $route.current.activeTab == 'about'}"><a ng-href="#/about">About</a></li>
         <li ng-class="{'active': $route.current.activeTab == 'wijnen'}"><a ng-href="#/wijnen">Wijnen</a></li>
         <li ng-class="{'active': $route.current.activeTab == 'contact'}"><a ng-href="#/contact">Contact</a></li>
-        <li ng-class="{'active': $route.current.activeTab == 'login'}"><a ng-href="#/login">Login</a></li>
+      </ul>
+
+      <ul class="nav navbar-nav navbar-right">
+        <li ng-if="!authenticated" ng-class="{'active': $route.current.activeTab == 'login'}"><a ng-href="#/login">Login</a></li>
+        <li ng-if="authenticated" class="dropdown">
+          <a href="javascript:void;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Profiel <span class="caret"></span></a>
+          <ul class="dropdown-menu">
+            <li><a href="javascript:void;" ng-click="logout()">Log uit</a></li>
+          </ul>
+        </li>
       </ul>
     </div>
   </div>
