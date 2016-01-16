@@ -22,22 +22,26 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        activeTab: 'home'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
-        controllerAs: 'about'
+        controllerAs: 'about',
+        activeTab: 'about'
       })
       .when('/wijnen', {
         templateUrl: 'views/wijnen.html',
         controller: 'WijnenCtrl',
-        controllerAs: 'wijnen'
+        controllerAs: 'wijnen',
+        activeTab: 'wijnen'
       })
       .when('/contact', {
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl',
-        controllerAs: 'contact'
+        controllerAs: 'contact',
+        activeTab: 'contact'
       })
       .when('/cart', {
         templateUrl: 'views/cart.html',
@@ -46,7 +50,13 @@ angular
       })
       .when('/login', {
         templateUrl: 'views/login.html',
-        controller: 'LoginCtrl'
+        controller: 'LoginCtrl',
+        activeTab: 'login'
+      })
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'RegisterCtrl',
+        controllerAs: 'register'
       })
       .when('/order', {
         templateUrl: 'views/order.html',
