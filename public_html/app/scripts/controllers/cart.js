@@ -18,7 +18,7 @@ angular.module('appApp')
     }
 
     $scope.getTotal = function(wijn) {
-
+        wijn.aantal = 1;
         return parseInt(wijn.aantal) * wijn.prijs;
     }
 
