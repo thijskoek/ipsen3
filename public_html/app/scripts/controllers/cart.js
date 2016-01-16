@@ -51,6 +51,11 @@ angular.module('appApp')
       throw Error;
     });
 
+    $scope.remove = function(index) {
+
+        $scope.wijnen.splice(index, 1);
+
+    }
 
 
     $scope.$watch('wijnen', function(newValue, oldValue) {

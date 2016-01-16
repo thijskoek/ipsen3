@@ -3,7 +3,7 @@
 <p>Hieronder een overzicht van uw bestelling.</p>
 
 {{ getCart() }}
-
+<form name="orderForm" role="form" ng-submit="submitOrder()">
 <table class="table table-condensed">
   <thead>
   <tr>
@@ -44,5 +44,6 @@
     <td>{{ getCartTotal() | currency: "€" }}</td>
   </tr>
 </table>
-
+  <button type="submit" class="btn btn-default"  value="opslaan">Bestellen</button>
+</form>
 

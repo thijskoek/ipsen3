@@ -15,6 +15,7 @@
         <td> <div class="col-md-4"> <input type="text" class="form-control input-sm" ng-model="wijn.aantal" name="quantity" id="quantity" value="1"></div></td>
         <td>{{wijn.prijs | currency: "€"}}</td>
         <td>{{ getTotal(wijn) | currency: "€"  }}</td>
+        <td><a href="" ng-click="remove($index)"><i class="glyphicon glyphicon-remove"></i></a></td>
       </tr>
       <tr>
         <td>Totaal:</td>
