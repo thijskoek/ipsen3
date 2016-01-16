@@ -1,3 +1,48 @@
-<p>This is the order view.</p>
+<h1>Bestelling</h1>
+
+<p>Hieronder een overzicht van uw bestelling.</p>
+
+{{ getCart() }}
+
+<table class="table table-condensed">
+  <thead>
+  <tr>
+    <th>Product</th>
+    <th>Aantal</th>
+    <th>Prijs</th>
+    <th>Totaal</th>
+  </tr>
+  </thead>
+  <tr ng-repeat="wijn in wijnen">
+    <td>{{wijn.naam}}</td>
+    <td> {{ wijn.aantal }}</td>
+    <td>{{wijn.prijs | currency: "€"}}</td>
+    <td>{{ wijn.prijs * wijn.aantal | currency: "€"}}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Subtotaal:</td>
+    <td>{{ getSubtotaal() | currency: "€" }}</td>
+  </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>BTW(21%):</td>
+    <td>{{ getBtwPrice() | currency: "€" }}</td>
+    </tr>
+  <tr>
+    <td></td>
+    <td></td>
+    <td>Totaal:</td>
+    <td>{{ getCartTotal() | currency: "€" }}</td>
+  </tr>
+</table>
 
 

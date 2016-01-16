@@ -19,4 +19,14 @@ angular.module('appApp')
 
       storage.setItem('cart', cart);
     };
+
+    self.retrieve = function()
+    {
+      var cart = $window.localStorage.getItem("cart");
+
+      cart = JSON.parse(cart);
+      return cart;
+
+
+    }
   });

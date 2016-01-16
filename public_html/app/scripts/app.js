@@ -60,7 +60,8 @@ angular
       })
       .when('/order', {
         templateUrl: 'views/order.html',
-        controller: 'OrderCtrl'
+        controller: 'OrderCtrl',
+        controllerAs: 'order'
       })
       .otherwise({
         redirectTo: '/'
