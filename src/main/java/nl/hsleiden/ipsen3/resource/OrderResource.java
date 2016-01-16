@@ -16,7 +16,7 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by Brandon on 16-Jan-16.
  */
-@Path("/order")
+@Path("order")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderResource {
 
@@ -30,7 +30,6 @@ public class OrderResource {
     @POST
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
-    @JsonView(View.Protected.class)
     public void create(Order order) {
         dao.create(order);
     }

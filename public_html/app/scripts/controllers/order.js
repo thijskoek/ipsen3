@@ -7,6 +7,7 @@
  * # OrderCtrl
  * Controller of the appApp
  */
+
 angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService) {
     $scope.wijnen = {};
 
@@ -45,7 +46,12 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, 
 
   $scope.submitOrder = function() {
 
-     orderService.submitOrder($scope.wijnen);
+    var order = angular.toJson($scope.wijnen);
 
+     orderService.submitDefOrder(order).then(function succesCallback(result) {
+       console.log("submit success");
+     }, function errorCallback(result) {
+       console.log("submit failed");
+     });
   }
   });

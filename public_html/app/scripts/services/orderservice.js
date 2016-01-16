@@ -8,12 +8,12 @@
  * Service in the appApp.
  */
 angular.module('appApp')
-  .service('orderService', function () {
+  .service('orderService', function ($http, $q) {
 
     var url = 'api/order';
 
     return {
-      submitOrder: function(order) {
+      submitDefOrder: function(order) {
         var deferred = $q.defer();
         $http({
           method: 'POST',

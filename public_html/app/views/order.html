@@ -3,7 +3,7 @@
 <p>Hieronder een overzicht van uw bestelling.</p>
 
 {{ getCart() }}
-<form name="orderForm" role="form" ng-submit="submitOrder()">
+<form name="orderForm" role="form" ng-submit="submitOrder()" novalidate>
 <table class="table table-condensed">
   <thead>
   <tr>

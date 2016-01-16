@@ -61,7 +61,7 @@ angular
       .when('/order', {
         templateUrl: 'views/order.html',
         controller: 'OrderCtrl',
-        controllerAs: 'order'
+        controllerAs: 'orderctrl'
       })
       .otherwise({
         redirectTo: '/'

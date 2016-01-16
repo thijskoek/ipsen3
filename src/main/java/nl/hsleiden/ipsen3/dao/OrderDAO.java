@@ -10,6 +10,7 @@ import org.hibernate.SessionFactory;
 public class OrderDAO extends AbstractDAO<Order> {
 
     private final SessionFactory sessionFactory;
+
     /**
      * Creates a new DAO with a given session provider.
      *

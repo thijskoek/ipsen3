@@ -4,13 +4,15 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Brandon on 16-Jan-16.
  */
 @Entity
 @Table(name = "tbl_order")
-public class Order {
+public class Order implements Serializable {
+
     @Id
     @GeneratedValue
     @Column(name = "id")
@@ -24,6 +26,9 @@ public class Order {
     @Length(max = 11)
     private int aantal;
 
+    public Order() {
+
+    }
 
     public Order(long id, int product_id, int aantal) {
         this.id = id;
