@@ -7,7 +7,7 @@
  * # OrderCtrl
  * Controller of the appApp
  */
-angular.module('appApp').controller('OrderCtrl', function ($scope, cartService) {
+angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService) {
     $scope.wijnen = {};
 
     $scope.getCart = function() {
@@ -41,5 +41,11 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService) 
     subtotaal = ($scope.getCartTotal() - $scope.getBtwPrice());
 
     return subtotaal;
+  }
+
+  $scope.submitOrder = function() {
+
+     orderService.submitOrder($scope.wijnen);
+
   }
   });
