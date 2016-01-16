@@ -1,19 +1,45 @@
 package nl.hsleiden.ipsen3.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import org.hibernate.validator.constraints.Length;
+
+import javax.persistence.*;
 
 /**
  * Created by Brandon on 16-Jan-16.
  */
+@Entity
+@Table(name = "tbl_order")
 public class Order {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private long id;
 
+    @Id
+    @Column(name = "product_id")
     private int product_id;
+
+    @Column(name = "jaar", nullable = false, length = 11)
+    @Length(max = 11)
     private int aantal;
 
 
-    public Order(int product_id, int aantal) {
+    public Order(long id, int product_id, int aantal) {
+        this.id = id;
         this.product_id = product_id;
         this.aantal = aantal;
+
+    }
+
+    @JsonProperty
+    public long getId() {
+        return id;
+    }
+
+    @JsonProperty
+    public void setId(long id) {
+        this.id = id;
     }
 
     @JsonProperty

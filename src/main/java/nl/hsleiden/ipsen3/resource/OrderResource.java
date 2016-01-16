@@ -3,7 +3,9 @@ package nl.hsleiden.ipsen3.resource;
 import com.fasterxml.jackson.annotation.JsonView;
 import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.View;
+import nl.hsleiden.ipsen3.core.Order;
 import nl.hsleiden.ipsen3.core.User;
+import nl.hsleiden.ipsen3.dao.OrderDAO;
 
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
@@ -20,7 +22,7 @@ public class OrderResource {
 
     private final OrderDAO dao;
 
-    public OrderResource(OrderDao userDAO) {
+    public OrderResource(OrderDAO orderDAO) {
         dao = orderDAO;
     }
 
@@ -29,7 +31,7 @@ public class OrderResource {
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
-    public void create(User user) {
-        dao.create(user);
+    public void create(Order order) {
+        dao.create(order);
     }
 }
