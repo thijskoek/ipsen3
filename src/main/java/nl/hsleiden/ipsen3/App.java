@@ -10,11 +10,13 @@ import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.auth.basic.BasicCredentials;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
+import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.UserDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
@@ -40,6 +42,7 @@ import java.util.EnumSet;
  */
 public class App extends Application<AppConfiguration> {
     private final HibernateBundle<AppConfiguration> hibernate = new HibernateConfiguration();
+    private final MigrationsBundle<AppConfiguration> liquibase = new MigrationsConfiguration();
     private final Logger logger = LoggerFactory.getLogger(App.class);
     private final MetricRegistry metricRegistry = new MetricRegistry();
 
@@ -59,6 +62,7 @@ public class App extends Application<AppConfiguration> {
         bootstrap.addBundle(hibernate);
         bootstrap.addBundle((ConfiguredBundle)
             new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
+        bootstrap.addBundle(liquibase);
     }
 
     @Override

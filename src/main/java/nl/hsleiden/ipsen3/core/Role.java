@@ -19,10 +19,8 @@ public class Role {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
-    @JsonView(View.Public.class)
     private long id;
 
-    @JsonView(View.Public.class)
     @Column(name = "name", nullable = false, length = 255)
     private String name;
 
@@ -46,6 +44,7 @@ public class Role {
         return id;
     }
 
+    @JsonProperty
     public void setId(long id) {
         this.id = id;
     }
@@ -55,6 +54,7 @@ public class Role {
         return name;
     }
 
+    @JsonProperty
     public void setName(String name) {
         this.name = name;
     }
@@ -65,6 +65,7 @@ public class Role {
         return users;
     }
 
+    @JsonProperty
     public void setUsers(Set<User> users)
     {
         this.users = users;

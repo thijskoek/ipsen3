@@ -1,0 +1,668 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog" xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.4.xsd">
+
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-1">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="bestellijst_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-2">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="bestellijst_set_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-3">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="debiteur_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-4">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="event_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-5">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="factuur_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-6">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="inkoopfactuur_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-7">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="land_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-8">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="mail_templates_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-9">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="notitie_to_debiteur_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-10">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="notitie_to_factuur_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-11">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="opmerking_to_debiteur_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-12">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="opmerking_to_factuur_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-13">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="organisatie_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-14">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="product_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-15">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="product_to_bestellijst_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-16">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="role_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-17">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="settings_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-18">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="tbl_order_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-19">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="user_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-20">
+        <createSequence catalogName="panthera" schemaName="public" sequenceName="user_role_id_seq"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-21">
+        <createTable catalogName="panthera" schemaName="public" tableName="aanwezig">
+            <column name="event_id" type="INT"/>
+            <column name="debiteur_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-22">
+        <createTable catalogName="panthera" schemaName="public" tableName="bestellijst">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="bestellijst_pkey"/>
+            </column>
+            <column defaultValueComputed="now()" name="date" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="naam" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-23">
+        <createTable catalogName="panthera" schemaName="public" tableName="bestellijst_set">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="bestellijst_set_pkey"/>
+            </column>
+            <column name="bestellijst_id" type="INT"/>
+            <column name="product_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-24">
+        <createTable catalogName="panthera" schemaName="public" tableName="debiteur">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="debiteur_pkey"/>
+            </column>
+            <column name="aanhef" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="voornaam" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="tussenvoegsel" type="VARCHAR(255)"/>
+            <column name="naam" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adres" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="woonplaats" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="postcode" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telefoon" type="VARCHAR(255)"/>
+            <column name="land_id" type="INT"/>
+            <column name="user_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-25">
+        <createTable catalogName="panthera" schemaName="public" tableName="event">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="event_pkey"/>
+            </column>
+            <column name="naam" type="VARCHAR(255)"/>
+            <column defaultValueComputed="now()" name="datum" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-26">
+        <createTable catalogName="panthera" schemaName="public" tableName="factuur">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="factuur_pkey"/>
+            </column>
+            <column name="debiteur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="factuurnummer" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="factuurdatum" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="vervaldatum" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opmerking" type="TEXT"/>
+            <column name="pdfpath" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-27">
+        <createTable catalogName="panthera" schemaName="public" tableName="inkoopfactuur">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="inkoopfactuur_pkey"/>
+            </column>
+            <column name="factuurnummer" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="factuurdatum" type="TIMESTAMP(29) WITHOUT TIME ZONE"/>
+            <column name="vervaldatum" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="status" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-28">
+        <createTable catalogName="panthera" schemaName="public" tableName="inkoopproduct">
+            <column name="factuur_id" type="INT"/>
+            <column name="product_id" type="INT"/>
+            <column name="aantal" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-29">
+        <createTable catalogName="panthera" schemaName="public" tableName="land">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="land_pkey"/>
+            </column>
+            <column name="land" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-30">
+        <createTable catalogName="panthera" schemaName="public" tableName="mail">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debiteur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="factuur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="organisatie_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="header" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="body" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="footer" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-31">
+        <createTable catalogName="panthera" schemaName="public" tableName="mail_templates">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="mail_templates_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="content" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="active" type="BOOL">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-32">
+        <createTable catalogName="panthera" schemaName="public" tableName="notitie">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="titel" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="notitie" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-33">
+        <createTable catalogName="panthera" schemaName="public" tableName="notitie_to_debiteur">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="notitie_to_debiteur_pkey"/>
+            </column>
+            <column name="notitie_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debiteur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-34">
+        <createTable catalogName="panthera" schemaName="public" tableName="notitie_to_factuur">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="notitie_to_factuur_pkey"/>
+            </column>
+            <column name="notitie_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="factuur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-35">
+        <createTable catalogName="panthera" schemaName="public" tableName="opmerking">
+            <column name="id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="opmerking" type="TEXT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-36">
+        <createTable catalogName="panthera" schemaName="public" tableName="opmerking_to_debiteur">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="opmerking_to_debiteur_pkey"/>
+            </column>
+            <column name="opmerking_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debiteur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-37">
+        <createTable catalogName="panthera" schemaName="public" tableName="opmerking_to_factuur">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="opmerking_to_factuur_pkey"/>
+            </column>
+            <column name="opmerking_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="factuur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-38">
+        <createTable catalogName="panthera" schemaName="public" tableName="organisatie">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="organisatie_pkey"/>
+            </column>
+            <column name="bedrijfsnaam" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adres" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="woonplaats" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="postcode" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telefoon" type="INT"/>
+            <column name="kvk" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="btw_nummer" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="iban" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bic" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="land_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-39">
+        <createTable catalogName="panthera" schemaName="public" tableName="product">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="product_pkey"/>
+            </column>
+            <column name="productnummer" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="naam" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="jaar" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="prijs" type="numeric">
+                <constraints nullable="false"/>
+            </column>
+            <column name="type" type="VARCHAR(255)"/>
+            <column name="land_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="rang" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-40">
+        <createTable catalogName="panthera" schemaName="public" tableName="product_to_bestellijst">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="product_to_bestellijst_pkey"/>
+            </column>
+            <column name="product_id" type="INT"/>
+            <column name="bestellijst_id" type="INT"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-41">
+        <createTable catalogName="panthera" schemaName="public" tableName="role">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="role_pkey"/>
+            </column>
+            <column name="name" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-42">
+        <createTable catalogName="panthera" schemaName="public" tableName="settings">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="settings_pkey"/>
+            </column>
+            <column name="bedrijfsnaam" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="adres" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="telefoon" type="numeric(11)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="mailadres" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="kvk" type="numeric(25)"/>
+            <column name="btwnummer" type="numeric(25)"/>
+            <column name="iban" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="bic" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="wachtwoord" type="VARCHAR(255)"/>
+            <column name="host" type="VARCHAR(255)"/>
+            <column name="port" type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-43">
+        <createTable catalogName="panthera" schemaName="public" tableName="tbl_order">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="tbl_order_pkey"/>
+            </column>
+            <column name="factuur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="aantal" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="product_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-44">
+        <createTable catalogName="panthera" schemaName="public" tableName="user">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="user_pkey"/>
+            </column>
+            <column name="email" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column name="password" type="VARCHAR(255)">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debiteur_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-45">
+        <createTable catalogName="panthera" schemaName="public" tableName="user_role">
+            <column autoIncrement="true" name="id" type="SERIAL">
+                <constraints primaryKey="true" primaryKeyName="user_role_pkey"/>
+            </column>
+            <column name="user_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column name="role_id" type="INT">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-46">
+        <addPrimaryKey catalogName="panthera" columnNames="id" constraintName="mail_pkey" schemaName="public" tableName="mail"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-47">
+        <addPrimaryKey catalogName="panthera" columnNames="id" constraintName="notitie_pkey" schemaName="public" tableName="notitie"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-48">
+        <addPrimaryKey catalogName="panthera" columnNames="id" constraintName="opmerking_pkey" schemaName="public" tableName="opmerking"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-49">
+        <addUniqueConstraint catalogName="panthera" columnNames="naam" constraintName="event_naam_key" schemaName="public" tableName="event"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-50">
+        <addUniqueConstraint catalogName="panthera" columnNames="factuurnummer" constraintName="inkoopfactuur_factuurnummer_key" schemaName="public" tableName="inkoopfactuur"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-51">
+        <addUniqueConstraint catalogName="panthera" columnNames="name" constraintName="role_name_key" schemaName="public" tableName="role"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-52">
+        <addUniqueConstraint catalogName="panthera" columnNames="email" constraintName="user_email_key" schemaName="public" tableName="user"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-53">
+        <addForeignKeyConstraint baseColumnNames="debiteur_id" baseTableCatalogName="panthera" baseTableName="aanwezig" baseTableSchemaName="public" constraintName="aanwezig_debiteur_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="debiteur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-54">
+        <addForeignKeyConstraint baseColumnNames="event_id" baseTableCatalogName="panthera" baseTableName="aanwezig" baseTableSchemaName="public" constraintName="aanwezig_event_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="event" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-55">
+        <addForeignKeyConstraint baseColumnNames="bestellijst_id" baseTableCatalogName="panthera" baseTableName="bestellijst_set" baseTableSchemaName="public" constraintName="bestellijst_set_bestellijst_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="bestellijst_set" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-56">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="panthera" baseTableName="bestellijst_set" baseTableSchemaName="public" constraintName="bestellijst_set_product_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="product" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-57">
+        <addForeignKeyConstraint baseColumnNames="land_id" baseTableCatalogName="panthera" baseTableName="debiteur" baseTableSchemaName="public" constraintName="debiteur_land_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="land" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-58">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableCatalogName="panthera" baseTableName="debiteur" baseTableSchemaName="public" constraintName="debiteur_user_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="user" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-59">
+        <addForeignKeyConstraint baseColumnNames="debiteur_id" baseTableCatalogName="panthera" baseTableName="factuur" baseTableSchemaName="public" constraintName="factuur_dabiteur_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="debiteur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-60">
+        <addForeignKeyConstraint baseColumnNames="factuur_id" baseTableCatalogName="panthera" baseTableName="tbl_order" baseTableSchemaName="public" constraintName="factuurregel_factuur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="factuur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-61">
+        <addForeignKeyConstraint baseColumnNames="factuur_id" baseTableCatalogName="panthera" baseTableName="inkoopproduct" baseTableSchemaName="public" constraintName="inkoopproduct_factuur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="inkoopfactuur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-62">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="panthera" baseTableName="inkoopproduct" baseTableSchemaName="public" constraintName="inkoopproduct_product_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="product" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-63">
+        <addForeignKeyConstraint baseColumnNames="debiteur_id" baseTableCatalogName="panthera" baseTableName="mail" baseTableSchemaName="public" constraintName="mail_debiteur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="debiteur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-64">
+        <addForeignKeyConstraint baseColumnNames="factuur_id" baseTableCatalogName="panthera" baseTableName="mail" baseTableSchemaName="public" constraintName="mail_factuur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="factuur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-65">
+        <addForeignKeyConstraint baseColumnNames="organisatie_id" baseTableCatalogName="panthera" baseTableName="mail" baseTableSchemaName="public" constraintName="mail_organisatie_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="organisatie" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-66">
+        <addForeignKeyConstraint baseColumnNames="debiteur_id" baseTableCatalogName="panthera" baseTableName="notitie_to_debiteur" baseTableSchemaName="public" constraintName="notitie_to_debiteur_debiteur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="debiteur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-67">
+        <addForeignKeyConstraint baseColumnNames="notitie_id" baseTableCatalogName="panthera" baseTableName="notitie_to_debiteur" baseTableSchemaName="public" constraintName="notitie_to_debiteur_notitie_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="notitie" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-68">
+        <addForeignKeyConstraint baseColumnNames="factuur_id" baseTableCatalogName="panthera" baseTableName="notitie_to_factuur" baseTableSchemaName="public" constraintName="notitie_to_factuur_factuur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="factuur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-69">
+        <addForeignKeyConstraint baseColumnNames="notitie_id" baseTableCatalogName="panthera" baseTableName="notitie_to_factuur" baseTableSchemaName="public" constraintName="notitie_to_factuur_notitie_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="notitie" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-70">
+        <addForeignKeyConstraint baseColumnNames="debiteur_id" baseTableCatalogName="panthera" baseTableName="opmerking_to_debiteur" baseTableSchemaName="public" constraintName="opmerking_to_debiteur_debiteur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="debiteur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-71">
+        <addForeignKeyConstraint baseColumnNames="opmerking_id" baseTableCatalogName="panthera" baseTableName="opmerking_to_debiteur" baseTableSchemaName="public" constraintName="opmerking_to_debiteur_opmerking_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="opmerking" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-72">
+        <addForeignKeyConstraint baseColumnNames="factuur_id" baseTableCatalogName="panthera" baseTableName="opmerking_to_factuur" baseTableSchemaName="public" constraintName="opmerking_to_factuur_factuur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="factuur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-73">
+        <addForeignKeyConstraint baseColumnNames="opmerking_id" baseTableCatalogName="panthera" baseTableName="opmerking_to_factuur" baseTableSchemaName="public" constraintName="opmerking_to_factuur_opmerking_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="opmerking" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-74">
+        <addForeignKeyConstraint baseColumnNames="land_id" baseTableCatalogName="panthera" baseTableName="organisatie" baseTableSchemaName="public" constraintName="organisatie_land_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="land" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-75">
+        <addForeignKeyConstraint baseColumnNames="land_id" baseTableCatalogName="panthera" baseTableName="product" baseTableSchemaName="public" constraintName="product_land_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="land" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-76">
+        <addForeignKeyConstraint baseColumnNames="bestellijst_id" baseTableCatalogName="panthera" baseTableName="product_to_bestellijst" baseTableSchemaName="public" constraintName="product_to_bestellijst_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="bestellijst" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-77">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="panthera" baseTableName="product_to_bestellijst" baseTableSchemaName="public" constraintName="product_to_bestellijst_product_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="product" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-78">
+        <addForeignKeyConstraint baseColumnNames="product_id" baseTableCatalogName="panthera" baseTableName="tbl_order" baseTableSchemaName="public" constraintName="tbl_order_product_id_fk" deferrable="false" initiallyDeferred="false" onDelete="CASCADE" onUpdate="CASCADE" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="product" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-79">
+        <addForeignKeyConstraint baseColumnNames="debiteur_id" baseTableCatalogName="panthera" baseTableName="user" baseTableSchemaName="public" constraintName="user_debiteur_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="debiteur" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-80">
+        <addForeignKeyConstraint baseColumnNames="role_id" baseTableCatalogName="panthera" baseTableName="user_role" baseTableSchemaName="public" constraintName="user_role_role_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="role" referencedTableSchemaName="public"/>
+    </changeSet>
+    <changeSet author="daanrosbergen (generated)" id="1452774577124-81">
+        <addForeignKeyConstraint baseColumnNames="user_id" baseTableCatalogName="panthera" baseTableName="user_role" baseTableSchemaName="public" constraintName="user_role_user_id_fkey" deferrable="false" initiallyDeferred="false" onDelete="NO ACTION" onUpdate="NO ACTION" referencedColumnNames="id" referencedTableCatalogName="panthera" referencedTableName="user" referencedTableSchemaName="public"/>
+    </changeSet>
+
+    <changeSet id="create_user_debiteur_table" author="Daan Rosbergen">
+        <createTable tableName="user_debiteur">
+            <column name="id" type="int" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="user_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column name="debiteur_id" type="int">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="created_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column defaultValueComputed="now()" name="updated_at" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Daan Rosbergen" id="add_fk_user_id_to_user_debiteur">
+        <addForeignKeyConstraint
+                baseColumnNames="user_id"
+                baseTableCatalogName="panthera"
+                baseTableName="user_debiteur"
+                baseTableSchemaName="public"
+                constraintName="user_debiteur_user_id_fkey"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+                referencedColumnNames="id"
+                referencedTableCatalogName="panthera"
+                referencedTableName="user"
+                referencedTableSchemaName="public"/>
+    </changeSet>
+    
+    <changeSet author="Daan Rosbergen" id="add_fk_debiteur_id_to_user_debiteur">
+        <addForeignKeyConstraint
+                baseColumnNames="debiteur_id"
+                baseTableCatalogName="panthera"
+                baseTableName="user_debiteur"
+                baseTableSchemaName="public"
+                constraintName="user_debiteur_debiteur_id_fkey"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+                referencedColumnNames="id"
+                referencedTableCatalogName="panthera"
+                referencedTableName="debiteur"
+                referencedTableSchemaName="public"/>
+    </changeSet>
+    
+    <changeSet author="Daan Rosbergen" id="remove_user_id_from_debiteur">
+        <dropForeignKeyConstraint
+                baseTableName="debiteur"
+                baseTableCatalogName="panthera"
+                baseTableSchemaName="public"
+                constraintName="debiteur_user_id_fkey" />
+        <dropColumn
+                catalogName="panthera"
+                tableName="debiteur"
+                columnName="user_id"
+                schemaName="public"/>
+    </changeSet>
+
+    <changeSet author="Daan Rosbergen" id="remove_debiteur_id_from_user">
+        <dropForeignKeyConstraint
+                baseTableName="user"
+                baseTableCatalogName="panthera"
+                baseTableSchemaName="public"
+                constraintName="user_debiteur_id_fkey"/>
+        <dropColumn
+                tableName="user"
+                catalogName="panthera"
+                columnName="debiteur_id"
+                schemaName="public"/>
+    </changeSet>
+
+</databaseChangeLog>
