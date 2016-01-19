@@ -11,10 +11,11 @@
  /*
   Created by Roy on 12-1-2016.
  */
-angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, mailservice) {
+angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, mailservice, API_URL, $location) {
 
   $scope.test = function() {
-    alert("yeye");
+    var email = $location.search().email;
+    alert(email);
   }
 
   $scope.compare = function() {
@@ -39,7 +40,7 @@ angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, m
     var link;
     $http({
       method: 'POST',
-      url: 'api/wachtwoord/generateLink',
+      url: API_URL +  'wachtwoord/generateLink',
       params: {
         email: $scope.email
       }
@@ -50,14 +51,16 @@ angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, m
   }
 
   $scope.verander_wachtwoord = function() {
+    alert($location.search().email);
     if(!$scope.compare()) {
       alert("Wachtwoorden komen niet overeen.");
     } else {
       $http({
         method: 'POST',
-        url: 'api/wachtwoord/herstellen',
+        url: API_URL + 'wachtwoord/herstellen',
         params: {
-          wachtwoord: $scope.wachtwoord
+          wachtwoord: $scope.wachtwoord,
+          email: $location.search().email
         }
       }).then(function successCallback() {
         alert('Wachtwoord wijziging aangevraagd.');

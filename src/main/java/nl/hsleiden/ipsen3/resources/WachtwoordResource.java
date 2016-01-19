@@ -3,6 +3,9 @@ package nl.hsleiden.ipsen3.resources;
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import io.dropwizard.hibernate.UnitOfWork;
+import nl.hsleiden.ipsen3.core.Gebruiker;
+import nl.hsleiden.ipsen3.dao.GebruikerDAO;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -22,6 +25,11 @@ import java.security.NoSuchAlgorithmException;
 public class WachtwoordResource {
     
     private ObjectMapper mapper = new ObjectMapper();
+    private GebruikerDAO dao;
+
+    public WachtwoordResource(GebruikerDAO dao) {
+        this.dao = dao;
+    }
 
     @POST
     @Timed
@@ -39,14 +47,21 @@ public class WachtwoordResource {
         MessageDigest md = MessageDigest.getInstance("MD5");
         byte[] thedigest = md.digest(bytesOfMessage);
         key = thedigest.toString();
+        //Add email to key
+        key += "&email=" + email;
         return key;
     }
 
     @POST
     @Timed
+    @UnitOfWork
     @Path("/herstellen")
-    public void veranderWachtwoord(@QueryParam("wachtwoord") String wachtwoord) {
-        System.out.println(wachtwoord);
+    //Pas email along, fetch gebruiker by email et voila@
+    public void veranderWachtwoord(@QueryParam("wachtwoord") String wachtwoord,
+                                   @QueryParam("email") String email) {
+        Gebruiker gebruiker = dao.findByMail(email);
+        gebruiker.setWachtwoord(wachtwoord);
+        dao.create(gebruiker);
     }
 
 

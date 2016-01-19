@@ -11,21 +11,17 @@
  /*
   Created by Roy on 12-1-2016.
  */
-angular.module('appApp').controller('ProfielCtrl', function ($scope, $http) {
+angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_URL) {
 
     //Submit function.
-    $scope.submit = function(response) {
+    $scope.submit = function() {
       $http({
-        method: 'GET',
-        url: 'api/gebruiker/test',
-        headers: {
-          'Content-Type': undefined
+        method: 'POST',
+        url: API_URL + 'gebruiker/wijzig',
+        params: {
+          gebruiker: $scope.fetch_gebruiker()
         }
-      }).then(function successCallback(response) {
-        console.log(response);
-      }, function errorCallback(response, status, headers, config) {
-        console.log(response, status, headers, config);
-      });
+      })
     }
 
     //Set id function.
@@ -33,7 +29,7 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http) {
       console.log($scope.id);
       $http({
         method: 'GET',
-        url: 'api/gebruiker/getGebruiker',
+        url: API_URL + 'gebruiker/getGebruiker',
         params: {
           id: $scope.id
         }
@@ -43,6 +39,22 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http) {
       }, function errorCallback(response) {
         console.log(response);
       });
+    }
+
+    //Fetch gebruiker data from the inputform and return it.
+    $scope.fetch_gebruiker = function() {
+      var gebruiker = {
+        aanhef: $scope.aanhef,
+        voornaam: $scope.voornaam,
+        tussenvoegsel: $scope.tussenvoegsel,
+        naam: $scope.naam,
+        adres: $scope.adres,
+        woonplaats: $scope.woonplaats,
+        postcode: $scope.postcode,
+        email: $scope.email,
+        telefoon: $scope.telefoon
+      };
+      return gebruiker;
     }
 
     //Fill the input fields with fetched data.

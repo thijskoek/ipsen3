@@ -1,10 +1,18 @@
 package nl.hsleiden.ipsen3.core;
 
+import javax.persistence.*;
+
 /**
  * Created by Roy on 12-1-2016.
  */
-public class Gebruiker {
-    private int id;
+
+@Entity
+@Table(name = "debiteur")
+public class Gebruiker extends Model {
+    @Id
+    @GeneratedValue
+    @Column(name = "id")
+    private long id;
     private String aanhef;
     private String voornaam;
     private String tussenvoegsel;
@@ -12,11 +20,13 @@ public class Gebruiker {
     private String adres;
     private String woonplaats;
     private String postcode;
+    @Column(name = "email")
     private String email;
-    private String telefoon;
+    private int telefoon;
     private int land_id;
+    private String wachtwoord;
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
@@ -88,11 +98,11 @@ public class Gebruiker {
         this.email = email;
     }
 
-    public String getTelefoon() {
+    public int getTelefoon() {
         return telefoon;
     }
 
-    public void setTelefoon(String telefoon) {
+    public void setTelefoon(int telefoon) {
         this.telefoon = telefoon;
     }
 
@@ -102,5 +112,9 @@ public class Gebruiker {
 
     public void setLand_id(int land_id) {
         this.land_id = land_id;
+    }
+
+    public void setWachtwoord(String wachtwoord) {
+        this.wachtwoord = wachtwoord;
     }
 }

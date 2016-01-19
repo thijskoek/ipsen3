@@ -2,14 +2,17 @@ package nl.hsleiden.ipsen3.resources;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 import nl.hsleiden.ipsen3.core.Gebruiker;
+import nl.hsleiden.ipsen3.dao.GebruikerDAO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 
 /**
@@ -19,14 +22,11 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class GebruikersResource {
 
-    private final String template;
-    private final String defaultName;
     private ObjectMapper mapper = new ObjectMapper();
+    private GebruikerDAO dao;
 
-    public GebruikersResource(String template, String defaultName) {
-        this.template = template;
-        this.defaultName = defaultName;
-    }
+    public GebruikersResource(GebruikerDAO dao) { this.dao = dao; }
+
 
     @GET
     @Timed
@@ -38,15 +38,23 @@ public class GebruikersResource {
         return jsonString;
     }
 
+    @POST
+    @Timed
+    @UnitOfWork
+    @Path("/wijzig")
+    public void wijzig(@QueryParam("gebruiker") String gebruiker) throws IOException {
+        JsonNode jsonNode = mapper.readTree(gebruiker);
+        Gebruiker localGebruiker = mapper.treeToValue(jsonNode, Gebruiker.class);
+        localGebruiker.setId(1);
+        dao.update(localGebruiker);
+    }
+
     @GET
     @Timed
+    @UnitOfWork
     @Path("/getGebruiker")
-    public String get_gebruiker(@QueryParam("id") LongParam id) throws JsonProcessingException {
-        System.out.println(id.toString());
-        Gebruiker gebruiker = new Gebruiker();
-        gebruiker.setVoornaam("Roy");
-        gebruiker.setTussenvoegsel("");
-        gebruiker.setNaam("Touw");
+    public String get_gebruiker(@QueryParam("id") Long id) throws JsonProcessingException {
+        Gebruiker gebruiker = dao.findById(id);
         String jsonString = mapper.writeValueAsString(gebruiker);
         return jsonString;
     }
