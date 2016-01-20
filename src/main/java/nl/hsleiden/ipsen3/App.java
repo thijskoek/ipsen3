@@ -9,8 +9,11 @@ import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
+import nl.hsleiden.ipsen3.core.Actie;
+import nl.hsleiden.ipsen3.dao.ActieDAO;
 import nl.hsleiden.ipsen3.dao.BestellijstDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
+import nl.hsleiden.ipsen3.resource.ActieResource;
 import nl.hsleiden.ipsen3.resource.MailResource;
 import nl.hsleiden.ipsen3.resources.BestellijstResource;
 import nl.hsleiden.ipsen3.resources.WijnResource;
@@ -85,9 +88,17 @@ public class App extends Application<AppConfiguration> {
         final BestellijstResource BResource = new BestellijstResource(
                 appConfiguration.getTemplate(),
                 appConfiguration.getDefaultName(),
-                bestellijstDao, dao
+                bestellijstDao
         );
         environment.jersey().register(BResource);
+
+        final ActieDAO actieDAO = new ActieDAO(hibernate.getSessionFactory());
+        final ActieResource AResource = new ActieResource(
+                appConfiguration.getTemplate(),
+                appConfiguration.getDefaultName(),
+                actieDAO
+        );
+        environment.jersey().register(AResource);
     }
 
     private void configureClientFilter(Environment environment) {

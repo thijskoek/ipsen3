@@ -1,5 +1,16 @@
-<p>This is the maakBestellijst view.</p>
+<h1>Maak bestellijst</h1>
 
+<h3>Selecteer producten: </h3>
+
+<form role="form" ng-submit="maakActie()">
+  <div class="form-group">
+    <label for="name">Naam Actie:</label>
+    <input type="text" class="form-control" id="name">
+  </div>
+
+
+
+  <div id="scroll-table">
 <table class="table table-striped">
   <thead>
   <tr>
@@ -20,5 +31,9 @@
   </tr>
 
 </table>
+</div>
+
+  <button ng-click="submit">Maak Actie</button>
+  </form>
 
 <pre>{{ wijnen | json }}</pre>
