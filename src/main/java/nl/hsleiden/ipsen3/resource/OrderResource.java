@@ -16,7 +16,8 @@ import javax.ws.rs.core.MediaType;
 /**
  * Created by Brandon on 16-Jan-16.
  */
-@Path("order")
+
+@Path("/order")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderResource {
 
@@ -31,6 +32,8 @@ public class OrderResource {
     @UnitOfWork
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(Order order) {
+
+        System.out.println("Komt in create method van order resource");
         dao.create(order);
     }
 }

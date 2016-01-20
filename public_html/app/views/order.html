@@ -4,46 +4,49 @@
 
 {{ getCart() }}
 <form name="orderForm" role="form" ng-submit="submitOrder()" novalidate>
-<table class="table table-condensed">
-  <thead>
-  <tr>
-    <th>Product</th>
-    <th>Aantal</th>
-    <th>Prijs</th>
-    <th>Totaal</th>
-  </tr>
-  </thead>
-  <tr ng-repeat="wijn in wijnen">
-    <td>{{wijn.naam}}</td>
-    <td> {{ wijn.aantal }}</td>
-    <td>{{wijn.prijs | currency: "€"}}</td>
-    <td>{{ wijn.prijs * wijn.aantal | currency: "€"}}</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td></td>
-    <td></td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>Subtotaal:</td>
-    <td>{{ getSubtotaal() | currency: "€" }}</td>
-  </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>BTW(21%):</td>
-    <td>{{ getBtwPrice() | currency: "€" }}</td>
+
+  <table class="table table-condensed">
+    <thead>
+    <tr>
+      <th>Product</th>
+      <th>Aantal</th>
+      <th>Prijs</th>
+      <th>Totaal</th>
     </tr>
-  <tr>
-    <td></td>
-    <td></td>
-    <td>Totaal:</td>
-    <td>{{ getCartTotal() | currency: "€" }}</td>
-  </tr>
-</table>
+    </thead>
+    <tr ng-repeat="wijn in wijnen">
+      <td>{{wijn.naam}}</td>
+      <td> {{ wijn.aantal }}</td>
+      <td>{{wijn.prijs | currency: "€"}}</td>
+      <td>{{ wijn.prijs * wijn.aantal | currency: "€"}}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Subtotaal:</td>
+      <td>{{ getSubtotaal() | currency: "€" }}</td>
+    </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>BTW(21%):</td>
+      <td>{{ getBtwPrice() | currency: "€" }}</td>
+      </tr>
+    <tr>
+      <td></td>
+      <td></td>
+      <td>Totaal:</td>
+      <td>{{ getCartTotal() | currency: "€" }}</td>
+    </tr>
+  </table>
+
   <button type="submit" class="btn btn-default"  value="opslaan">Bestellen</button>
+
 </form>
 

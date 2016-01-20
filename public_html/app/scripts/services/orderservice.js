@@ -8,25 +8,32 @@
  * Service in the appApp.
  */
 angular.module('appApp')
-  .service('orderService', function ($http, $q) {
+  .service('orderService', function ($http, API_URL) {
 
-    var url = 'api/order';
+    var self = this;
 
-    return {
-      submitDefOrder: function(order) {
-        var deferred = $q.defer();
-        $http({
-          method: 'POST',
-          url: url,
-          data: order,
-          headers: {'Content-Type': 'application/json'}
-        }).then(function(data){
-          deferred.resolve(data.data);
-        }, function(error){
-          deferred.reject(error);
-        });
+    self.create = function(order, onCreated) {
+      var uri ='order';
 
-        return deferred.promise;
-      }
+      $http.post(uri, order).success(onCreated).error(function(message, status) {
+        alert('Aanmaken mislukt: ' + message);
+      });
     };
+
+    //return {
+    //  submitDefOrder: function(order) {
+    //    var deferred = $q.defer();
+    //    $http({
+    //      method: 'POST',
+    //      url: url,
+    //      data: order
+    //    }).then(function(data){
+    //      deferred.resolve(data.data);
+    //    }, function(error){
+    //      deferred.reject(error);
+    //    });
+    //
+    //    return deferred.promise;
+    //  }
+    //};
   });

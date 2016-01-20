@@ -30,7 +30,6 @@ public class OrderDAO extends AbstractDAO<Order> {
      */
     public Order findById(long id)
     {
-        initialize(Order.class);
         return get(id);
     }
 

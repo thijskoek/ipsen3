@@ -46,12 +46,12 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, 
 
   $scope.submitOrder = function() {
 
-    var order = angular.toJson($scope.wijnen);
+    //var order = angular.toJson($scope.wijnen);
+    var order = $scope.wijnen;
 
-     orderService.submitDefOrder(order).then(function succesCallback(result) {
-       console.log("submit success");
-     }, function errorCallback(result) {
-       console.log("submit failed");
-     });
+    orderService.create(order, function () {
+        $location.path('/');
+    });
   }
-  });
+
+});

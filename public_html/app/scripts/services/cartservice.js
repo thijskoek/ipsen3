@@ -26,7 +26,5 @@ angular.module('appApp')
 
       cart = JSON.parse(cart);
       return cart;
-
-
     }
   });
