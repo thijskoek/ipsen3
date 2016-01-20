@@ -25,8 +25,7 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
     }
 
     //Set id function.
-    $scope.set_id = function() {
-      console.log($scope.id);
+    $scope.laad_gebruiker = function() {
       $http({
         method: 'GET',
         url: API_URL + 'gebruiker/getGebruiker',

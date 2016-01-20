@@ -5,9 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.util.JSONPObject;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import io.dropwizard.jersey.params.LongParam;
 import nl.hsleiden.ipsen3.core.Gebruiker;
+import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.GebruikerDAO;
 
 import javax.ws.rs.*;
@@ -42,19 +44,18 @@ public class GebruikersResource {
     @Timed
     @UnitOfWork
     @Path("/wijzig")
-    public void wijzig(@QueryParam("gebruiker") String gebruiker) throws IOException {
+    public void wijzig(@Auth User user, @QueryParam("gebruiker") String gebruiker) throws IOException {
         JsonNode jsonNode = mapper.readTree(gebruiker);
         Gebruiker localGebruiker = mapper.treeToValue(jsonNode, Gebruiker.class);
-        localGebruiker.setId(1);
-        dao.update(localGebruiker);
+        dao.update(localGebruiker, user.getEmail());
     }
 
     @GET
     @Timed
     @UnitOfWork
     @Path("/getGebruiker")
-    public String get_gebruiker(@QueryParam("id") Long id) throws JsonProcessingException {
-        Gebruiker gebruiker = dao.findById(id);
+    public String get_gebruiker(@Auth User user) throws JsonProcessingException {
+        Gebruiker gebruiker = dao.findByMail(user.getEmail());
         String jsonString = mapper.writeValueAsString(gebruiker);
         return jsonString;
     }

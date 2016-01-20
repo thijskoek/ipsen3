@@ -1,6 +1,9 @@
 package nl.hsleiden.ipsen3.core;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
+import java.io.Serializable;
 
 /**
  * Created by Roy on 12-1-2016.
@@ -22,9 +25,11 @@ public class Gebruiker extends Model {
     private String postcode;
     @Column(name = "email")
     private String email;
-    private int telefoon;
+    private String telefoon;
     private int land_id;
-    private String wachtwoord;
+    @Column(name = "user_id")
+    @Type(type = "org.hibernate.type.IntegerType")
+    private int user_id;
 
     public long getId() {
         return id;
@@ -98,11 +103,11 @@ public class Gebruiker extends Model {
         this.email = email;
     }
 
-    public int getTelefoon() {
+    public String getTelefoon() {
         return telefoon;
     }
 
-    public void setTelefoon(int telefoon) {
+    public void setTelefoon(String telefoon) {
         this.telefoon = telefoon;
     }
 
@@ -114,7 +119,12 @@ public class Gebruiker extends Model {
         this.land_id = land_id;
     }
 
-    public void setWachtwoord(String wachtwoord) {
-        this.wachtwoord = wachtwoord;
+    public void setUser_id(int id) {
+        this.user_id = id;
     }
+
+    public int getUser_id() {
+        return this.user_id;
+    }
+
 }

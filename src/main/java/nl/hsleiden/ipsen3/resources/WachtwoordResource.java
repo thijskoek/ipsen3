@@ -60,7 +60,7 @@ public class WachtwoordResource {
     public void veranderWachtwoord(@QueryParam("wachtwoord") String wachtwoord,
                                    @QueryParam("email") String email) {
         Gebruiker gebruiker = dao.findByMail(email);
-        gebruiker.setWachtwoord(wachtwoord);
+        //gebruiker.setWachtwoord(wachtwoord);
         dao.create(gebruiker);
     }
 

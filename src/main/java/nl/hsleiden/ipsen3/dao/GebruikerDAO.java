@@ -6,6 +6,8 @@ import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
 
+import java.math.BigInteger;
+
 /**
  * Created by Roy on 14-1-2016.
  */
@@ -24,6 +26,13 @@ public class GebruikerDAO extends AbstractDAO<Gebruiker> {
         return get(id);
     }
 
+    //Find debiteur by user data.
+    public Gebruiker findByUserId(int id) {
+        Criteria criteria = currentSession().createCriteria(Gebruiker.class);
+        criteria.add(Restrictions.like("user_id", id));
+        return (Gebruiker) criteria.uniqueResult();
+    }
+
     public Gebruiker findByMail(String mail) {
         Criteria criteria = currentSession().createCriteria(Gebruiker.class);
         criteria.add(Restrictions.like("email", mail));
@@ -31,8 +40,8 @@ public class GebruikerDAO extends AbstractDAO<Gebruiker> {
     }
 
     //Merge the old object with the new attributes from the client.
-    public Long update(Gebruiker current) {
-        Gebruiker old = this.findById(current.getId());
+    public Long update(Gebruiker current, String email) {
+        Gebruiker old = this.findByMail(email);
         old.setAanhef(current.getAanhef());
         old.setVoornaam(current.getVoornaam());
         old.setTussenvoegsel(current.getTussenvoegsel());
