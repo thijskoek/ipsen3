@@ -10,7 +10,7 @@
 angular.module('appApp')
   .service('actie', function ($http, $q) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    var url = 'api/maakbestellijst';
+    var url = 'api/v1/actie';
     return {
       send: function(actie) {
         var deferred = $q.defer();

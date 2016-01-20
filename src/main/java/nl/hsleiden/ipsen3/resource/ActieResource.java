@@ -15,6 +15,8 @@ import java.util.concurrent.atomic.AtomicLong;
 /**
  * Created by Thijs Koek on 1/20/2016.
  */
+@Path("/actie")
+@Produces(MediaType.APPLICATION_JSON)
 public class ActieResource {
     private final String template;
     private final String defaultName;
