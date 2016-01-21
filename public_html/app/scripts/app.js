@@ -43,6 +43,21 @@ angular
         controllerAs: 'contact',
         activeTab: 'contact'
       })
+      .when('/profielbewerken', {
+          templateUrl: 'views/profielbewerken.html',
+          controller: 'ProfielCtrl',
+          controllerAs: 'profiel'
+      })
+      .when('/wachtwoordvergeten', {
+        templateUrl: 'views/wachtwoordvergeten.html',
+        controller: 'WachtwoordCtrl',
+        controllerAs: 'vergeten'
+      })
+      .when('/wachtwoordherstellen', {
+              templateUrl: 'views/wachtwoordherstellen.html',
+              controller: 'WachtwoordCtrl',
+              controllerAs: 'herstellen'
+      })
       .when('/login', {
         templateUrl: 'views/login.html',
         controller: 'LoginCtrl',
