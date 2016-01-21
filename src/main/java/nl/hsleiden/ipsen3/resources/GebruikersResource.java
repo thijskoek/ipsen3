@@ -52,8 +52,7 @@ public class GebruikersResource {
     public void wijzig(@Auth User user, @QueryParam("gebruiker") String gebruiker) throws IOException {
         JsonNode jsonNode = mapper.readTree(gebruiker);
         Gebruiker localGebruiker = mapper.treeToValue(jsonNode, Gebruiker.class);
-        dao.update(localGebruiker, user.getEmail());
-        userDao.create(user);
+        dao.update(localGebruiker, user);
     }
 
     @GET

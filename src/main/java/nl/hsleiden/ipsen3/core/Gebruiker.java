@@ -27,9 +27,6 @@ public class Gebruiker extends Model {
     private String email;
     private String telefoon;
     private int land_id;
-    @Column(name = "user_id")
-    @Type(type = "org.hibernate.type.IntegerType")
-    private int user_id;
 
     public long getId() {
         return id;
@@ -117,14 +114,6 @@ public class Gebruiker extends Model {
 
     public void setLand_id(int land_id) {
         this.land_id = land_id;
-    }
-
-    public void setUser_id(int id) {
-        this.user_id = id;
-    }
-
-    public int getUser_id() {
-        return this.user_id;
     }
 
 }
