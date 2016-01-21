@@ -11,6 +11,7 @@ import io.dropwizard.jersey.params.LongParam;
 import nl.hsleiden.ipsen3.core.Gebruiker;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.GebruikerDAO;
+import nl.hsleiden.ipsen3.dao.UserDAO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
@@ -26,8 +27,12 @@ public class GebruikersResource {
 
     private ObjectMapper mapper = new ObjectMapper();
     private GebruikerDAO dao;
+    private UserDAO userDao;
 
-    public GebruikersResource(GebruikerDAO dao) { this.dao = dao; }
+    public GebruikersResource(GebruikerDAO dao, UserDAO userDao) {
+        this.dao = dao;
+        this.userDao = userDao;
+    }
 
 
     @GET
@@ -48,6 +53,7 @@ public class GebruikersResource {
         JsonNode jsonNode = mapper.readTree(gebruiker);
         Gebruiker localGebruiker = mapper.treeToValue(jsonNode, Gebruiker.class);
         dao.update(localGebruiker, user.getEmail());
+        userDao.create(user);
     }
 
     @GET
