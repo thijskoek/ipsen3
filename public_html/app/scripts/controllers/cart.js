@@ -34,9 +34,4 @@ angular.module('appApp')
       $scope.items = cartService.retrieve();
     };
 
-    $scope.$watch('items', function(newVal, oldVal) {
-      console.log(newVal);
-      //cartService.save(newVal);
-    });
-
   });

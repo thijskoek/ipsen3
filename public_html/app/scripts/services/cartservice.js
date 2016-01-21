@@ -38,8 +38,7 @@ angular.module('appApp')
     /**
      * TODO: Refactor this.
      * TODO: Dit zou veel simpelere moeten kunnen.
-     * TODO: Check if item is already in cart then add 1 to aantal.
-     * TODO: Param should be item.
+     * TODO: Param should be item, this makes it easier.
      * @param wijn
      */
     self.add = function (wijn) {
