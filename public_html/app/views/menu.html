@@ -19,7 +19,6 @@
         <li ng-class="{'active': $route.current.activeTab == 'about'}"><a ng-href="#/about">About</a></li>
         <li ng-class="{'active': $route.current.activeTab == 'wijnen'}"><a ng-href="#/wijnen">Wijnen</a></li>
         <li ng-class="{'active': $route.current.activeTab == 'contact'}"><a ng-href="#/contact">Contact</a></li>
-        <li ng-class="{'active': $route.current.activeTab == 'cart'}"><a ng-href="#/cart"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
       </ul>
 
       <ul class="nav navbar-nav navbar-right">
@@ -30,6 +29,7 @@
             <li><a href="javascript:void;" ng-click="logout()">Log uit</a></li>
           </ul>
         </li>
+        <li ng-class="{'active': $route.current.activeTab == 'cart'}"><a ng-href="#/cart"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
       </ul>
     </div>
   </div>
