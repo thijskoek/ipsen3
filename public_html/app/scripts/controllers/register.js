@@ -21,6 +21,8 @@ angular.module('appApp')
 
       userService.create(data, function () {
         $location.path('/login');
+      }, function(message, status) {
+        $scope.error = message.message;
       });
     };
 

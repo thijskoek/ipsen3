@@ -74,12 +74,16 @@ public class UserDAO extends AbstractDAO<User> {
         try {
             User user = (User) session.createCriteria(User.class).add(Restrictions.eq("email", email))
                 .uniqueResult();
-            Hibernate.initialize(user.getRoles());
+            if (user != null) {
+                Hibernate.initialize(user.getRoles());
+            }
             return user;
         } finally {
             session.clear();
         }
     }
+
+
 
     /**
      * Retrieve all users.
