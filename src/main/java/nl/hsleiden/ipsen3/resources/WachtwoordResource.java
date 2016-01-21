@@ -21,6 +21,7 @@ import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by Roy on 13-1-2016.
@@ -60,9 +61,14 @@ public class WachtwoordResource {
     }
 
     private String generate_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Random random = new Random();
+        byte[] salt = new byte[12];
+        random.nextBytes(salt);
+
         String key;
         byte[] bytesOfMessage = email.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(salt);
         byte[] thedigest = md.digest(bytesOfMessage);
         key = Hex.encodeHexString(thedigest);
         return key;
@@ -87,20 +93,10 @@ public class WachtwoordResource {
             user.setPassword(wachtwoord);
             user.hashPassword();
             userDao.update(user);
+            sleutelDao.update(sleutelObject.used());
+        } else {
+            System.out.println("Key is overtime, invalid or used already!\n\n\n\n\n\n\n\n\n");
         }
     }
-
-  /*  @POST
-    @Timed
-    @UnitOfWork
-    @Path("/herstellen")
-    //Pas email along, fetch gebruiker by email et voila@
-    public void veranderWachtwoord(@QueryParam("wachtwoord") String wachtwoord,
-                                   @QueryParam("email") String email) {
-        Gebruiker gebruiker = dao.findByMail(email);
-        //gebruiker.setWachtwoord(wachtwoord);
-        dao.create(gebruiker);
-    }*/
-
 
 }

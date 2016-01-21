@@ -5,6 +5,8 @@ import nl.hsleiden.ipsen3.core.Sleutel;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
+import org.joda.time.Instant;
+import org.joda.time.Interval;
 
 /**
  * Created by Roy on 21-1-2016.
@@ -38,8 +40,14 @@ public class SleutelDAO extends AbstractDAO<Sleutel> {
         criteria.add(Restrictions.like("sleutel", sleutel));
         Sleutel s = (Sleutel) criteria.uniqueResult();
         try {
-            if(s.getSleutel() != null)
-                return true;
+            if(s.getSleutel() != null && s.getUsed() == 0) {
+                Interval interval = new Interval(s.getCreated_at(), new Instant());
+                if(interval.toDurationMillis() < 900000) { //IF interval is less than 15 minutes.
+                    return true;
+                } else {
+                    return false;
+                }
+            }
         } catch(NullPointerException ex) {
             return false;
         }
