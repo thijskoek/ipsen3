@@ -29,6 +29,8 @@ angular.module('appApp')
         authenticationService.setAuthenticator(authenticator);
         authenticationService.storeAuthentication($scope.remember);
         self.redirectUser(authenticationService.getAuthenticator());
+      }, function(message, status) {
+        $scope.error = "Inloggen is niet gelukt, probeer het opnieuw."
       });
     };
 
