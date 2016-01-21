@@ -16,7 +16,7 @@
     </thead>
       <tr ng-repeat="item in items">
         <td>{{item.wijn.naam}}</td>
-        <td> <div class="col-md-4"> <input type="text" class="form-control input-sm" ng-model="item.aantal" name="quantity" id="quantity" value="1"></div></td>
+        <td> <div class="col-md-4"> <input type="text" class="form-control input-sm" ng-model="item.aantal" ng-change="save()" name="quantity" id="quantity" value="1"></div></td>
         <td>{{item.wijn.prijs | currency: "€"}}</td>
         <td>{{ getTotal(item) | currency: "€"  }}</td>
         <td><a href="" ng-click="remove($index)"><i class="glyphicon glyphicon-remove"></i></a></td>
@@ -28,6 +28,6 @@
         <td>{{ getTotalCart() | currency: "€" }} </td>
       </tr>
   </table>
-    <button type="submit" class="btn btn-primary" value="bestellen">Bestel</button>
+  <button type="submit" class="btn btn-primary" value="bestellen" ng-href="#/order">Bestel</button>
 </form>
 

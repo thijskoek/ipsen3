@@ -14,7 +14,11 @@ angular.module('appApp')
     $scope.cartForm = {};
 
     $scope.submitCart = function() {
+      if ($scope.authenticated) {
         $location.path('/order');
+      } else {
+        $location.path('/login');
+      }
     };
 
     $scope.getTotal = function(item) {
@@ -23,15 +27,19 @@ angular.module('appApp')
 
     $scope.getTotalCart = function() {
       var total = 0;
-      $scope.items.forEach(function(item, index) {
+      $scope.items.forEach(function(item) {
         total += $scope.getTotal(item);
       });
-      return Math.round(total * 100) / 100
+      return Math.round(total * 100) / 100;
     };
 
     $scope.remove = function(item) {
       cartService.remove(item);
       $scope.items = cartService.retrieve();
+    };
+
+    $scope.save = function() {
+      cartService.save($scope.items);
     };
 
   });

@@ -65,6 +65,18 @@ angular.module('appApp')
       self.save(self.cart);
     };
 
+    self.calculateTotal = function(item) {
+      return parseInt(item.aantal) * item.wijn.prijs;
+    };
+
+    self.getTotalAmount = function() {
+      var total = 0;
+      self.cart.forEach(function(item) {
+        total += self.calculateTotal(item);
+      });
+      return Math.round(total * 100) / 100;
+    };
+
     self.init();
 
   });
