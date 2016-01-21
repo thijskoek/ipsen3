@@ -16,7 +16,6 @@ import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
-import nl.hsleiden.ipsen3.core.Actie;
 import nl.hsleiden.ipsen3.dao.ActieDAO;
 import nl.hsleiden.ipsen3.dao.BestellijstDAO;
 import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
@@ -135,19 +134,11 @@ public class App extends Application<AppConfiguration> {
         );
 
         final BestellijstDAO bestellijstDao = new BestellijstDAO(hibernate.getSessionFactory());
-        final BestellijstResource BResource = new BestellijstResource(
-                appConfiguration.getTemplate(),
-                appConfiguration.getDefaultName(),
-                bestellijstDao
-        );
+        final BestellijstResource BResource = new BestellijstResource(bestellijstDao);
         environment.jersey().register(BResource);
 
         final ActieDAO actieDAO = new ActieDAO(hibernate.getSessionFactory());
-        final ActieResource AResource = new ActieResource(
-                appConfiguration.getTemplate(),
-                appConfiguration.getDefaultName(),
-                actieDAO
-        );
+        final ActieResource AResource = new ActieResource(actieDAO);
         environment.jersey().register(AResource);
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
