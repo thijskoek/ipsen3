@@ -8,7 +8,7 @@
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('AppCtrl', function ($scope, $location, authenticationService, cartService) {
+  .controller('AppCtrl', function ($scope, $location, authenticationService) {
 
     $scope.logout = function()
     {
