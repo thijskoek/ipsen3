@@ -54,7 +54,7 @@ public class GebruikerDAO extends AbstractDAO<Gebruiker> {
         old.setTelefoon(current.getTelefoon());
         user.setEmail(current.getEmail());
         currentSession().saveOrUpdate(user);
-        return this.create(old);    
+        return this.create(old);
     }
 
     public Long create(Gebruiker gebruiker) {

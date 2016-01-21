@@ -5,7 +5,11 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.Gebruiker;
+import nl.hsleiden.ipsen3.core.Sleutel;
+import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.GebruikerDAO;
+import nl.hsleiden.ipsen3.dao.SleutelDAO;
+import nl.hsleiden.ipsen3.dao.UserDAO;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -25,23 +29,44 @@ import java.security.NoSuchAlgorithmException;
 public class WachtwoordResource {
     
     private ObjectMapper mapper = new ObjectMapper();
-    private GebruikerDAO dao;
+    private UserDAO userDao;
+    private SleutelDAO sleutelDao;
 
-    public WachtwoordResource(GebruikerDAO dao) {
-        this.dao = dao;
+    public WachtwoordResource(UserDAO userDao, SleutelDAO sleutelDao) {
+        this.userDao = userDao;
+        this.sleutelDao = sleutelDao;
     }
 
     @POST
     @Timed
+    @UnitOfWork
     @Path("/generateLink")
     public String generateLink(@QueryParam("email") String email) throws JsonProcessingException, UnsupportedEncodingException, NoSuchAlgorithmException {
         String link = "http://127.0.0.1:8080/?#/wachtwoordherstellen?key=";
-        link += add_key(email);
+        link += create_sleutel(email);
         link = mapper.writeValueAsString(link);
         return link;
     }
 
-    private String add_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+    private String create_sleutel(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        User user = userDao.getByEmail(email);
+        Sleutel sleutel = new Sleutel();
+        sleutel.setUser_id(user.getId());
+        sleutel.setSleutel(generate_key(email));
+        sleutelDao.create(sleutel);
+        return sleutel.getSleutel();
+    }
+
+    private String generate_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        String key;
+        byte[] bytesOfMessage = email.getBytes("UTF-8");
+        MessageDigest md = MessageDigest.getInstance("MD5");
+        byte[] thedigest = md.digest(bytesOfMessage);
+        key = thedigest.toString();
+        return key;
+    }
+
+   /* private String add_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
         String key;
         byte[] bytesOfMessage = email.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
@@ -49,10 +74,11 @@ public class WachtwoordResource {
         key = thedigest.toString();
         //Add email to key
         key += "&email=" + email;
+        sleutelDao.create()
         return key;
-    }
+    }*/
 
-    @POST
+  /*  @POST
     @Timed
     @UnitOfWork
     @Path("/herstellen")
@@ -62,7 +88,7 @@ public class WachtwoordResource {
         Gebruiker gebruiker = dao.findByMail(email);
         //gebruiker.setWachtwoord(wachtwoord);
         dao.create(gebruiker);
-    }
+    }*/
 
 
 }
