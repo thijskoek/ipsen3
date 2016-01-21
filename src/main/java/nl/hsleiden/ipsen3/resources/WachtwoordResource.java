@@ -22,7 +22,7 @@ import java.security.NoSuchAlgorithmException;
 
 /**
  * Created by Roy on 13-1-2016.
- * De link moet gehashed worden met een uniek salt, zodat per opvraag een altijd unieke link wordt gegeven.
+ * De link moet gehashed worden met een unique salt, zodat per opvraag een altijd unieke link wordt gegeven.
  */
 @Path("wachtwoord")
 @Produces(MediaType.APPLICATION_JSON)
