@@ -14,64 +14,43 @@ import java.io.Serializable;
 public class Order {
 
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
-    @Id
-    @Column(name = "product_id")
-    private int product_id;
-
-    @Column(name = "jaar", nullable = false, length = 11)
+    @Column(name = "aantal", nullable = false, length = 11)
     @Length(max = 11)
     private int aantal;
+
+    @OneToOne(cascade = {CascadeType.ALL})
+    @JoinColumn(name = "product_id", referencedColumnName = "id")
+    private Wijn wijn;
 
     public Order() {
 
     }
 
-    public Order(long id, int product_id, int aantal) {
-        this.id = id;
-        this.product_id = product_id;
-        this.aantal = aantal;
-
-    }
-
-    @JsonProperty
     public long getId() {
         return id;
     }
 
-    @JsonProperty
     public void setId(long id) {
         this.id = id;
     }
 
-    @JsonProperty
-    public int getProduct_id() {
-        return product_id;
-    }
-
-    @JsonProperty
-    public void setProduct_id(int product_id) {
-        this.product_id = product_id;
-    }
-
-    @JsonProperty
     public int getAantal() {
         return aantal;
     }
 
-    @JsonProperty
     public void setAantal(int aantal) {
         this.aantal = aantal;
     }
 
-    @Override
-    public String toString() {
-        return "Order{" +
-                "product_id=" + product_id +
-                ", aantal=" + aantal +
-                '}';
+    public Wijn getWijn() {
+        return wijn;
+    }
+
+    public void setWijn(Wijn wijn) {
+        this.wijn = wijn;
     }
 }

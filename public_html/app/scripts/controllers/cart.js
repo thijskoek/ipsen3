@@ -8,58 +8,38 @@
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('CartCtrl', function ($rootScope, $scope, wijnen, cartService, $location) {
+  .controller('CartCtrl', function ($scope, cartService, $location) {
 
+    $scope.items = cartService.retrieve();
     $scope.cartForm = {};
-    $scope.aantal = 1;
 
     $scope.submitCart = function() {
         $location.path('/order');
-    }
+    };
 
-    $scope.getTotal = function(wijn) {
-
-        return parseInt(wijn.aantal) * wijn.prijs;
-    }
+    $scope.getTotal = function(item) {
+      return parseInt(item.aantal) * item.wijn.prijs;
+    };
 
     $scope.getTotalCart = function() {
       var total = 0;
-      //total.isNumber(0);
-
-      $scope.wijnen.forEach(function(wijn, index) {
-        total += parseInt(wijn.aantal) * wijn.prijs;
-        console.log(parseInt(wijn.aantal) * wijn.prijs);
-      })
+      $scope.items.forEach(function(item, index) {
+        total += $scope.getTotal(item);
+      });
       return Math.round(total * 100) / 100
+    };
 
-    }
+    $scope.remove = function(item) {
+      $scope.items.splice(item, 1);
+    };
 
-    $scope.checkAantal = function(aantal) {
-        if(aantal == null) {
-          return 1;
-        } else {
-          return aantal;
-        }
-    }
+    $scope.add = function(item) {
+      $scope.items.push(item);
+    };
 
-    $scope.wijnen = [];
-
-    wijnen.all().then(function(data) {
-      cartService.save(data);
-      $scope.wijnen = data;
-    }, function() {
-      throw Error;
+    $scope.$watch('items', function(newVal, oldVal) {
+      console.log(newVal);
+      cartService.save(newVal);
     });
 
-    $scope.remove = function(index) {
-
-        $scope.wijnen.splice(index, 1);
-
-    }
-
-
-    $scope.$watch('wijnen', function(newValue, oldValue) {
-      console.log(newValue);
-      cartService.save(newValue);
-    }, true)
   });

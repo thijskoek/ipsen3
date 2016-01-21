@@ -20,20 +20,4 @@ angular.module('appApp')
       });
     };
 
-    //return {
-    //  submitDefOrder: function(order) {
-    //    var deferred = $q.defer();
-    //    $http({
-    //      method: 'POST',
-    //      url: url,
-    //      data: order
-    //    }).then(function(data){
-    //      deferred.resolve(data.data);
-    //    }, function(error){
-    //      deferred.reject(error);
-    //    });
-    //
-    //    return deferred.promise;
-    //  }
-    //};
   });
