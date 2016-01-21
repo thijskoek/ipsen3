@@ -80,7 +80,7 @@ public class App extends Application<AppConfiguration> {
         final UserResource userResource = new UserResource(userDAO);
         final MailResource mailResource = new MailResource();
         final WachtwoordResource wachtwoordResource = new WachtwoordResource(gebruikerDAO);
-        final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO);
+        final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO, userDAO);
 
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);
