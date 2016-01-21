@@ -2,6 +2,7 @@ package nl.hsleiden.ipsen3.dao;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import nl.hsleiden.ipsen3.core.Gebruiker;
+import nl.hsleiden.ipsen3.core.User;
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Restrictions;
@@ -40,8 +41,8 @@ public class GebruikerDAO extends AbstractDAO<Gebruiker> {
     }
 
     //Merge the old object with the new attributes from the client.
-    public Long update(Gebruiker current, String email) {
-        Gebruiker old = this.findByMail(email);
+    public Long update(Gebruiker current, User user) {
+        Gebruiker old = this.findByMail(user.getEmail());
         old.setAanhef(current.getAanhef());
         old.setVoornaam(current.getVoornaam());
         old.setTussenvoegsel(current.getTussenvoegsel());
@@ -51,6 +52,8 @@ public class GebruikerDAO extends AbstractDAO<Gebruiker> {
         old.setPostcode(current.getPostcode());
         old.setEmail(current.getEmail());
         old.setTelefoon(current.getTelefoon());
+        user.setEmail(current.getEmail());
+        currentSession().saveOrUpdate(user);
         return this.create(old);
     }
 
