@@ -26,33 +26,4 @@ In het bestand `ipsen3.yml` staan de inloggegevens voor je database. Dit is de d
 vorige project, IPSEN2. Deze kun je aanpassen naar je eigen login gegevens en deze hoef je niet 
 te committen.
 
-Tijdelijke hack: Zet de `debiteur_id` column in `user` default op een `debiteur_id` uit jouw huidige database.
-
-```sql
-CREATE TABLE IF NOT EXISTS "user" (
-  id SERIAL NOT NULL PRIMARY KEY,
-  email VARCHAR(255) NOT NULL UNIQUE,
-  password VARCHAR(255) NOT NULL,
-  created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
-  updated_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
-  debiteur_id INT NOT NULL REFERENCES debiteur (id)
-);
-
-CREATE TABLE IF NOT EXISTS  role (
-  id SERIAL NOT NULL PRIMARY KEY,
-  name VARCHAR(255) NOT NULL UNIQUE,
-  created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
-  updated_at TIMESTAMP NOT NULL DEFAULT current_timestamp
-);
-
-CREATE TABLE IF NOT EXISTS  user_role (
-  id SERIAL NOT NULL PRIMARY KEY,
-  user_id INT NOT NULL REFERENCES "user" (id),
-  role_id INT NOT NULL REFERENCES role (id),
-  created_at TIMESTAMP NOT NULL DEFAULT current_timestamp,
-  updated_at TIMESTAMP NOT NULL DEFAULT current_timestamp
-);
-
-ALTER TABLE debiteur
-    ADD user_id INT REFERENCES "user" (id);
-```
+Migratie's lopen via Liquibase. Zie PR [#3](https://github.com/iCyberneticOrganism/ipsen3/pull/3)

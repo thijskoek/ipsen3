@@ -10,11 +10,13 @@ import io.dropwizard.auth.basic.BasicCredentialAuthFilter;
 import io.dropwizard.auth.basic.BasicCredentials;
 import io.dropwizard.bundles.assets.ConfiguredAssetsBundle;
 import io.dropwizard.hibernate.HibernateBundle;
+import io.dropwizard.migrations.MigrationsBundle;
 import io.dropwizard.setup.Bootstrap;
 import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
+import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.GebruikerDAO;
 import nl.hsleiden.ipsen3.dao.UserDAO;
@@ -43,6 +45,7 @@ import java.util.EnumSet;
  */
 public class App extends Application<AppConfiguration> {
     private final HibernateBundle<AppConfiguration> hibernate = new HibernateConfiguration();
+    private final MigrationsBundle<AppConfiguration> liquibase = new MigrationsConfiguration();
     private final Logger logger = LoggerFactory.getLogger(App.class);
     private final MetricRegistry metricRegistry = new MetricRegistry();
 
@@ -61,7 +64,8 @@ public class App extends Application<AppConfiguration> {
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
         bootstrap.addBundle(hibernate);
         bootstrap.addBundle((ConfiguredBundle)
-                new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
+            new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
+        bootstrap.addBundle(liquibase);
     }
 
     @Override
@@ -97,7 +101,7 @@ public class App extends Application<AppConfiguration> {
     private void enableCORS(Environment environment) {
         // Enable CORS headers
         final FilterRegistration.Dynamic cors =
-                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+            environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
         // Configure CORS parameters
         cors.setInitParameter("allowedOrigins", "*");
@@ -116,13 +120,13 @@ public class App extends Application<AppConfiguration> {
      * @param appConfiguration
      */
     private void setupAuthentication(Environment environment, UserDAO userDAO,
-                                     AppConfiguration appConfiguration) {
+        AppConfiguration appConfiguration) {
         AuthenticationService authenticationService = new AuthenticationService(userDAO);
         ApiUnauthorizedHandler unauthorizedHandler = new ApiUnauthorizedHandler();
         CachingAuthenticator<BasicCredentials, User> cachingAuthenticator =
-                new CachingAuthenticator<BasicCredentials, User>(
-                        metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
-                );
+            new CachingAuthenticator<BasicCredentials, User>(
+            metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
+        );
 
         environment.jersey().register(new AuthDynamicFeature(
                 new BasicCredentialAuthFilter.Builder<User>()
@@ -144,9 +148,9 @@ public class App extends Application<AppConfiguration> {
      */
     private void configureClientFilter(Environment environment) {
         environment.getApplicationContext().addFilter(
-                new FilterHolder(new ClientFilter()),
-                "/*",
-                EnumSet.allOf(DispatcherType.class)
+            new FilterHolder(new ClientFilter()),
+            "/*",
+            EnumSet.allOf(DispatcherType.class)
         );
     }
 }

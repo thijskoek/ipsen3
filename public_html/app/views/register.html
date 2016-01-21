@@ -1,0 +1,111 @@
+<form class="form" ng-model="user" name="registerForm" role="form" ng-submit="registerUser(registerForm.$valid)" novalidate>
+
+  <div class="form-group" ng-class="{
+    'has-error':!registerForm.email.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.email.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+    <label for="email">E-mailadres</label>
+    <input class="form-control" id="email" ng-model="user.email" name="email" type="email" placeholder="voorbeeld@email.com" ng-required="true" tabindex="1">
+  </div>
+
+  <div class="form-group" ng-class="{
+    'has-error':!registerForm.password.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.password.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+    <label for="password">Wachtwoord</label>
+    <input class="form-control" id="password" ng-model="user.password" name="password" type="password" placeholder="Wachtwoord" ng-required="true" tabindex="2">
+  </div>
+
+  <hr>
+
+  <div class="row">
+    <div class="col-xs-2 form-group" ng-class="{
+    'has-error':!registerForm.aanhef.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.aanhef.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+      <label for="aanhef">Aanhef</label>
+      <input class="form-control" id="aanhef" ng-model="user.debiteur.aanhef" name="aanhef" type="text" placeholder="Dhr" ng-required="true" tabindex="3">
+    </div>
+    <div class="col-xs-4 form-group" ng-class="{
+    'has-error':!registerForm.voornaam.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.voornaam.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+      <label for="voornaam">Voornaam</label>
+      <input class="form-control" id="voornaam" ng-model="user.debiteur.voornaam" name="voornaam" type="text" placeholder="Voornaam" ng-required="true" tabindex="4">
+    </div>
+    <div class="col-xs-2 form-group">
+      <label for="tussenvoegsel">Tussenvoegsel</label>
+      <input class="form-control" id="tussenvoegsel" ng-model="user.debiteur.tussenvoegsel" name="tussenvoegsel" type="text" placeholder="van" ng-required="false" tabindex="5">
+    </div>
+    <div class="col-xs-4 form-group" ng-class="{
+    'has-error':!registerForm.naam.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.naam.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+      <label for="naam">Naam</label>
+      <input class="form-control" id="naam" ng-model="user.debiteur.naam" name="naam" type="text" placeholder="Achternaam" ng-required="true" tabindex="6">
+    </div>
+  </div>
+
+  <div class="form-group" ng-class="{
+    'has-error':!registerForm.adres.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.adres.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+    <label for="adres">Adres</label>
+    <input class="form-control" id="adres" ng-model="user.debiteur.adres" name="adres" type="text" placeholder="Straatnaam 12" ng-required="true" tabindex="7">
+  </div>
+
+  <div class="form-group" ng-class="{
+    'has-error':!registerForm.woonplaats.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.woonplaats.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+    <label for="woonplaats">Woonplaats</label>
+    <input class="form-control" id="woonplaats" ng-model="user.debiteur.woonplaats" name="woonplaats" type="text" placeholder="Woonplaats" ng-required="true" tabindex="8">
+  </div>
+
+  <div class="form-group" ng-class="{
+    'has-error':!registerForm.postcode.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.postcode.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+    <label for="postcode">Postcode</label>
+    <input class="form-control" id="postcode" ng-model="user.debiteur.postcode" name="postcode" type="text" placeholder="1234 AA" ng-required="true" tabindex="9">
+  </div>
+
+  <div class="form-group" ng-class="{
+    'has-error':!registerForm.telefoon.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.telefoon.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+    <label for="telefoon">Telefoon</label>
+    <input class="form-control" id="telefoon" ng-model="user.debiteur.telefoon" name="telefoon" type="text" placeholder="0612345678" ng-required="true" tabindex="10">
+  </div>
+
+  <div class="form-group" ng-class="{
+    'has-error':!registerForm.land.$valid && (!registerForm.$pristine || registerForm.$submitted),
+    'has-success':registerForm.land.$valid && (!registerForm.$pristine || registerForm.$submitted)
+   }
+   ">
+    <label for="land">Land</label>
+    <select class="form-control" ng-model="user.debiteur.land.name" name="land" id="land" ng-required="true" tabindex="11">
+      <option value="Nederland" selected>Nederland</option>
+      <option value="belgie">Belgie</option>
+      <option value="duitsland">Duitsland</option>
+    </select>
+  </div>
+
+  <div class="checkbox">
+    <label>
+      <input type="checkbox" ng-model="voorwaarden" name="voorwaarden" id="voorwaarden" ng-required="false" tabindex="12"> Ik accepteer de algemene voorwaarden.
+    </label>
+  </div>
+
+  <button class="btn btn-success" type="submit" tabindex="13">Registreer</button>
+
+</form>
