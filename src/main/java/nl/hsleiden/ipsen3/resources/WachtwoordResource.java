@@ -10,6 +10,7 @@ import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.GebruikerDAO;
 import nl.hsleiden.ipsen3.dao.SleutelDAO;
 import nl.hsleiden.ipsen3.dao.UserDAO;
+import org.apache.commons.codec.binary.Hex;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
 
 /**
  * Created by Roy on 13-1-2016.
@@ -53,7 +55,7 @@ public class WachtwoordResource {
         Sleutel sleutel = new Sleutel();
         sleutel.setUser_id(user.getId());
         sleutel.setSleutel(generate_key(email));
-        sleutelDao.create(sleutel);
+        sleutelDao.update(sleutel);
         return sleutel.getSleutel();
     }
 
@@ -62,21 +64,31 @@ public class WachtwoordResource {
         byte[] bytesOfMessage = email.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
         byte[] thedigest = md.digest(bytesOfMessage);
-        key = thedigest.toString();
+        key = Hex.encodeHexString(thedigest);
         return key;
     }
 
-   /* private String add_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        String key;
-        byte[] bytesOfMessage = email.getBytes("UTF-8");
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] thedigest = md.digest(bytesOfMessage);
-        key = thedigest.toString();
-        //Add email to key
-        key += "&email=" + email;
-        sleutelDao.create()
-        return key;
-    }*/
+    @POST
+    @Timed
+    @UnitOfWork
+    @Path("/controleersleutel")
+    public boolean controleer_sleutel(@QueryParam("sleutel") String sleutel) {
+        return sleutelDao.exists(sleutel);
+    }
+
+    @POST
+    @Timed
+    @UnitOfWork
+    @Path("/herstellen")
+    public void herstellen(@QueryParam("sleutel") String sleutel, @QueryParam("wachtwoord") String wachtwoord) {
+        if(sleutelDao.exists(sleutel)) {
+            Sleutel sleutelObject = sleutelDao.findByKey(sleutel);
+            User user = userDao.findById(sleutelObject.getUser_id());
+            user.setPassword(wachtwoord);
+            user.hashPassword();
+            userDao.update(user);
+        }
+    }
 
   /*  @POST
     @Timed
