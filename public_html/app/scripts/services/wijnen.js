@@ -10,7 +10,7 @@
 angular.module('appApp')
   .service('wijnen', function ($http, $q) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    var url = '/api/wijn';
+    var url = '/api/v1/wijnen';
 
     return {
 

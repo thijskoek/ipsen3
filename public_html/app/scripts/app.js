@@ -22,22 +22,36 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'MainCtrl',
-        controllerAs: 'main'
+        controllerAs: 'main',
+        activeTab: 'home'
       })
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl',
-        controllerAs: 'about'
+        controllerAs: 'about',
+        activeTab: 'about'
       })
       .when('/wijnen', {
         templateUrl: 'views/wijnen.html',
         controller: 'WijnenCtrl',
-        controllerAs: 'wijnen'
+        controllerAs: 'wijnen',
+        activeTab: 'wijnen'
       })
       .when('/contact', {
         templateUrl: 'views/contact.html',
         controller: 'ContactCtrl',
-        controllerAs: 'contact'
+        controllerAs: 'contact',
+        activeTab: 'contact'
+      })
+      .when('/login', {
+        templateUrl: 'views/login.html',
+        controller: 'LoginCtrl',
+        activeTab: 'login'
+      })
+      .when('/register', {
+        templateUrl: 'views/register.html',
+        controller: 'RegisterCtrl',
+        controllerAs: 'register'
       })
       .when('/actie', {
         templateUrl: 'views/actie.html',
@@ -57,4 +71,18 @@ angular
       .otherwise({
         redirectTo: '/'
       });
+  })
+  .config(function($httpProvider) {
+    $httpProvider.interceptors.push('requestService');
+
+    if(!$httpProvider.defaults.headers.get) {
+      $httpProvider.defaults.headers.get = {};
+    }
+  })
+  .constant('API_URL', "/api/v1/")
+  .constant('ROLES', {
+    BEHEERDER: 'beheerder',
+    MSMANGER: 'm&s manager',
+    LID: 'lid',
+    KLANT: 'klant'
   });

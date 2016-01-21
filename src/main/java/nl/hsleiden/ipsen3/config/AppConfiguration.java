@@ -1,7 +1,7 @@
 package nl.hsleiden.ipsen3.config;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.sun.istack.internal.NotNull;
+import com.google.common.cache.CacheBuilderSpec;
 import io.dropwizard.Configuration;
 import io.dropwizard.bundles.assets.AssetsBundleConfiguration;
 import io.dropwizard.bundles.assets.AssetsConfiguration;
@@ -9,6 +9,7 @@ import io.dropwizard.db.DataSourceFactory;
 import org.hibernate.validator.constraints.NotEmpty;
 
 import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
 
 /**
  * Created by Daan on 30-Nov-15.
@@ -20,34 +21,25 @@ public class AppConfiguration extends Configuration implements AssetsBundleConfi
     private DataSourceFactory database = new DataSourceFactory();
 
     @NotEmpty
-    private String template;
-
-    @NotEmpty
-    private String defaultName = "Stranger";
+    @JsonProperty
+    private String apiName;
 
     @Valid
     @NotNull
     @JsonProperty
     private final AssetsConfiguration assets = new AssetsConfiguration();
 
-    @JsonProperty
-    public String getTemplate() {
-        return template;
+    @NotEmpty
+    private String authenticationCachePolicy;
+
+    public String getApiName()
+    {
+        return apiName;
     }
 
-    @JsonProperty
-    public void setTemplate(String template) {
-        this.template = template;
-    }
-
-    @JsonProperty
-    public String getDefaultName() {
-        return defaultName;
-    }
-
-    @JsonProperty
-    public void setDefaultName(String name) {
-        this.defaultName = name;
+    public void setApiName(String apiName)
+    {
+        this.apiName = apiName;
     }
 
     public DataSourceFactory getDataSourceFactory() {
@@ -56,5 +48,10 @@ public class AppConfiguration extends Configuration implements AssetsBundleConfi
 
     public AssetsConfiguration getAssetsConfiguration() {
         return assets;
+    }
+
+    @JsonProperty
+    public CacheBuilderSpec getAuthenticationCachePolicy() {
+        return CacheBuilderSpec.parse(authenticationCachePolicy);
     }
 }
