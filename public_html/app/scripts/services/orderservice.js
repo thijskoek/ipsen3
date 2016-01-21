@@ -13,7 +13,7 @@ angular.module('appApp')
     var self = this;
 
     self.create = function(order, onCreated) {
-      var uri ='order';
+      var uri = API_URL + "order";
 
       $http.post(uri, order).success(onCreated).error(function(message, status) {
         alert('Aanmaken mislukt: ' + message);

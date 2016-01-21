@@ -11,7 +11,7 @@ import java.io.Serializable;
  */
 @Entity
 @Table(name = "tbl_order")
-public class Order implements Serializable {
+public class Order {
 
     @Id
     @GeneratedValue
