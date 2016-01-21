@@ -29,7 +29,12 @@
             <li><a href="javascript:void;" ng-click="logout()">Log uit</a></li>
           </ul>
         </li>
-        <li ng-class="{'active': $route.current.activeTab == 'cart'}"><a ng-href="#/cart"><i class="glyphicon glyphicon-shopping-cart"></i></a></li>
+        <li ng-class="{'active': $route.current.activeTab == 'cart'}">
+          <a ng-href="#/cart">
+            <i class="glyphicon glyphicon-shopping-cart"></i>
+            <span class="badge">{{cartSize()}}</span>
+          </a>
+        </li>
       </ul>
     </div>
   </div>
