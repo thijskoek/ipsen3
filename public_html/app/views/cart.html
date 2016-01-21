@@ -1,10 +1,10 @@
 <h2>Winkelwagen</h2>
 
-<div class="alert alert-info" ng-if="!items">
+<div class="alert alert-info" ng-if="!items || !items.length">
   Er zit nog niets in uw winkelwagen.
 </div>
 
-<form name="cartForm" role="form" ng-submit="submitCart()" novalidate ng-if="items">
+<form name="cartForm" role="form" ng-submit="submitCart()" novalidate ng-if="items && items.length">
   <table class="table table-condensed">
     <thead>
       <tr>
@@ -19,7 +19,7 @@
         <td> <div class="col-md-4"> <input type="text" class="form-control input-sm" ng-model="item.aantal" name="quantity" id="quantity" value="1"></div></td>
         <td>{{item.wijn.prijs | currency: "€"}}</td>
         <td>{{ getTotal(item) | currency: "€"  }}</td>
-        <td><a href="" ng-click="remove(item)"><i class="glyphicon glyphicon-remove"></i></a></td>
+        <td><a href="" ng-click="remove($index)"><i class="glyphicon glyphicon-remove"></i></a></td>
       </tr>
       <tr>
         <td>Totaal:</td>

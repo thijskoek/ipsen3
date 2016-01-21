@@ -30,16 +30,13 @@ angular.module('appApp')
     };
 
     $scope.remove = function(item) {
-      $scope.items.splice(item, 1);
-    };
-
-    $scope.add = function(item) {
-      $scope.items.push(item);
+      cartService.remove(item);
+      $scope.items = cartService.retrieve();
     };
 
     $scope.$watch('items', function(newVal, oldVal) {
       console.log(newVal);
-      cartService.save(newVal);
+      //cartService.save(newVal);
     });
 
   });

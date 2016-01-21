@@ -7,6 +7,7 @@
     <th>Naam</th>
     <th>Jaar</th>
     <th>Prijs</th>
+    <th></th>
   </tr>
   </thead>
   <tr ng-repeat="wijn in wijnen">
@@ -14,5 +15,8 @@
     <td>{{wijn.naam}}</td>
     <td>{{wijn.jaar}}</td>
     <td>{{wijn.prijs | currency}}</td>
+    <td>
+      <button class="btn btn-success" type="button" ng-click="addToCart(wijn)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
+    </td>
   </tr>
 </table>
