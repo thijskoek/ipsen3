@@ -1,6 +1,10 @@
 <h2>Winkelwagen</h2>
 
-<form name="cartForm" role="form" ng-submit="submitCart()" novalidate>
+<div class="alert alert-info" ng-if="!items">
+  Er zit nog niets in uw winkelwagen.
+</div>
+
+<form name="cartForm" role="form" ng-submit="submitCart()" novalidate ng-if="items">
   <table class="table table-condensed">
     <thead>
       <tr>
