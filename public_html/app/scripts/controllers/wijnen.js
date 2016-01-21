@@ -10,9 +10,9 @@
 angular.module('appApp')
   .controller('WijnenCtrl', function ($scope, wijnen) {
     this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
+                   'HTML5 Boilerplate',
+                   'AngularJS',
+                   'Karma'
     ];
 
     $scope.wijnen = [];

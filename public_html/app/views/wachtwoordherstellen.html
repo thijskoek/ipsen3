@@ -1,0 +1,15 @@
+<form ng-submit="verander_wachtwoord()" autocomplete="off">
+  <table>
+    <tr>
+      <td>Nieuw Wachtwoord:</td>
+      <td><input ng-model="wachtwoord" type="password" /></td>
+    </tr>
+
+    <tr>
+      <td>Bevestig Wachtwoord:</td>
+      <td><input ng-model="bevestiging" ng-class="{ error: !compare() }" type="password" /></td>
+    </tr>
+  </table>
+  <button>Annuleer</button>
+  <button type="submit">Wijzigen</button>
+</form>

@@ -18,11 +18,15 @@ import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
 import nl.hsleiden.ipsen3.core.User;
+import nl.hsleiden.ipsen3.dao.GebruikerDAO;
+import nl.hsleiden.ipsen3.dao.SleutelDAO;
 import nl.hsleiden.ipsen3.dao.UserDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
 import nl.hsleiden.ipsen3.resource.MailResource;
 import nl.hsleiden.ipsen3.resource.UserResource;
 import nl.hsleiden.ipsen3.resource.WijnResource;
+import nl.hsleiden.ipsen3.resources.GebruikersResource;
+import nl.hsleiden.ipsen3.resources.WachtwoordResource;
 import nl.hsleiden.ipsen3.service.AuthenticationService;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -71,6 +75,8 @@ public class App extends Application<AppConfiguration> {
 
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
+        final GebruikerDAO gebruikerDAO = new GebruikerDAO(hibernate.getSessionFactory());
+        final SleutelDAO sleutelDAO = new SleutelDAO(hibernate.getSessionFactory());
 
         enableCORS(environment);
         setupAuthentication(environment, userDAO, appConfiguration);
@@ -79,9 +85,14 @@ public class App extends Application<AppConfiguration> {
         final WijnResource wijnResource = new WijnResource(wijnDAO);
         final UserResource userResource = new UserResource(userDAO);
         final MailResource mailResource = new MailResource();
+        final WachtwoordResource wachtwoordResource = new WachtwoordResource(userDAO, sleutelDAO);
+        final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO, userDAO);
+
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);
         environment.jersey().register(mailResource);
+        environment.jersey().register(wachtwoordResource);
+        environment.jersey().register(gebruikersResource);
     }
 
     /**

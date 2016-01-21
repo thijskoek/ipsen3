@@ -1,0 +1,50 @@
+<form ng-init="laad_gebruiker()" ng-submit="submit()" ng-controller="ProfielCtrl">
+  <table>
+
+    <tr>
+      <td>Aanhef</td>
+      <td><input ng-model="aanhef" type="text" /></td>
+    </tr>
+
+    <tr>
+      <td>Voornaam</td>
+      <td><input ng-model="voornaam" type="text" /></td>
+    </tr>
+
+    <tr>
+      <td>Tussenvoegsel</td>
+      <td><input ng-model="tussenvoegsel" type="text" /></td>
+    </tr>
+
+    <tr>
+      <td>Naam</td>
+      <td><input ng-model="naam" type="text" /></td>
+    </tr>
+
+    <tr>
+      <td>Adres</td>
+      <td><input ng-model="adres" type="text"/> </td>
+    </tr>
+
+    <tr>
+      <td>Woonplaats</td>
+      <td><input ng-model="woonplaats" type="text" /></td>
+    </tr>
+
+    <tr>
+      <td>Postcode</td>
+      <td><input ng-model="postcode" type="text" /></td>
+    </tr>
+
+    <tr>
+      <td>Email</td>
+      <td><input ng-model="email" type="text" /> </td>
+    </tr>
+
+    <tr>
+      <td>Telefoon</td>
+      <td><input ng-model="telefoon" type="text" /></td>
+    </tr>
+  </table>
+  <input type="submit" value="submit" />
+</form>
