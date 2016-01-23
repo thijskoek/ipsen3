@@ -1,12 +1,13 @@
 package nl.hsleiden.ipsen3.resource;
 
-import com.fasterxml.jackson.annotation.JsonView;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import nl.hsleiden.ipsen3.View;
+import nl.hsleiden.ipsen3.core.Factuur;
 import nl.hsleiden.ipsen3.core.Order;
 import nl.hsleiden.ipsen3.core.User;
-import nl.hsleiden.ipsen3.dao.OrderDAO;
+import nl.hsleiden.ipsen3.dao.FactuurDAO;
 
+import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -21,19 +22,18 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderResource {
 
-    private final OrderDAO dao;
+    private final FactuurDAO factuurDAO;
 
-    public OrderResource(OrderDAO orderDAO) {
-        dao = orderDAO;
+    public OrderResource(FactuurDAO factuurDAO) {
+        this.factuurDAO = factuurDAO;
     }
-
 
     @POST
     @UnitOfWork
+//    @RolesAllowed("klant")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void create(Order order) {
-
-        System.out.println("Komt in create method van order resource");
-        dao.create(order);
+    public void create(@Auth User user, Order order) {
+        System.out.println(order);
+        factuurDAO.create(order);
     }
 }

@@ -12,6 +12,7 @@ angular.module('appApp')
     $scope.$route = $route;
 
     $scope.cartSize = function () {
-      return cartService.retrieve().length;
+      var cart = cartService.retrieve();
+      return (cart) ? cart.length : 0;
     };
   });

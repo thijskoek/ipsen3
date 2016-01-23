@@ -3,6 +3,7 @@ package nl.hsleiden.ipsen3.core;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -12,7 +13,7 @@ import java.util.List;
 @Table(name = "factuur")
 public class Factuur {
     @Id
-    @GeneratedValue
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
@@ -23,7 +24,9 @@ public class Factuur {
     @Column(name = "factuurnummer")
     private int factuurnummer;
 
+    @Column(name = "factuurdatum")
     private DateTime factuurdatum;
+    @Column(name = "vervaldatum")
     private DateTime vervaldatum;
 
     @Column(name = "status")
@@ -36,14 +39,14 @@ public class Factuur {
     @JoinTable(name = "tbl_order",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "factuur_id"))
-    private List<Order> orders;
+    private List<Factuurregel> factuurregels = new ArrayList<>();
 
-    public List<Order> getOrders() {
-        return orders;
+    public List<Factuurregel> getFactuurregels() {
+        return factuurregels;
     }
 
-    public void setOrders(List<Order> orders) {
-        this.orders = orders;
+    public void setFactuurregels(List<Factuurregel> factuurregels) {
+        this.factuurregels = factuurregels;
     }
 
     public long getId() {
@@ -98,7 +101,11 @@ public class Factuur {
         return opmerking;
     }
 
-    public void setOpmerking(String opmerking) {
+    public void setOpmerking(String opmerking)   {
         this.opmerking = opmerking;
+    }
+
+    public void addFactuurregel(Factuurregel factuurregel) {
+        this.factuurregels.add(factuurregel);
     }
 }

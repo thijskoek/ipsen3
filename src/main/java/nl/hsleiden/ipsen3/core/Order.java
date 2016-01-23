@@ -5,52 +5,38 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.List;
 
 /**
  * Created by Brandon on 16-Jan-16.
  */
-@Entity
-@Table(name = "tbl_order")
 public class Order {
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id")
-    private long id;
+    private Debiteur debiteur;
+    private List<OrderRegel> regels;
 
-    @Column(name = "aantal", nullable = false, length = 11)
-    @Length(max = 11)
-    private int aantal;
+    public Order() {}
 
-    @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "product_id", referencedColumnName = "id")
-    private Wijn wijn;
-
-    public Order() {
-
+    public Order(Debiteur debiteur, List<OrderRegel> regels) {
+        this.debiteur = debiteur;
+        this.regels = regels;
     }
 
-    public long getId() {
-        return id;
+    @JsonProperty
+    public Debiteur getDebiteur() {
+        return debiteur;
     }
 
-    public void setId(long id) {
-        this.id = id;
+    @JsonProperty
+    public void setDebiteur(Debiteur debiteur) {
+        this.debiteur = debiteur;
     }
 
-    public int getAantal() {
-        return aantal;
+    public List<OrderRegel> getRegels() {
+        return regels;
     }
 
-    public void setAantal(int aantal) {
-        this.aantal = aantal;
-    }
-
-    public Wijn getWijn() {
-        return wijn;
-    }
-
-    public void setWijn(Wijn wijn) {
-        this.wijn = wijn;
+    public void setRegels(List<OrderRegel> regels) {
+        this.regels = regels;
     }
 }

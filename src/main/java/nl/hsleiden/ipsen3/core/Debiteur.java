@@ -160,4 +160,21 @@ public class Debiteur {
     public void setLand(Land land) {
         this.land = land;
     }
+
+    @Override
+    public String toString() {
+        return "Debiteur{" +
+                "id=" + id +
+                ", aanhef='" + aanhef + '\'' +
+                ", voornaam='" + voornaam + '\'' +
+                ", tussenvoegsel='" + tussenvoegsel + '\'' +
+                ", naam='" + naam + '\'' +
+                ", adres='" + adres + '\'' +
+                ", woonplaats='" + woonplaats + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", email='" + email + '\'' +
+                ", telefoon='" + telefoon + '\'' +
+                ", land=" + land +
+                '}';
+    }
 }

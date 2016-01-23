@@ -46,9 +46,9 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, 
     order.wijnen = JSON.parse(angular.toJson($scope.cart));
 
     console.log(order);
-    return;
 
-    orderService.create(order, function () {
+    orderService.create(order, function (data) {
+      console.log(data);
         $location.path('/');
     });
   }

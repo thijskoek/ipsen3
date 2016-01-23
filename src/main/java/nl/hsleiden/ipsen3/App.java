@@ -18,11 +18,7 @@ import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
 import nl.hsleiden.ipsen3.core.User;
-import nl.hsleiden.ipsen3.dao.OrderDAO;
-import nl.hsleiden.ipsen3.dao.GebruikerDAO;
-import nl.hsleiden.ipsen3.dao.SleutelDAO;
-import nl.hsleiden.ipsen3.dao.UserDAO;
-import nl.hsleiden.ipsen3.dao.WijnDAO;
+import nl.hsleiden.ipsen3.dao.*;
 import nl.hsleiden.ipsen3.resource.MailResource;
 import nl.hsleiden.ipsen3.resource.OrderResource;
 import nl.hsleiden.ipsen3.resource.UserResource;
@@ -77,9 +73,9 @@ public class App extends Application<AppConfiguration> {
 
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
-        final OrderDAO orderDAO = new OrderDAO(hibernate.getSessionFactory());
         final GebruikerDAO gebruikerDAO = new GebruikerDAO(hibernate.getSessionFactory());
         final SleutelDAO sleutelDAO = new SleutelDAO(hibernate.getSessionFactory());
+        final FactuurDAO factuurDAO = new FactuurDAO(hibernate.getSessionFactory());
 
         enableCORS(environment);
         setupAuthentication(environment, userDAO, appConfiguration);
@@ -87,7 +83,7 @@ public class App extends Application<AppConfiguration> {
 
         final WijnResource wijnResource = new WijnResource(wijnDAO);
         final UserResource userResource = new UserResource(userDAO);
-        final OrderResource orderResource = new OrderResource(orderDAO);
+        final OrderResource orderResource = new OrderResource(factuurDAO);
         final MailResource mailResource = new MailResource();
         final WachtwoordResource wachtwoordResource = new WachtwoordResource(userDAO, sleutelDAO);
         final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO, userDAO);
