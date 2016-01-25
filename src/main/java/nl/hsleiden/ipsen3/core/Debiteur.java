@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen3.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -176,5 +177,14 @@ public class Debiteur {
                 ", telefoon='" + telefoon + '\'' +
                 ", land=" + land +
                 '}';
+    }
+
+    @JsonIgnore
+    public String getFullName() {
+        if (this.getTussenvoegsel() == null || this.getTussenvoegsel().isEmpty()) {
+            return this.aanhef + " " + this.voornaam + " " + this.naam;
+        } else {
+            return this.aanhef + " " + this.voornaam + " " + this.tussenvoegsel + " " + this.naam;
+        }
     }
 }

@@ -4,6 +4,8 @@ import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.*;
 import nl.hsleiden.ipsen3.dao.FactuurDAO;
+import nl.hsleiden.ipsen3.services.MailService;
+import nl.hsleiden.ipsen3.services.strategies.mail.JavaMailStrategy;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -46,5 +48,27 @@ public class OrderResource {
             factuur.addFactuurregel(factuurregel);
         }
         factuurDAO.create(factuur);
+
+        // TODO: Refactor this clusterfuck!
+        MailService mailService = new MailService(new JavaMailStrategy());
+        Email email = new Email();
+        email.setSubject("Bedankt voor uw bestelling!");
+
+        String content = String.format("Beste %s \n\n" +
+                "Bedankt voor uw bestelling #%s. In deze mail vind u een factuur als " +
+                "bijlage met een overzicht van uw bestelling. \n\n" +
+                "Besteloverzicht: \n\n", factuur.getDebiteur().getFullName(), factuur.getFactuurnummer());
+
+        for (Factuurregel regel : factuur.getFactuurregels()) {
+            content += String.format("%s %s €%s \n", regel.getAantal(), regel.getWijn().getNaam(), regel.getWijn().getPrijs());
+        }
+
+        content += "\n\n Met vriendelijke groet, \n Groep 4, IPSEN3";
+
+        email.setContent(content, "text/plain");
+        email.setTo(factuur.getDebiteur().getEmail());
+        email.setFrom("no-reply@groep4.ipsen3.nl");
+
+        mailService.send(email);
     }
 }
