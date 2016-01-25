@@ -16,8 +16,9 @@ import javax.ws.rs.core.MediaType;
 
 /**
  * Created by Brandon on 16-Jan-16.
+ *
+ * @author Daan Rosbergen
  */
-
 @Path("/order")
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderResource {
