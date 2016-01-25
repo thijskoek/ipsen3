@@ -3,8 +3,7 @@ package nl.hsleiden.ipsen3.dao;
 import io.dropwizard.hibernate.AbstractDAO;
 import nl.hsleiden.ipsen3.App;
 import nl.hsleiden.ipsen3.core.*;
-import org.hibernate.SQLQuery;
-import org.hibernate.SessionFactory;
+import org.hibernate.*;
 import org.hibernate.criterion.Projections;
 import org.hibernate.internal.QueryImpl;
 import org.hibernate.internal.SQLQueryImpl;
@@ -18,6 +17,8 @@ import org.slf4j.LoggerFactory;
  */
 public class FactuurDAO extends AbstractDAO<Factuur> {
     private final Logger logger = LoggerFactory.getLogger(App.class);
+    private final SessionFactory sessionFactory;
+
     /**
      * Creates a new DAO with a given session provider.
      *
@@ -25,6 +26,7 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
      */
     public FactuurDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
+        this.sessionFactory = sessionFactory;
     }
 
     public int getLastFactuurNummer() {
@@ -46,16 +48,31 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         Factuur factuur = new Factuur();
         factuur.setFactuurnummer(getLastFactuurNummer()+1);
         factuur.setDebiteur(order.getDebiteur());
-        for (OrderRegel orderRegel: order.getRegels()) {
-            Factuurregel factuurregel = new Factuurregel();
-            factuurregel.setAantal(orderRegel.getAantal());
-            factuurregel.setWijn(orderRegel.getWijn());
-            factuurregel.setFactuur(factuur);
-            factuur.addFactuurregel(factuurregel);
-        }
         factuur.setFactuurdatum(new DateTime());
         factuur.setVervaldatum(new DateTime().plusDays(14));
         factuur.setStatus("concept");
-        return create(factuur);
+
+        Session session = sessionFactory.openSession();
+        try {
+            Transaction transaction = session.beginTransaction();
+            try {
+                session.evict(factuur);
+                session.saveOrUpdate(factuur);
+                transaction.commit();
+                session.flush();
+            } catch (Exception e) {
+                transaction.rollback();
+                logger.error(e.getMessage());
+            }
+        } catch (Exception e) {
+            logger.error(e.getMessage());
+        } finally {
+            session.close();
+        }
+        return factuur.getId();
+    }
+
+    public Factuur findById(long id) {
+        return get(id);
     }
 }

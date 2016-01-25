@@ -2,10 +2,10 @@ package nl.hsleiden.ipsen3.resource;
 
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
-import nl.hsleiden.ipsen3.core.Factuur;
-import nl.hsleiden.ipsen3.core.Order;
-import nl.hsleiden.ipsen3.core.User;
+import nl.hsleiden.ipsen3.core.*;
 import nl.hsleiden.ipsen3.dao.FactuurDAO;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import javax.annotation.security.RolesAllowed;
 import javax.ws.rs.Consumes;
@@ -22,6 +22,8 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class OrderResource {
 
+    private final Logger logger = LoggerFactory.getLogger(OrderResource.class);
+
     private final FactuurDAO factuurDAO;
 
     public OrderResource(FactuurDAO factuurDAO) {
@@ -30,10 +32,18 @@ public class OrderResource {
 
     @POST
     @UnitOfWork
-//    @RolesAllowed("klant")
+    @RolesAllowed("klant")
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(@Auth User user, Order order) {
-        System.out.println(order);
-        factuurDAO.create(order);
+        long id = factuurDAO.create(order);
+        Factuur factuur = factuurDAO.findById(id);
+        for (OrderRegel orderRegel: order.getRegels()) {
+            Factuurregel factuurregel = new Factuurregel();
+            factuurregel.setAantal(orderRegel.getAantal());
+            factuurregel.setWijn(orderRegel.getWijn());
+            factuurregel.setFactuur(factuur);
+            factuur.addFactuurregel(factuurregel);
+        }
+        factuurDAO.create(factuur);
     }
 }

@@ -43,7 +43,7 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, 
   $scope.submitOrder = function() {
     var order = {};
     order.debiteur = authenticationService.getAuthenticator().debiteur;
-    order.wijnen = JSON.parse(angular.toJson($scope.cart));
+    order.regels = JSON.parse(angular.toJson($scope.cart));
 
     console.log(order);
 

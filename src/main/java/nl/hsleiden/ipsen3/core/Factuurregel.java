@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen3.core;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 
 /**
  * @author Daan
@@ -14,7 +15,8 @@ public class Factuurregel {
     @Column(name = "id")
     private long id;
 
-    @Column(name = "aantal", nullable = false)
+    @NotNull
+    @Column(name = "aantal")
     private int aantal;
 
     @OneToOne(cascade = {CascadeType.ALL})
