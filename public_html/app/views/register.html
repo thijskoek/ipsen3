@@ -106,6 +106,12 @@
     </label>
   </div>
 
+  <div class="alert alert-danger" ng-show="error">
+    <p><strong>Fout!</strong> {{error}}.</p>
+    <!-- TODO: Wachtwoord vergeten link werkend maken. -->
+    <p>Bent u uw <a ng-href="#/wachtwoordvergeten">wachtwoord vergeten?</a></p>
+  </div>
+
   <button class="btn btn-success" type="submit" tabindex="13">Registreer</button>
 
 </form>

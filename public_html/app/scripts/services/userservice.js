@@ -20,11 +20,11 @@ angular.module('appApp')
       });
     };
 
-    self.create = function(user, onCreated) {
+    self.create = function(user, onCreated, onFailure) {
       var uri = API_URL + 'users';
 
-      $http.post(uri, user).success(onCreated).error(function(message, status) {
-        alert('Aanmaken mislukt: ' + message);
+      $http.post(uri, user).success(onCreated).error(onFailure || function(message, status) {
+        alert('Aanmaken mislukt: ' + message.message);
       });
     };
 

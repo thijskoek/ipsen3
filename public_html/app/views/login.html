@@ -1,4 +1,6 @@
-<p>This is the login view.</p>
+<div class="alert alert-danger" ng-show="error">
+  <strong>Fout!</strong> {{error}}
+</div>
 
 <form name="loginForm" role="form" ng-submit="login(loginForm.$valid)" novalidate>
 

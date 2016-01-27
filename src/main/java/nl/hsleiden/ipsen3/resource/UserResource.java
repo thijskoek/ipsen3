@@ -50,6 +50,9 @@ public class UserResource {
     @Consumes(MediaType.APPLICATION_JSON)
     @JsonView(View.Protected.class)
     public void create(User user) {
+        if(dao.getByEmail(user.getEmail()) != null) {
+            throw new BadRequestException("Email already in use");
+        }
         dao.create(user);
     }
 
