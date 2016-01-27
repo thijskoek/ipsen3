@@ -25,3 +25,5 @@ Wanneer je het programma nu uitvoert heb je een server draaien op `127.0.0.1:808
 In het bestand `ipsen3.yml` staan de inloggegevens voor je database. Dit is de database uit het
 vorige project, IPSEN2. Deze kun je aanpassen naar je eigen login gegevens en deze hoef je niet 
 te committen.
+
+Migratie's lopen via Liquibase. Zie PR [#3](https://github.com/iCyberneticOrganism/ipsen3/pull/3)

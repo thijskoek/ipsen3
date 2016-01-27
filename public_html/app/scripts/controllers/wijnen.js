@@ -8,13 +8,7 @@
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('WijnenCtrl', function ($scope, wijnen) {
-    this.awesomeThings = [
-      'HTML5 Boilerplate',
-      'AngularJS',
-      'Karma'
-    ];
-
+  .controller('WijnenCtrl', function ($scope, wijnen, cartService) {
     $scope.wijnen = [];
 
     wijnen.all().then(function(data) {
@@ -22,5 +16,13 @@ angular.module('appApp')
     }, function() {
       throw Error;
     });
+
+    /**
+     * TODO: This is temporary.
+     * @param wijn
+     */
+    $scope.addToCart = function (wijn) {
+      cartService.add(wijn);
+    };
 
   });

@@ -1,0 +1,42 @@
+<html>
+<head>
+    <style>
+        html {
+            font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        Beste {{debiteur.fullName}},
+    </p>
+    <p>
+        Bedankt voor uw bestelling #{{factuurnummer}}. In deze mail vind u een factuur als bijlage
+        met een overzicht van uw bestelling.
+    </p>
+    <h4>Besteloverzicht</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Aantal</th>
+                <th>Wijn</th>
+                <th>Prijs</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#factuurregels}}
+            <tr>
+                <td>{{aantal}}</td>
+                <td>{{wijn.naam}}</td>
+                <td>&euro; {{wijn.prijs}}</td>
+            </tr>
+            {{/factuurregels}}
+        </tbody>
+    </table>
+
+    <p>
+        Met vriendelijke groet,
+        Groep 4 IPSEN3
+    </p>
+</body>
+</html>

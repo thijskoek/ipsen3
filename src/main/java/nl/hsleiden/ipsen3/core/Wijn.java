@@ -1,6 +1,9 @@
 package nl.hsleiden.ipsen3.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonView;
+import nl.hsleiden.ipsen3.View;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -17,7 +20,6 @@ public class Wijn {
     private long id;
 
     @Column(name = "productnummer", nullable = false, length = 11)
-    @Length(max = 11)
     private long productnummer;
 
     @Column(name = "naam", nullable = false, length = 255)
@@ -25,11 +27,9 @@ public class Wijn {
     private String naam;
 
     @Column(name = "jaar", nullable = false, length = 11)
-    @Length(max = 11)
     private int jaar;
 
     @Column(name = "prijs", nullable = false, length = 11)
-    @Length(max = 11)
     private double prijs;
 
     @Column(name = "type", nullable = false, length = 255)
@@ -95,4 +95,5 @@ public class Wijn {
     public Integer getRang() {
         return rang;
     }
+
 }

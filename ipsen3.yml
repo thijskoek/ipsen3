@@ -1,6 +1,4 @@
-template: Hello, %s!
-
-defaultName: ${DW_DEFAULT_NAME:-Stranger}
+apiName: "IPSEN3"
 
 database:
   # the name of your JDBC driver
@@ -13,7 +11,7 @@ database:
   password: Welkom#1
 
   # the JDBC URL
-  url: jdbc:postgresql://127.0.0.1/Lions
+  url: jdbc:postgresql://127.0.0.1/panthera
 
   # any properties specific to your JDBC driver:
   properties:
@@ -50,7 +48,7 @@ assets:
     /bower_components: public_html/bower_components
 
 server:
-  rootPath: /api/*
+  rootPath: /api/v1/*
   adminContextPath: /admin
 #  softNofileLimit: 1000
 #  hardNofileLimit: 1000
@@ -113,3 +111,7 @@ logging:
 #metrics:
 #  type: graphite
 #  frequency: 10s
+
+# Enable caching for users
+authenticationCachePolicy: maximumSize=10000, expireAfterAccess=10m
+

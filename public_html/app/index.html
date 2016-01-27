@@ -15,7 +15,7 @@
     <link rel="stylesheet" href="styles/main.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="appApp">
+  <body ng-app="appApp" ng-controller="AppCtrl">
     <!--[if lte IE 8]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -45,11 +45,11 @@
               <li><a ng-href="#/contact">Contact</a></li>
               <li><a ng-href="#/actie">Actie</a></li>
               <li><a ng-href="#/bestellijsten">Bestellijsten</a></li>
-
             </ul>
           </div>
         </div>
       </div>
+      <ng-include src="'views/menu.html'"></ng-include>
     </div>
 
     <div class="container">
@@ -96,14 +96,25 @@
         <script src="scripts/controllers/wijnen.js"></script>
 
         <script src="scripts/controllers/contact.js"></script>
+        <script src="scripts/controllers/profielbewerken.js"></script>
+        <script src="scripts/controllers/wachtwoordvergeten.js"></script>
         <script src="scripts/services/mailservice.js"></script>
         <script src="scripts/controllers/actie.js"></script>
-
         <script src="scripts/services/bestellijsten.js"></script>
         <script src="scripts/controllers/bestellijsten.js"></script>
-
         <script src="scripts/controllers/maakbestellijst.js"></script>
         <script src="scripts/services/actie.js"></script>
+        <script src="scripts/controllers/cart.js"></script>
+        <script src="scripts/services/requestservice.js"></script>
+        <script src="scripts/services/authenticationservice.js"></script>
+        <script src="scripts/services/userservice.js"></script>
+        <script src="scripts/controllers/login.js"></script>
+        <script src="scripts/services/cartservice.js"></script>
+        <script src="scripts/controllers/order.js"></script>
+        <script src="scripts/controllers/menu.js"></script>
+        <script src="scripts/controllers/register.js"></script>
+        <script src="scripts/controllers/app.js"></script>
+        <script src="scripts/services/orderservice.js"></script>
         <!-- endbuild -->
 </body>
 </html>
