@@ -5,3 +5,4 @@ out/
 bin/
 lib/
 test/
+*.pdf
