@@ -6,6 +6,7 @@ import nl.hsleiden.ipsen3.core.Bestellijst;
 import nl.hsleiden.ipsen3.core.Land;
 import nl.hsleiden.ipsen3.core.Wijn;
 import io.dropwizard.hibernate.ScanningHibernateBundle;
+import io.dropwizard.hibernate.ScanningHibernateBundle;
 
 
 /**

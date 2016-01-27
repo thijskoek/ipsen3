@@ -19,9 +19,17 @@ public class ActieDAO extends AbstractDAO<Actie> {
     public Actie findById(Long id) {
         return get(id);
     }
+
     public long create(Actie actie){
         return persist(actie).getId();
     }
-        public List<Actie> findAll() { return currentSession().createCriteria(Actie.class).list(); }
+
+    public List<Actie> findAll() {
+        List<Actie> acties = currentSession().createCriteria(Actie.class).list();
+        for (Actie actie : acties) {
+            initialize(actie.getWijnen());
+        }
+        return acties;
+    }
 
 }

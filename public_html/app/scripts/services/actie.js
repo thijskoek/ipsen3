@@ -8,27 +8,17 @@
  * Service in the appApp.
  */
 angular.module('appApp')
-  .service('actie', function ($http, $q) {
+  .service('actieService', function ($http, API_URL) {
     // AngularJS will instantiate a singleton by calling "new" on this function
-    var url = 'api/v1/actie';
-    return {
-      send: function(actie) {
-        var deferred = $q.defer();
-        $http({
-          method: 'POST',
-          url: url,
-          data: actie,
-          headers: {'Content-Type': 'application/json'}
-        }).then(function(data){
-          deferred.resolve(data.data);
-          console.log("succes");
-        }, function(error){
-          deferred.reject(error);
-          console.log("failed");
-        });
 
-        return deferred.promise;
-      }
+    var self = this;
+
+    self.create = function(actie, onCreated) {
+      var uri = API_URL + 'actie';
+
+      $http.post(uri, actie).success(onCreated).error(function(message, status) {
+        alert('Aanmaken mislukt: ' + message);
+      });
     };
   });
 

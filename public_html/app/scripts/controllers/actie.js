@@ -34,5 +34,5 @@ angular.module('appApp')
     $scope.addToCart = function (wijn) {
       cartService.add(wijn);
     };
-    
+
   });
