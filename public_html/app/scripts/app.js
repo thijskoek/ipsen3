@@ -68,6 +68,11 @@ angular
         controller: 'RegisterCtrl',
         controllerAs: 'register'
       })
+      .when('/besteloverzicht', {
+        templateUrl: 'views/besteloverzicht.html',
+        controller: 'ProfielCtrl',
+        controllerAs: 'bestel'
+      })
       .otherwise({
         redirectTo: '/'
       });

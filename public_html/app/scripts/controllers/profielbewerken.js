@@ -11,7 +11,23 @@
  /*
   Created by Roy on 12-1-2016.
  */
-angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_URL) {
+angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_URL, $location) {
+
+    $scope.gewijzigd = false;
+    $scope.foutmelding = false;
+    $scope.personen = [
+      'jaap',
+      'henk',
+      'klaas'
+    ];
+
+    $scope.test = function() {
+      console.log('Test method called');
+      $http({
+        method: 'GET',
+        url: API_URL + 'bestelling/test'
+      });
+    };
 
     //Submit function.
     $scope.submit = function() {
@@ -21,7 +37,11 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
         params: {
           gebruiker: $scope.fetch_gebruiker()
         }
-      })
+      }).then(function successCallback(response) {
+        $scope.gewijzigd = true;
+      }, function errorCallback(response) {
+        $scope.foutmelding = true;
+      });
     }
 
     //Set id function.
@@ -62,5 +82,9 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
       for(var property in gebruiker) {
         $scope[property] = gebruiker[property];
       }
+    }
+
+    $scope.terug = function() {
+      $location.url('/');
     }
  });
