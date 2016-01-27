@@ -1,39 +1,76 @@
 <h1>Maak bestellijst</h1>
-
+<span day.actie> </span>
 <h3>Selecteer producten: </h3>
 
-<form role="form" ng-submit="maakActie()">
+
+<form role="form" ng-submit="submit()">
   <div class="form-group">
     <label for="name">Naam Actie:</label>
-    <input type="text" class="form-control" id="name">
+    <input type="text" class="form-control" id="name" ng-model="actie.naam">
+  </div>
+
+
+    <div class="row">
+      <div class='col-sm-6'>
+        <div class="form-group">
+          <div class='input-group date' id='datetimepicker2'>
+            <input type='text' class="form-control" ng-model="datum" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  <div class="container">
+    <div class="row">
+      <div class='col-sm-6'>
+        <div class="form-group">
+          <div class='input-group date' id='datetimepicker1'>
+            <input type='text' class="form-control" />
+                    <span class="input-group-addon">
+                        <span class="glyphicon glyphicon-calendar"></span>
+                    </span>
+          </div>
+        </div>
+      </div>
+      <script type="text/javascript">
+        $(function () {
+          $('#datetimepicker1').datetimepicker({
+            locale: 'ru'
+          });
+        });
+      </script>
+    </div>
   </div>
 
 
 
   <div id="scroll-table">
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th><input type="checkbox"></th>
-    <th>Productnummer</th>
-    <th>Naam</th>
-    <th>Jaar</th>
-    <th>Prijs</th>
-  </tr>
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th><input type="checkbox"></th>
+        <th>Productnummer</th>
+        <th>Naam</th>
+        <th>Jaar</th>
+        <th>Prijs</th>
+      </tr>
 
-  </thead>
-  <tr ng-repeat="wijn in wijnen">
-    <td><input type="checkbox" ng-model="wijn.active"></td>
-    <td>{{wijn.productnummer}}</td>
-    <td>{{wijn.naam}}</td>
-    <td>{{wijn.jaar}}</td>
-    <td>{{wijn.prijs | currency}}</td>
-  </tr>
+      </thead>
+      <tr ng-repeat="wijn in wijnen">
+        <td><input type="checkbox" ng-model="activeWines" ng-change="toggleWijn(wijn)"></td>
+        <td>{{wijn.productnummer}}</td>
+        <td>{{wijn.naam}}</td>
+        <td>{{wijn.jaar}}</td>
+        <td>{{wijn.prijs | currency}}</td>
+      </tr>
 
-</table>
-</div>
+    </table>
+  </div>
 
   <button ng-click="submit">Maak Actie</button>
-  </form>
+</form>
 
-<pre>{{ wijnen | json }}</pre>
+<pre>{{ actie | json }}</pre>

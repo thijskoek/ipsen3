@@ -24,6 +24,7 @@ public class ActieResource {
     public ActieResource(ActieDAO dao){
         this.dao = dao;
     }
+
     @POST
     @Consumes(MediaType.APPLICATION_JSON)
     @Timed
