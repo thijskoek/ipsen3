@@ -16,7 +16,6 @@ import io.dropwizard.setup.Environment;
 import nl.hsleiden.ipsen3.config.AppConfiguration;
 import nl.hsleiden.ipsen3.config.ClientFilter;
 import nl.hsleiden.ipsen3.config.HibernateConfiguration;
-<<<<<<< HEAD
 import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.*;
@@ -24,7 +23,6 @@ import nl.hsleiden.ipsen3.resource.*;
 import nl.hsleiden.ipsen3.resources.BestellijstResource;
 import nl.hsleiden.ipsen3.resources.GebruikersResource;
 import nl.hsleiden.ipsen3.resources.WachtwoordResource;
-=======
 import nl.hsleiden.ipsen3.dao.ActieDAO;
 import nl.hsleiden.ipsen3.dao.BestellijstDAO;
 import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
@@ -33,11 +31,9 @@ import nl.hsleiden.ipsen3.dao.UserDAO;
 import nl.hsleiden.ipsen3.dao.WijnDAO;
 import nl.hsleiden.ipsen3.resource.ActieResource;
 import nl.hsleiden.ipsen3.resource.MailResource;
-
 import nl.hsleiden.ipsen3.resources.BestellijstResource;
 import nl.hsleiden.ipsen3.resource.UserResource;
 import nl.hsleiden.ipsen3.resource.WijnResource;
->>>>>>> makenBestellijst
 import nl.hsleiden.ipsen3.service.AuthenticationService;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
