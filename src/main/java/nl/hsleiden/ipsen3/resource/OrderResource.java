@@ -31,6 +31,7 @@ public class OrderResource {
 
     private final Logger logger = LoggerFactory.getLogger(OrderResource.class);
     private MustacheFactory mf = new DefaultMustacheFactory();
+    private MailService mailService = new MailService(new JavaMailStrategy());
 
     private final FactuurDAO factuurDAO;
 
@@ -53,9 +54,11 @@ public class OrderResource {
             factuur.addFactuurregel(factuurregel);
         }
         factuurDAO.create(factuur);
+        sendOrderEmail(factuur);
+    }
 
+    private void sendOrderEmail(Factuur factuur) {
         // TODO: Refactor this clusterfuck!
-        MailService mailService = new MailService(new JavaMailStrategy());
         Email email = new Email();
         email.setSubject("Bedankt voor uw bestelling!");
 

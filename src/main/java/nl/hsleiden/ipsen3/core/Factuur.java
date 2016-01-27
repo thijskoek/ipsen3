@@ -1,8 +1,10 @@
 package nl.hsleiden.ipsen3.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.joda.time.DateTime;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,6 +42,9 @@ public class Factuur {
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "factuur_id"))
     private List<Factuurregel> factuurregels = new ArrayList<Factuurregel>();
+
+    @Transient
+    DecimalFormat df = new DecimalFormat("#.00");
 
     public List<Factuurregel> getFactuurregels() {
         return factuurregels;
@@ -107,5 +112,24 @@ public class Factuur {
 
     public void addFactuurregel(Factuurregel factuurregel) {
         this.factuurregels.add(factuurregel);
+    }
+
+    @JsonIgnore
+    public double getTotaal() {
+        double total = 0.00;
+        for (Factuurregel regel: factuurregels) {
+            total += (regel.getAantal()*regel.getWijn().getPrijs());
+        }
+        return Double.parseDouble(df.format(total));
+    }
+
+    @JsonIgnore
+    public double getSubTotaal() {
+        return Double.parseDouble(df.format((getTotaal() - getBTW())));
+    }
+
+    @JsonIgnore
+    public double getBTW() {
+        return Double.parseDouble(df.format(((getTotaal() / 121) * 21)));
     }
 }
