@@ -18,14 +18,12 @@ import java.util.concurrent.atomic.AtomicLong;
 @Path("/actie")
 @Produces(MediaType.APPLICATION_JSON)
 public class ActieResource {
-    private final String template;
-    private final String defaultName;
+
     private final ActieDAO dao;
 
 
-    public ActieResource(String template, String defaultName, ActieDAO dao){
-        this.template = template;
-        this.defaultName = defaultName;
+    public ActieResource(ActieDAO dao){
+
         this.dao = dao;
     }
     @POST

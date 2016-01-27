@@ -19,13 +19,9 @@ import java.util.concurrent.atomic.AtomicLong;
 @Produces(MediaType.APPLICATION_JSON)
 public class BestellijstResource {
 
-    private final String template;
-    private final String defaultName;
     private final BestellijstDAO dao;
 
-    public BestellijstResource(String template, String defaultName, BestellijstDAO dao) {
-        this.template = template;
-        this.defaultName = defaultName;
+    public BestellijstResource(BestellijstDAO dao) {
         this.dao = dao;
 
     }

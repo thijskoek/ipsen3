@@ -27,6 +27,7 @@ public class Actie {
     @Length(max = 255)
     private String Banner;
 
+    @OneToMany
     private List<Wijn> wijnLijst;
 
     @Column(name = "actief", nullable = false, length = 255)
@@ -34,7 +35,7 @@ public class Actie {
     private boolean actief;
     @Column(name = "date", nullable = false, length = 11)
     private Date startdatum;
-    @Column(name = "date", nullable = false, length = 11)
+    @Column(name = "date2", nullable = false, length = 11)
     private Date einddatum;
 
     @JsonProperty

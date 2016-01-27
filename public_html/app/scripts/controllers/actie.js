@@ -13,7 +13,7 @@
  */
 
 angular.module('appApp')
-  .controller('ActieCtrl',  function($scope, wijnen){
+  .controller('ActieCtrl',  function($scope, wijnen, actieService){
     $scope.checkboxModel = {
       value1 : true,
     }
@@ -30,4 +30,9 @@ angular.module('appApp')
     }, function() {
       throw Error;
     });
+
+    $scope.addToCart = function (wijn) {
+      cartService.add(wijn);
+    };
+    
   });
