@@ -10,44 +10,25 @@
  */
 angular.module('appApp')
   .controller('MaakBestellijstCtrl', function ($scope, wijnen, actieService) {
-    /*
-     {
-     "naam": "Thijs the Great",
-     "startdatum": 12213123,
-     "einddatum": 212121321
-     "wijnen": [
-     {
-     "id": 1,
-     "productnummer": 1234,
-     "naam": "Gluwein",
-     "jaar": 2015,
-     "prijs": 5.95,
-     "type": "Rood",
-     "land": {
-     "id": 2,
-     "name": "Frankrijk"
-     },
-     "rang": 1
-     }]
-     }
-     */
     var currentDate = moment().unix();
+
     $scope.actie = {};
     $scope.actie.startdatum = currentDate;
     $scope.actie.einddatum = currentDate;
+    $scope.actie.wijnen = [];
     $scope.wijnen = [];
 
     $scope.submit = function(){
-      var actie = $scope.actie;
+      var actie = {}
+
+      actie = JSON.parse(angular.toJson($scope.actie));
+      console.log(actie);
+
       actieService.create(actie, function(data) {
-        console.log("JEEEJ");
-        // TODO: Doe iets succesvols.
+        console.log(data);
+        //$scope.submit(data)
       });
     };
-
-    //$scope.datum = function(){
-    //  $scope.datum('#datetimepicker1').data("DateTimePicker").function();
-    //}
 
     $scope.toggleWijn = function(wijn) {
       // TODO: Check if wijn is already in
@@ -59,9 +40,6 @@ angular.module('appApp')
       } else {
         $scope.actie.wijnen.splice(index, 1);
       }
-
-      console.log(wijn);
-      console.log($scope.activeWines);
     };
 
     wijnen.all().then(function(data) {

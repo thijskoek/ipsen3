@@ -1,6 +1,5 @@
-<h1>Maak bestellijst</h1>
+<h1>Aanmaken actie</h1>
 <span day.actie> </span>
-<h3>Selecteer producten: </h3>
 
 
 <form role="form" ng-submit="submit()">
@@ -9,30 +8,26 @@
     <input type="text" class="form-control" id="name" ng-model="actie.naam">
   </div>
 
-
-  <div class="container">
-    <div class="row">
-      <div class='col-sm-6'>
-        <div class="form-group">
-          <div class='input-group date' id='datetimepicker1'>
-            <input type='text' class="form-control" />
-                    <span class="input-group-addon">
-                        <span class="glyphicon glyphicon-calendar"></span>
-                    </span>
-          </div>
-        </div>
-      </div>
-      <script type="text/javascript">
-        $(function () {
-          $('#datetimepicker1').datetimepicker();
-        });
-      </script>
+  <div class="form-group">
+    <label>Startdatum</label>
+    <div class='input-group date' datepicker ng-model="actie.startdatum">
+      <input type='text' class="form-control"/>
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
     </div>
   </div>
+
+  <div class="form-group">
+    <label>Einddatum</label>
+    <div class='input-group date' datepicker ng-model="actie.einddatum">
+      <input type='text' class="form-control"/>
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
   </div>
-
-
-
+  <p>Selecteer producten: </p>
   <div id="scroll-table">
     <table class="table table-striped">
       <thead>
@@ -56,7 +51,8 @@
     </table>
   </div>
 
-  <button ng-click="submit">Maak Actie</button>
+  <button class="btn btn-info" ng-click="submit">Maak Actie</button>
+
 </form>
 
 <pre>{{ actie | json }}</pre>
