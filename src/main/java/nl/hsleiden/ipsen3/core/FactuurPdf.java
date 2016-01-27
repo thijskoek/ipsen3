@@ -31,10 +31,16 @@ public class FactuurPdf {
     private Debiteur debiteur;
     private Document document;
     private Paragraph preface;
+    private Paragraph preface2;
     private Double totaalbedrag = 0.0;
     private String FILE;
     private PdfWriter writer;
     private Rectangle rect;
+    protected final static Font FONT_SIZE_11_BOLD = new Font(Font.FontFamily.HELVETICA, 18f, Font.BOLD);
+    protected final static Font font14 = new Font(Font.FontFamily.HELVETICA, 14f, Font.BOLD);
+    protected final static Font font12 = new Font(Font.FontFamily.HELVETICA, 12f, Font.BOLD);
+
+
     //private ArrayList<Settings> settings = new ArrayList<>();
 
     /**
@@ -74,25 +80,37 @@ public class FactuurPdf {
      * @throws Exception
      */
     private void addTitlePage(Document document) throws Exception {
+
+
+
+        Image image1 = Image.getInstance("C:/Users/Brandon/Desktop/logo_lions.jpg");
+        document.add(image1);
+
         preface = new Paragraph();
+
+
         addEmptyLine(preface, 1);
-        preface.add(new Paragraph(debiteur.getAanhef() + " " + debiteur.getVoornaam() + " " + debiteur.getTussenvoegsel() + " " + debiteur.getNaam()));
-        preface.add(new Paragraph(debiteur.getAdres()));
-        preface.add(new Paragraph(debiteur.getWoonplaats() + " " + debiteur.getPostcode()));
-        addEmptyLine(preface, 2);
-        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
-//        preface.add(new Paragraph("Factuurdatum: " + df.format(factuur.getFactuurdatum())));
-//        preface.add(new Paragraph("Vervaldatum: " + df.format(factuur.getVervaldatum())));
-        preface.add(new Paragraph("Factuurdatum: " + "2016-01-27"));
-        preface.add(new Paragraph("Vervaldatum: " + "2016-02-27"));
-        preface.add(new Paragraph(String.valueOf("Lidnnummer: " + debiteur.getId())));
+        preface.add(new Paragraph("Naam: " + debiteur.getAanhef() + " " + debiteur.getVoornaam() + " " + debiteur.getTussenvoegsel() + " " + debiteur.getNaam()));
+        preface.add(new Paragraph("Adres: " + debiteur.getAdres()));
+        preface.add(new Paragraph("Woonplaats: " + debiteur.getWoonplaats() + " " + debiteur.getPostcode()));
         addEmptyLine(preface, 3);
-        preface.add(new Paragraph("Betreft: Wijnbestelling Benefiet Wijnfestijn Oud Poelgeest 01 november 2015"));
-        addEmptyLine(preface, 2);
+        SimpleDateFormat df = new SimpleDateFormat("dd-MM-yyyy");
+
+        preface.add(new Paragraph("Factuur", FONT_SIZE_11_BOLD));
+        preface.setAlignment(Element.ALIGN_LEFT);
+
+        addEmptyLine(preface, 1);
         document.add(preface);
+
+        createFactuurInfoTable();
+
+        preface2 = new Paragraph();
+        addEmptyLine(preface2, 2);
+        document.add(preface2);
+
         createTable();
         showOpmerking();
-        //onEndPage();
+        onEndPage();
     }
 
     /**
@@ -123,14 +141,52 @@ public class FactuurPdf {
         otherSymbols.setGroupingSeparator('.');
         DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
         for(Factuurregel factuurregel: factuurregels) {
-            table.addCell(String.valueOf(factuurregel.getAantal()));
             table.addCell(String.valueOf(factuurregel.getWijn().getProductnummer()));
             table.addCell(factuurregel.getWijn().getNaam());
+            table.addCell(String.valueOf(factuurregel.getAantal()));
             table.addCell("\u20ac " + String.valueOf(df.format(calculatePrice(factuurregel))));
         }
         table.setWidthPercentage(100);
         createFooter(table, this.factuurregels);
         document.add(table);
+    }
+
+    private void createFactuurInfoTable() throws DocumentException {
+        PdfPTable factuurInfo = new PdfPTable(4);
+
+        PdfPCell factuurnummer = new PdfPCell(new Phrase("Factuurnummer", font14));
+        PdfPCell factuurdatum = new PdfPCell(new Phrase("Factuurdatum", font14));
+        PdfPCell vervaldatum = new PdfPCell(new Phrase("Vervaldatum", font14));
+        PdfPCell lidnummer = new PdfPCell(new Phrase("Lidnummer", font14));
+
+        factuurnummer.setBorder(Rectangle.NO_BORDER);
+        factuurdatum.setBorder(Rectangle.NO_BORDER);
+        vervaldatum.setBorder(Rectangle.NO_BORDER);
+        lidnummer.setBorder(Rectangle.NO_BORDER);
+
+        factuurInfo.addCell(factuurnummer);
+        factuurInfo.addCell(factuurdatum);
+        factuurInfo.addCell(vervaldatum);
+        factuurInfo.addCell(lidnummer);
+
+        factuurnummer = new PdfPCell(new Phrase(Phrase.getInstance(String.valueOf(factuur.getFactuurnummer()))));
+        factuurnummer.setBorder(Rectangle.NO_BORDER);
+        factuurInfo.addCell(factuurnummer);
+
+        factuurdatum = new PdfPCell(new Phrase("27-01-2016"));
+        factuurdatum.setBorder(Rectangle.NO_BORDER);
+        factuurInfo.addCell(factuurdatum);
+
+        vervaldatum = new PdfPCell(new Phrase("27-02-2016"));
+        vervaldatum.setBorder(Rectangle.NO_BORDER);
+        factuurInfo.addCell(vervaldatum);
+
+        lidnummer = new PdfPCell(new Phrase(Phrase.getInstance(String.valueOf(debiteur.getId()))));
+        lidnummer.setBorder(Rectangle.NO_BORDER);
+        factuurInfo.addCell(lidnummer);
+
+        factuurInfo.setWidthPercentage(100);
+        document.add(factuurInfo);
     }
 
     /**
@@ -189,10 +245,10 @@ public class FactuurPdf {
      * @param table
      */
     public void createHeader(PdfPTable table) {
-        table.addCell("Aantal");
-        table.addCell("Productnummer");
-        table.addCell("Product");
-        table.addCell("Prijs");
+        table.addCell(new Phrase("Productnr.", font14));
+        table.addCell(new Phrase("Omschrijving", font14));
+        table.addCell(new Phrase("Aantal", font14));
+        table.addCell(new Phrase("Prijs", font14));
     }
 
     /**
@@ -202,11 +258,11 @@ public class FactuurPdf {
      * Zodat een lid zijn bestelling kan betalen.
      * @throws Exception
      */
-//    public void onEndPage() throws Exception {
-//        this.settings = new SettingsDAO().getAllSettings();
-//        LineSeparator ls = new LineSeparator();
-//        document.add(new Chunk(ls));
-//        rect = writer.getBoxSize("art");
+    public void onEndPage() throws Exception {
+        //this.settings = new SettingsDAO().getAllSettings();
+        LineSeparator ls = new LineSeparator();
+        document.add(new Chunk(ls));
+        rect = writer.getBoxSize("art");
 //        for (Settings setting : settings) {
 //            ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase(setting.getBedrijfsnaam()),
 //                    document.leftMargin() - 1, document.bottom() + 90, 0);
@@ -215,7 +271,8 @@ public class FactuurPdf {
 //            ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Inschrijfnummer KvK Rijnland: "+setting.getKvK()),
 //                    document.leftMargin() - 1, document.bottom() + 50, 0);
 //        }
-//    }
+            ColumnText.showTextAligned(writer.getDirectContent(), Element.ALIGN_LEFT, new Phrase("Gelieve binnen 14 dagen betalen"), document.leftMargin() - 1, document.bottom() + 50,0);
+    }
 
     /**
      * @author Brandon van Wijk

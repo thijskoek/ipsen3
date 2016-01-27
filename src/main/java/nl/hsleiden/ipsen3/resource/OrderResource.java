@@ -48,6 +48,8 @@ public class OrderResource {
             factuurregel.setFactuur(factuur);
             factuur.addFactuurregel(factuurregel);
         }
+        factuur.setPdfPath(factuur.getPdfPath());
+
         factuurDAO.create(factuur);
         new FactuurPdf(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
 
