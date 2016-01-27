@@ -141,7 +141,7 @@ public class App extends Application<AppConfiguration> {
         );
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
-        environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
+        environment.jersey().register(new AuthValueFactoryProvider.Binder<User>(User.class));
     }
 
     /**

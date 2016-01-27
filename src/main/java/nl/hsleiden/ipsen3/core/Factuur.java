@@ -39,7 +39,7 @@ public class Factuur {
     @JoinTable(name = "tbl_order",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "factuur_id"))
-    private List<Factuurregel> factuurregels = new ArrayList<>();
+    private List<Factuurregel> factuurregels = new ArrayList<Factuurregel>();
 
     public List<Factuurregel> getFactuurregels() {
         return factuurregels;

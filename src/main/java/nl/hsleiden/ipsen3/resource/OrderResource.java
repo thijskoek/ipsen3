@@ -1,5 +1,8 @@
 package nl.hsleiden.ipsen3.resource;
 
+import com.github.mustachejava.DefaultMustacheFactory;
+import com.github.mustachejava.Mustache;
+import com.github.mustachejava.MustacheFactory;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.*;
@@ -15,6 +18,7 @@ import javax.ws.rs.POST;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
+import java.io.*;
 
 /**
  * Created by Brandon on 16-Jan-16.
@@ -26,6 +30,7 @@ import javax.ws.rs.core.MediaType;
 public class OrderResource {
 
     private final Logger logger = LoggerFactory.getLogger(OrderResource.class);
+    private MustacheFactory mf = new DefaultMustacheFactory();
 
     private final FactuurDAO factuurDAO;
 
@@ -54,18 +59,10 @@ public class OrderResource {
         Email email = new Email();
         email.setSubject("Bedankt voor uw bestelling!");
 
-        String content = String.format("Beste %s \n\n" +
-                "Bedankt voor uw bestelling #%s. In deze mail vind u een factuur als " +
-                "bijlage met een overzicht van uw bestelling. \n\n" +
-                "Besteloverzicht: \n\n", factuur.getDebiteur().getFullName(), factuur.getFactuurnummer());
+        Mustache mustache = mf.compile("mailtemplates/bevestiging-bestelling.mustache");
+        StringWriter content = (StringWriter) mustache.execute(new StringWriter(), factuur);
 
-        for (Factuurregel regel : factuur.getFactuurregels()) {
-            content += String.format("%s %s €%s \n", regel.getAantal(), regel.getWijn().getNaam(), regel.getWijn().getPrijs());
-        }
-
-        content += "\n\n Met vriendelijke groet, \n Groep 4, IPSEN3";
-
-        email.setContent(content, "text/plain");
+        email.setContent(content.toString(), "text/html");
         email.setTo(factuur.getDebiteur().getEmail());
         email.setFrom("no-reply@groep4.ipsen3.nl");
 
