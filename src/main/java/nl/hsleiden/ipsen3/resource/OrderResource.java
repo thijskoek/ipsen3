@@ -40,6 +40,7 @@ public class OrderResource {
     public void create(@Auth User user, Order order) {
         long id = factuurDAO.create(order);
         Factuur factuur = factuurDAO.findById(id);
+
         for (OrderRegel orderRegel: order.getRegels()) {
             Factuurregel factuurregel = new Factuurregel();
             factuurregel.setAantal(orderRegel.getAantal());
@@ -48,6 +49,8 @@ public class OrderResource {
             factuur.addFactuurregel(factuurregel);
         }
         factuurDAO.create(factuur);
+        new FactuurPdf(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
+
 
         // TODO: Refactor this clusterfuck!
         MailService mailService = new MailService(new JavaMailStrategy());
@@ -68,6 +71,7 @@ public class OrderResource {
         email.setContent(content, "text/plain");
         email.setTo(factuur.getDebiteur().getEmail());
         email.setFrom("no-reply@groep4.ipsen3.nl");
+        email.addAttachment(factuur.getPdfPath(), factuur.getFactuurnummer() + factuur.getDebiteur().getNaam());
 
         mailService.send(email);
     }

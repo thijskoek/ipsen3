@@ -40,6 +40,16 @@ public class Factuur {
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "factuur_id"))
     private List<Factuurregel> factuurregels = new ArrayList<>();
+    private String pdfPath;
+
+
+    public String getPdfPath() {
+        return pdfPath;
+    }
+
+    public void setPdfPath(String pdfPath) {
+        this.pdfPath = pdfPath;
+    }
 
     public List<Factuurregel> getFactuurregels() {
         return factuurregels;
