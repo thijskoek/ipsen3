@@ -1,0 +1,30 @@
+$font-family-sans-serif: 		'Avenir Next', sans-serif;
+
+$icon-font-path: '/bower_components/bootstrap-sass/assets/fonts/bootstrap/';
+
+$navbar-height: 				70px;
+$navbar-default-bg: 			#ffffff;
+$navbar-default-border:			transparent;
+$navbar-default-link-color: 	#26364B;
+$navbar-default-link-active-bg: none;
+
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.navbar-nav > li > a {
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 600;
+	letter-spacing: 0.1em;
+}
+
+// .navbar {
+// 	font-size: 11px;
+// 	text-transform: uppercase;
+// 	min-height: 64px;
+// }
+
+// .navbar-brand {
+// 	font-size: 11px;
+// 	font-weight: 500;
+// 	letter-spacing: 0.1em;
+// }
