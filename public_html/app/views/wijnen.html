@@ -1,22 +1,99 @@
-<p>This is the wijnen view.</p>
+<div class="row">
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Productnummer</th>
-    <th>Naam</th>
-    <th>Jaar</th>
-    <th>Prijs</th>
-    <th></th>
-  </tr>
-  </thead>
-  <tr ng-repeat="wijn in wijnen">
-    <td>{{wijn.productnummer}}</td>
-    <td>{{wijn.naam}}</td>
-    <td>{{wijn.jaar}}</td>
-    <td>{{wijn.prijs | currency}}</td>
-    <td>
-      <button class="btn btn-success" type="button" ng-click="addToCart(wijn)"><span class="glyphicon glyphicon-shopping-cart"></span></button>
-    </td>
-  </tr>
-</table>
+  <div class="col-md-9">
+    
+    <h1>Shop</h1>
+
+    <div class="row">
+      <div class="col-sm-4 col-md-4" ng-repeat="wijn in wijnen">
+        <div class="thumbnail">
+          <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg" 
+          alt="{{wijn.naam}}">
+          <div class="caption text-center">
+            <h3>{{wijn.naam}}</h3>
+            <p>{{wijn.productnummer}} &mdash; <i>{{wijn.jaar}}</i></p>
+            <p><strong>{{wijn.prijs | currency}}</strong> <small>per fles</small></p>
+            <p>
+              <button ng-click="addToCart(wijn)" class="btn btn-primary btn-rounded" type="button">
+                <span class="glyphicon glyphicon-shopping-cart"></span> In winkelwagen
+              </button>
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <div class="col-md-3">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Type</strong>
+      </div>
+      <div class="panel-body">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> Rood
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> Wit
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> Rose
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Jaar</strong>
+      </div>
+      <div class="panel-body">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> 2015
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> 2014
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> 2013
+          </label>
+        </div>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        <strong>Land</strong>
+      </div>
+      <div class="panel-body">
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> Frankrijk
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> Italie
+          </label>
+        </div>
+        <div class="checkbox">
+          <label>
+            <input type="checkbox" name="" id=""> Spanje
+          </label>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
