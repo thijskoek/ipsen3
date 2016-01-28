@@ -13,7 +13,7 @@
  */
 
 angular.module('appApp')
-  .controller('ActieCtrl',  function($scope, wijnen, actieService){
+  .controller('ActieCtrl',  function($scope, wijnen, cartService){
     $scope.checkboxModel = {
       value1 : true,
     }

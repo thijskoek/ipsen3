@@ -1,6 +1,9 @@
 <h1>Actieoverzicht</h1>
 
-
+<p>Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen.
+  Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw,
+  toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.
+</p>
 
 <div class="row">
   <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="wijn in wijnen">
@@ -12,14 +15,12 @@
         </div>
         <div class="item-details">
             <h5>{{ wijn.naam}}</h5>
-            <p>KOOP DAN ! | {{ wijn.prijs | currency }}</p>
-            <hr>
-            <div class="btn btn-default pull-right">
-              <span class="button">
-                  <button class="btn btn-success" type="button" ng-click="addToCart(wijn)">Toevoegen<i class="glyphicon glyphicon-shopping-cart"></i></button>
-              </span>
-            </div>
-        </div>
+          <p>{{ wijn.prijs | currency }}</p>
+          <hr>
+          <div class="col-md-4 col-sm-3 col-xs-3">
+            <input class="form-control" type="text" placeholder="1">
+          </div>
+            <button class="btn btn-success pull-right" type="button" ng-click="addToCart(wijn)">Toevoegen<i class="glyphicon glyphicon-shopping-cart"></i></button>
     </div>
   </div>
 </div>

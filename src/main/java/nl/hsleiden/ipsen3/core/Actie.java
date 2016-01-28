@@ -25,18 +25,6 @@ public class Actie {
     @Column(name = "banner_text", length = 255)
     private String Banner;
 
-<<<<<<< HEAD
-    @OneToMany
-    private List<Wijn> wijnLijst;
-
-    @Column(name = "actief", nullable = false, length = 255)
-    @Length(max = 255)
-    private boolean actief;
-    @Column(name = "date", nullable = false, length = 11)
-    private Date startdatum;
-    @Column(name = "date2", nullable = false, length = 11)
-    private Date einddatum;
-=======
     @Column(name = "actief")
     private boolean actief;
 
@@ -51,7 +39,7 @@ public class Actie {
         joinColumns = @JoinColumn(name = "actie_id"),
         inverseJoinColumns = @JoinColumn(name = "product_id"))
     private List<Wijn> wijnen;
->>>>>>> makenBestellijst
+
 
     @JsonProperty
     public long getId() {

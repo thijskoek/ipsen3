@@ -22,7 +22,6 @@ angular
       .when('/', {
         templateUrl: 'views/main.html',
         controller: 'ActieCtrl',
-        controllerAs: 'actie',
         activeTab: 'home'
       })
       .when('/about', {
