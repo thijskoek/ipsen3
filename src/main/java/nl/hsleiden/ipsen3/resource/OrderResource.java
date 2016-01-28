@@ -57,6 +57,7 @@ public class OrderResource {
         factuur.setPdfPath(factuur.getPdfPath());
 
         factuurDAO.create(factuur);
+
         new Thread(new Runnable() {
             public void run() {
                 sendOrderEmail(factuur);

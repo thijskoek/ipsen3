@@ -37,13 +37,17 @@ public class Factuur {
     @Column(name = "opmerking")
     private String opmerking;
 
+    @Column(name = "pdfpath")
+    private String pdfPath;
+
+
     @OneToMany(cascade = {CascadeType.ALL})
     @JoinTable(name = "tbl_order",
             joinColumns = @JoinColumn(name = "id"),
             inverseJoinColumns = @JoinColumn(name = "factuur_id"))
+    private List<Factuurregel> factuurregels = new ArrayList<Factuurregel>();
 
-    @Column(name = "pdfpath")
-    private String pdfPath;
+
 
     public String getPdfPath() {
         return pdfPath;
@@ -53,7 +57,7 @@ public class Factuur {
         this.pdfPath = pdfPath;
     }
 
-    private List<Factuurregel> factuurregels = new ArrayList<Factuurregel>();
+
 
     @Transient
     DecimalFormat df = new DecimalFormat("#.00");
