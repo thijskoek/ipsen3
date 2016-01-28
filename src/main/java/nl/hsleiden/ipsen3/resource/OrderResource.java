@@ -31,6 +31,7 @@ public class OrderResource {
 
     private final Logger logger = LoggerFactory.getLogger(OrderResource.class);
     private MustacheFactory mf = new DefaultMustacheFactory();
+    private MailService mailService = new MailService(new JavaMailStrategy());
 
     private final FactuurDAO factuurDAO;
 
@@ -44,7 +45,7 @@ public class OrderResource {
     @Consumes(MediaType.APPLICATION_JSON)
     public void create(@Auth User user, Order order) {
         long id = factuurDAO.create(order);
-        Factuur factuur = factuurDAO.findById(id);
+        final Factuur factuur = factuurDAO.findById(id);
         for (OrderRegel orderRegel: order.getRegels()) {
             Factuurregel factuurregel = new Factuurregel();
             factuurregel.setAantal(orderRegel.getAantal());
@@ -53,9 +54,15 @@ public class OrderResource {
             factuur.addFactuurregel(factuurregel);
         }
         factuurDAO.create(factuur);
+        new Thread(new Runnable() {
+            public void run() {
+                sendOrderEmail(factuur);
+            }
+        }).start();
+    }
 
+    private void sendOrderEmail(Factuur factuur) {
         // TODO: Refactor this clusterfuck!
-        MailService mailService = new MailService(new JavaMailStrategy());
         Email email = new Email();
         email.setSubject("Bedankt voor uw bestelling!");
 
