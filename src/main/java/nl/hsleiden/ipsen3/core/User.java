@@ -43,7 +43,7 @@ public class User implements Principal {
         joinColumns = @JoinColumn(name = "user_id"),
         inverseJoinColumns = @JoinColumn(name = "role_id"))
     @OrderBy(clause = "id ASC")
-    private Set<Role> roles = new HashSet<>();
+    private Set<Role> roles = new HashSet<Role>();
 
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinTable(name = "user_debiteur",

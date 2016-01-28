@@ -1,7 +1,10 @@
 package nl.hsleiden.ipsen3.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.DecimalFormat;
 
 /**
  * @author Daan
@@ -59,5 +62,11 @@ public class Factuurregel {
 
     public void setFactuur(Factuur factuur) {
         this.factuur = factuur;
+    }
+
+    @JsonIgnore
+    public double getTotaal() {
+        DecimalFormat df = new DecimalFormat("#.00");
+        return Double.parseDouble(df.format((getAantal() * getWijn().getPrijs())));
     }
 }

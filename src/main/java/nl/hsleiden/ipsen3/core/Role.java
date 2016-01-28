@@ -2,8 +2,6 @@ package nl.hsleiden.ipsen3.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
-import nl.hsleiden.ipsen3.View;
 
 import javax.persistence.*;
 import java.util.HashSet;
@@ -28,7 +26,7 @@ public class Role {
     @JoinTable(name = "user_role",
         joinColumns = @JoinColumn(name = "role_id"),
         inverseJoinColumns = @JoinColumn(name = "user_id"))
-    private Set<User> users = new HashSet<>();
+    private Set<User> users = new HashSet<User>();
 
     public Role() {
         // Empty constructor

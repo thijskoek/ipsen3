@@ -1,0 +1,64 @@
+<html>
+<head>
+    <style>
+        html {
+            font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+        }
+    </style>
+</head>
+<body>
+    <p>
+        Beste {{debiteur.getFullName}},
+    </p>
+    <p>
+        Bedankt voor uw bestelling #{{factuurnummer}}. In deze mail vind u een factuur als bijlage
+        met een overzicht van uw bestelling.
+    </p>
+    <h4>Besteloverzicht</h4>
+    <table>
+        <thead>
+            <tr>
+                <th>Aantal</th>
+                <th>Wijn</th>
+                <th>Prijs</th>
+                <th>Totaal</th>
+            </tr>
+        </thead>
+        <tbody>
+            {{#factuurregels}}
+            <tr>
+                <td>{{aantal}}</td>
+                <td>{{wijn.naam}}</td>
+                <td>&euro; {{wijn.getPrijs}}</td>
+                <td>&euro; {{ getTotaal }}</td>
+            </tr>
+            {{/factuurregels}}
+        </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Subtotaal:</td>
+                <td>&euro; {{ getSubTotaal }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>BTW(21%):</td>
+                <td>&euro; {{ getBTW }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Totaal:</td>
+                <td>&euro; {{ getTotaal }}</td>
+            </tr>
+        </tfoot>
+    </table>
+
+    <p>
+        Met vriendelijke groet, <br>
+        Groep 4 IPSEN3
+    </p>
+</body>
+</html>
