@@ -24,6 +24,11 @@ $padding-large-horizontal:  	43px;
 
 @import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
 
+.nav.navbar-nav.navbar-center {
+	display: inline-block;
+	float: none;
+}
+
 .navbar-nav > li > a {
 	text-transform: uppercase;
 	font-size: 11px;

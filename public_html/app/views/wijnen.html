@@ -5,7 +5,12 @@
     <h1>Shop</h1>
 
     <div class="row">
-      <div class="col-sm-4 col-md-4" ng-repeat="wijn in wijnen">
+      
+      <div class="alert alert-info" ng-hide="filteredWijnen.length">
+        Geen wijnen gevonden.
+      </div>
+
+      <div class="col-sm-4 col-md-4" ng-repeat="wijn in filteredWijnen = (wijnen | filter:searchText)">
         <div class="thumbnail">
           <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg" 
           alt="{{wijn.naam}}">
@@ -24,6 +29,16 @@
     </div>
 
   </div>
+  
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Zoeken</label>
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="searchText" placeholder="Zoeken...">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+      </div>
+    </div>
+  </div>
 
   <div class="col-md-3">
     <div class="panel panel-default">
@@ -31,9 +46,9 @@
         <strong>Type</strong>
       </div>
       <div class="panel-body">
-        <div class="checkbox" ng-repeat="wijnType in types track by $index">
+        <div class="checkbox" ng-repeat="type in types">
           <label>
-            <input type="checkbox" name="" id=""> {{wijnType}}
+            <input type="checkbox" name="" id=""> {{type}}
           </label>
         </div>
       </div>
