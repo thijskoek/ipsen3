@@ -63,3 +63,37 @@ $padding-large-horizontal:  	43px;
 	    width: 22px;
     }
 }
+
+.table-cart > tbody > tr > td {
+	vertical-align: middle; 
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 175px;
+}
+
+.footer {
+	padding-top: 38px;
+  	position: absolute;
+  	bottom: 0;
+  	width: 100%;
+  	/* Set the fixed height of the footer here */
+  	height: 175px;
+	background-color: $navbar-default-bg;
+	color: rgba(#000, 0.4);
+	font-weight: 500;
+	line-height: 2;
+
+	a {
+		text-decoration: none;
+		color: rgba(#000, 0.4);
+
+		&:hover {text-decoration: underline;}
+	}
+}

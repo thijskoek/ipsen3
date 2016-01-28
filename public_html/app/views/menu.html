@@ -14,7 +14,7 @@
 
     <div class="collapse navbar-collapse" id="js-navbar-collapse">
 
-      <ul class="nav navbar-nav navbar-center">
+      <ul class="nav navbar-nav">
         <li ng-class="{'active': $route.current.activeTab == 'home'}"><a href="#/"><u>Home</u></a></li>
         <li ng-class="{'active': $route.current.activeTab == 'wijnen'}"><a ng-href="#/wijnen"><u>Shop</u></a></li>
         <li ng-class="{'active': $route.current.activeTab == 'contact'}"><a ng-href="#/contact"><u>Contact</u></a></li>
@@ -31,7 +31,7 @@
           </ul>
         </li>
         <li ng-class="{'active': $route.current.activeTab == 'cart'}">
-          <a class="cart" ng-href="#/cart">
+          <a class="cart" ng-href="#/cart" animate-on-change="cartSize()">
             <i class="glyphicon glyphicon-shopping-cart"></i>
             <span class="badge">{{cartSize()}}</span>
           </a>

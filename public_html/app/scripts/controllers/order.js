@@ -10,6 +10,7 @@
 
 angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService, authenticationService) {
   $scope.cart = cartService.retrieve();
+  $scope.user = authenticationService.getAuthenticator();
 
   $scope.getTotal = function(item) {
     return parseInt(item.aantal) * item.wijn.prijs;
