@@ -54,9 +54,8 @@ public class OrderResource {
             factuurregel.setFactuur(factuur);
             factuur.addFactuurregel(factuurregel);
         }
-        factuur.setPdfPath(factuur.getPdfPath());
-
         factuurDAO.create(factuur);
+        new FactuurPdf(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
 
         new Thread(new Runnable() {
             public void run() {
@@ -76,7 +75,8 @@ public class OrderResource {
         email.setContent(content.toString(), "text/html");
         email.setTo(factuur.getDebiteur().getEmail());
         email.setFrom("no-reply@groep4.ipsen3.nl");
-        email.addAttachment(factuur.getPdfPath(), factuur.getFactuurnummer() + factuur.getDebiteur().getNaam());
+        //System.out.print("Pdf path: " + factuur.getPdfPath());
+        email.addAttachment(factuur.getPdfPath(), factuur.getFactuurnummer() + factuur.getDebiteur().getNaam()+".pdf");
 
         mailService.send(email);
     }
