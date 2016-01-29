@@ -37,8 +37,8 @@ public class FactuurPdf {
     private PdfWriter writer;
     private Rectangle rect;
     protected final static Font FONT_SIZE_11_BOLD = new Font(Font.FontFamily.HELVETICA, 18f, Font.BOLD);
-    protected final static Font font14 = new Font(Font.FontFamily.HELVETICA, 14f, Font.BOLD);
-    protected final static Font font12 = new Font(Font.FontFamily.HELVETICA, 12f, Font.BOLD);
+    protected final static Font font14 = new Font(Font.FontFamily.HELVETICA, 12f, Font.BOLD);
+    protected final static Font font12 = new Font(Font.FontFamily.HELVETICA, 11f, Font.NORMAL);
 
 
     //private ArrayList<Settings> settings = new ArrayList<>();
@@ -84,9 +84,16 @@ public class FactuurPdf {
 
         Image image1 = Image.getInstance("C:/Users/Brandon/Desktop/logo_lions.jpg");
         document.add(image1);
+        Paragraph lionsInfo = new Paragraph();
+        addEmptyLine(lionsInfo,1);
+        lionsInfo.add(new Paragraph("Lions Club Oegstgeest"));
+        lionsInfo.add(new Paragraph("KVK: 123456789"));
+        lionsInfo.add(new Paragraph("Btwnummer: 645677"));
+        lionsInfo.add(new Paragraph("IBAN: NL76RABO4567898455"));
+        addEmptyLine(lionsInfo,1);
+        document.add(lionsInfo);
 
         preface = new Paragraph();
-
 
         addEmptyLine(preface, 1);
         preface.add(new Paragraph("Naam: " + debiteur.getAanhef() + " " + debiteur.getVoornaam() + " " + debiteur.getTussenvoegsel() + " " + debiteur.getNaam()));
@@ -104,7 +111,7 @@ public class FactuurPdf {
         createFactuurInfoTable();
 
         preface2 = new Paragraph();
-        addEmptyLine(preface2, 2);
+        addEmptyLine(preface2, 1);
         document.add(preface2);
 
         createTable();
@@ -134,19 +141,91 @@ public class FactuurPdf {
      */
     private void createTable() throws Exception {
         PdfPTable table = new PdfPTable(4);
-        createHeader(table);
+
+        PdfPCell productnummer = new PdfPCell(new Phrase("Productnr.", font12));
+        PdfPCell aantal = new PdfPCell(new Phrase("Aantal", font12));
+        PdfPCell omschrijving = new PdfPCell(new Phrase("Omschrijving", font12));
+        PdfPCell prijs = new PdfPCell(new Phrase("Prijs", font12));
+
+        productnummer.setBorder(Rectangle.BOTTOM);
+        aantal.setBorder(Rectangle.BOTTOM);
+        omschrijving.setBorder(Rectangle.BOTTOM);
+        prijs.setBorder(Rectangle.BOTTOM);
+
+        table.addCell(productnummer);
+        table.addCell(aantal);
+        table.addCell(omschrijving);
+        table.addCell(prijs);
+
         DecimalFormatSymbols otherSymbols = new DecimalFormatSymbols(Locale.GERMAN);
         otherSymbols.setDecimalSeparator(',');
         otherSymbols.setGroupingSeparator('.');
         DecimalFormat df = new DecimalFormat("0.00", otherSymbols);
+
+//        for(Factuurregel factuurregel: factuurregels) {
+//            table.addCell(String.valueOf(factuurregel.getWijn().getProductnummer()));
+//            table.addCell(factuurregel.getWijn().getNaam());
+//            table.addCell(String.valueOf(factuurregel.getAantal()));
+//            table.addCell("\u20ac " + String.valueOf(df.format(calculatePrice(factuurregel))));
+//        }
+
         for(Factuurregel factuurregel: factuurregels) {
-            table.addCell(String.valueOf(factuurregel.getWijn().getProductnummer()));
-            table.addCell(factuurregel.getWijn().getNaam());
-            table.addCell(String.valueOf(factuurregel.getAantal()));
-            table.addCell("\u20ac " + String.valueOf(df.format(calculatePrice(factuurregel))));
+            productnummer = new PdfPCell(new Phrase(Phrase.getInstance(String.valueOf(factuurregel.getWijn().getProductnummer()))));
+            productnummer.setBorder(Rectangle.NO_BORDER);
+
+            aantal = new PdfPCell(new Phrase(String.valueOf(factuurregel.getAantal())));
+            aantal.setBorder(Rectangle.NO_BORDER);
+
+            omschrijving = new PdfPCell(new Phrase(String.valueOf(factuurregel.getWijn().getNaam())));
+            omschrijving.setBorder(Rectangle.NO_BORDER);
+
+            prijs = new PdfPCell(new Phrase(String.valueOf(df.format(calculatePrice(factuurregel)))));
+            prijs.setBorder(Rectangle.NO_BORDER);
+
+
+            table.addCell(productnummer);
+            table.addCell(aantal);
+            table.addCell(omschrijving);
+            table.addCell(prijs);
+
         }
+
+        productnummer = new PdfPCell(new Phrase(Phrase.getInstance("")));
+        productnummer.setBorder(Rectangle.NO_BORDER);
+
+        aantal = new PdfPCell(new Phrase(String.valueOf("")));
+        aantal.setBorder(Rectangle.NO_BORDER);
+
+        omschrijving = new PdfPCell(new Phrase(String.valueOf("")));
+        omschrijving.setBorder(Rectangle.NO_BORDER);
+
+        prijs = new PdfPCell(new Phrase(String.valueOf("")));
+        prijs.setBorder(Rectangle.NO_BORDER);
+
+        table.addCell(productnummer);
+        table.addCell(aantal);
+        table.addCell(omschrijving);
+        table.addCell(prijs);
+
+        productnummer = new PdfPCell(new Phrase(Phrase.getInstance("")));
+        productnummer.setBorder(Rectangle.NO_BORDER);
+
+        aantal = new PdfPCell(new Phrase(String.valueOf("")));
+        aantal.setBorder(Rectangle.NO_BORDER);
+
+        omschrijving = new PdfPCell(new Phrase(String.valueOf("Totaal")));
+        omschrijving.setBorder(Rectangle.NO_BORDER);
+
+        prijs = new PdfPCell(new Phrase(String.valueOf(calculateTotalPrice(factuurregels))));
+        prijs.setBorder(Rectangle.TOP);
+
+        table.addCell(productnummer);
+        table.addCell(aantal);
+        table.addCell(omschrijving);
+        table.addCell(prijs);
+
         table.setWidthPercentage(100);
-        createFooter(table, this.factuurregels);
+        //createFooter(table, this.factuurregels);
         document.add(table);
     }
 
