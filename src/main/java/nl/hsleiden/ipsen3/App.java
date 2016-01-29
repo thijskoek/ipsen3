@@ -76,14 +76,23 @@ public class App extends Application<AppConfiguration> {
 
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
+        final BestellijstDAO bestellijstDao = new BestellijstDAO(hibernate.getSessionFactory());
+        final ActieDAO actieDAO = new ActieDAO(hibernate.getSessionFactory());
 
         enableCORS(environment);
         setupAuthentication(environment, userDAO, appConfiguration);
         configureClientFilter(environment);
 
+
+        final BestellijstResource BResource = new BestellijstResource(bestellijstDao);
+        final ActieResource AResource = new ActieResource(actieDAO);
         final WijnResource wijnResource = new WijnResource(wijnDAO);
         final UserResource userResource = new UserResource(userDAO);
         final MailResource mailResource = new MailResource();
+
+
+        environment.jersey().register(AResource);
+        environment.jersey().register(BResource);
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);
         environment.jersey().register(mailResource);
@@ -133,13 +142,7 @@ public class App extends Application<AppConfiguration> {
                         .buildAuthFilter())
         );
 
-        final BestellijstDAO bestellijstDao = new BestellijstDAO(hibernate.getSessionFactory());
-        final BestellijstResource BResource = new BestellijstResource(bestellijstDao);
-        environment.jersey().register(BResource);
 
-        final ActieDAO actieDAO = new ActieDAO(hibernate.getSessionFactory());
-        final ActieResource AResource = new ActieResource(actieDAO);
-        environment.jersey().register(AResource);
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<>(User.class));
