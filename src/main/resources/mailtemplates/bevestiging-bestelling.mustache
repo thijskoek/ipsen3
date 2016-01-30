@@ -83,7 +83,7 @@
                             <td style="padding-top: 8px;padding-bottom: 8px;">{{aantal}}</td>
                             <td style="padding-top: 8px;padding-bottom: 8px;">{{wijn.naam}}</td>
                             <td style="padding-top: 8px;padding-bottom: 8px;">&euro; {{wijn.getPrijs}}</td>
-                            <td style="padding-top: 8px;padding-bottom: 8px;">&euro; {{ getTotaal }}</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;">&euro; {{ getTotaalString }}</td>
                         </tr>
                         {{/factuurregels}}
                     </tbody>
@@ -92,19 +92,19 @@
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">Subtotaal:</td>
-                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getSubTotaal }}</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getSubTotaalString }}</td>
                         </tr>
                         <tr>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">BTW(21%):</td>
-                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getBTW }}</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getBTWString }}</td>
                         </tr>
                         <tr>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
                             <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">Totaal:</td>
-                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getTotaal }}</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getTotaalString }}</td>
                         </tr>
                     </tfoot>
                 </table>
