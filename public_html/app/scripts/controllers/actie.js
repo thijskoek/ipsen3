@@ -13,7 +13,7 @@
  */
 
 angular.module('appApp')
-  .controller('ActieCtrl',  function($scope, wijnen){
+  .controller('ActieCtrl',  function($scope, wijnen, actieService){
     $scope.checkboxModel = {
       value1 : true,
     }
@@ -24,9 +24,18 @@ angular.module('appApp')
     ];
     $scope.wijnen =[];
 
-    wijnen.all().then(function(data) {
-      $scope.wijnen = data;
+    //wijnen.all().then(function(data) {
+    //  $scope.wijnen = data;
+    //
+    //}, function() {
+    //  throw Error;
+    //});
 
+    $scope.acties = [];
+
+    actieService.all().then(function(data) {
+      $scope.acties = data;
+      console.log("Actie: " + data)
     }, function() {
       throw Error;
     });
