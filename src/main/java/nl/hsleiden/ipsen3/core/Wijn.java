@@ -5,6 +5,7 @@ import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
 import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by Daan on 30-Nov-15.

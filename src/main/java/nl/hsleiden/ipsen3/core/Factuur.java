@@ -40,12 +40,14 @@ public class Factuur {
     @Column(name = "pdfpath")
     private String pdfPath;
 
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "factuur")
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "tbl_order",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "factuur_id"))
     private List<Factuurregel> factuurregels = new ArrayList<Factuurregel>();
+
+
+
+    @Transient
+    DecimalFormat df = new DecimalFormat("#.00");
 
 
 
@@ -56,11 +58,6 @@ public class Factuur {
     public void setPdfPath(String pdfPath) {
         this.pdfPath = pdfPath;
     }
-
-
-
-    @Transient
-    DecimalFormat df = new DecimalFormat("#.00");
 
     public List<Factuurregel> getFactuurregels() {
         return factuurregels;
@@ -140,12 +137,22 @@ public class Factuur {
     }
 
     @JsonIgnore
-    public double getSubTotaal() {
-        return Double.parseDouble(df.format((getTotaal() - getBTW())));
+    public String getTotaalString() {
+        return df.format(getTotaal());
+    }
+
+    @JsonIgnore
+    public String getSubTotaalString() {
+        return df.format((getTotaal() - getBTW()));
     }
 
     @JsonIgnore
     public double getBTW() {
         return Double.parseDouble(df.format(((getTotaal() / 121) * 21)));
+    }
+
+    @JsonIgnore
+    public String getBTWString() {
+        return df.format(((getTotaal() / 121) * 21));
     }
 }
