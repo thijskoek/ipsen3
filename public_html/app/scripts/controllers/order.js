@@ -9,7 +9,7 @@
  */
 
 angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService, authenticationService, 
-  $location) {
+  $location, ngNotify) {
   $scope.cart = cartService.retrieve();
   $scope.user = authenticationService.getAuthenticator();
 
@@ -49,6 +49,8 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, 
 
     orderService.create(order, function (data) {
         $location.path('/');
+        cartService.empty();
+        ngNotify.set('Bedankt voor uw bestelling!', 'success');
     });
   }
 
