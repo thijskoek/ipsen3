@@ -15,14 +15,14 @@ angular
     'ngResource',
     'ngRoute',
     'ngSanitize',
-    'ngTouch'
+    'ngTouch',
+    'ngNotify'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main',
+        controller: 'ActieCtrl',
         activeTab: 'home'
       })
       .when('/about', {
@@ -42,6 +42,11 @@ angular
         controller: 'ContactCtrl',
         controllerAs: 'contact',
         activeTab: 'contact'
+      })
+      .when('/cart', {
+        templateUrl: 'views/cart.html',
+        controller: 'CartCtrl',
+        controllerAs: 'cart'
       })
       .when('/profielbewerken', {
           templateUrl: 'views/profielbewerken.html',
@@ -68,6 +73,30 @@ angular
         controller: 'RegisterCtrl',
         controllerAs: 'register'
       })
+      .when('/order', {
+        templateUrl: 'views/order.html',
+        controller: 'OrderCtrl',
+        controllerAs: 'orderctrl'
+      })
+      .when('/actie', {
+        templateUrl: 'views/actie.html',
+        controller: 'ActieCtrl',
+        controllerAs: 'actie'
+      })
+      .when('/bestellijsten', {
+        templateUrl: 'views/bestellijsten.html',
+        controller: 'BestellijstenCtrl',
+        controllerAs: 'bestellijsten'
+      })
+      .when('/maakbestellijst', {
+        templateUrl: 'views/maakbestellijst.html',
+        controller: 'MaakBestellijstCtrl',
+        controllerAs: 'maakbestellijst'
+      })
+      .when('/testactie', {
+        templateUrl: 'views/testactie.html',
+        controller: 'ActieCtrl',
+      })
       .otherwise({
         redirectTo: '/'
       });
@@ -81,8 +110,8 @@ angular
   })
   .constant('API_URL', "/api/v1/")
   .constant('ROLES', {
-    BEHEERDER: 'beheerder',
-    MSMANGER: 'm&s manager',
-    LID: 'lid',
-    KLANT: 'klant'
+    BEHEERDER:  'beheerder',
+    MSMANGER:   'm&s manager',
+    LID:        'lid',
+    KLANT:      'klant'
   });

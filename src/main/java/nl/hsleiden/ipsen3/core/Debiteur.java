@@ -1,5 +1,6 @@
 package nl.hsleiden.ipsen3.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
@@ -159,5 +160,31 @@ public class Debiteur {
     @JsonProperty
     public void setLand(Land land) {
         this.land = land;
+    }
+
+    @Override
+    public String toString() {
+        return "Debiteur{" +
+                "id=" + id +
+                ", aanhef='" + aanhef + '\'' +
+                ", voornaam='" + voornaam + '\'' +
+                ", tussenvoegsel='" + tussenvoegsel + '\'' +
+                ", naam='" + naam + '\'' +
+                ", adres='" + adres + '\'' +
+                ", woonplaats='" + woonplaats + '\'' +
+                ", postcode='" + postcode + '\'' +
+                ", email='" + email + '\'' +
+                ", telefoon='" + telefoon + '\'' +
+                ", land=" + land +
+                '}';
+    }
+
+    @JsonIgnore
+    public String getFullName() {
+        if (this.getTussenvoegsel() == null || this.getTussenvoegsel().isEmpty()) {
+            return this.aanhef + " " + this.voornaam + " " + this.naam;
+        } else {
+            return this.aanhef + " " + this.voornaam + " " + this.tussenvoegsel + " " + this.naam;
+        }
     }
 }

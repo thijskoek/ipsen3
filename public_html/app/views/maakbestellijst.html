@@ -1,0 +1,58 @@
+<h1>Aanmaken actie</h1>
+<span day.actie> </span>
+
+
+<form role="form" ng-submit="submit()">
+  <div class="form-group">
+    <label for="name">Naam Actie:</label>
+    <input type="text" class="form-control" id="name" ng-model="actie.naam">
+  </div>
+
+  <div class="form-group">
+    <label>Startdatum</label>
+    <div class='input-group date' datepicker ng-model="actie.startdatum">
+      <input type='text' class="form-control"/>
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+
+  <div class="form-group">
+    <label>Einddatum</label>
+    <div class='input-group date' datepicker ng-model="actie.einddatum">
+      <input type='text' class="form-control"/>
+      <span class="input-group-addon">
+          <span class="glyphicon glyphicon-calendar"></span>
+      </span>
+    </div>
+  </div>
+  <p>Selecteer producten: </p>
+  <div id="scroll-table">
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th><input type="checkbox"></th>
+        <th>Productnummer</th>
+        <th>Naam</th>
+        <th>Jaar</th>
+        <th>Prijs</th>
+      </tr>
+
+      </thead>
+      <tr ng-repeat="wijn in wijnen">
+        <td><input type="checkbox" ng-model="activeWines" ng-change="toggleWijn(wijn)"></td>
+        <td>{{wijn.productnummer}}</td>
+        <td>{{wijn.naam}}</td>
+        <td>{{wijn.jaar}}</td>
+        <td>{{wijn.prijs | currency}}</td>
+      </tr>
+
+    </table>
+  </div>
+
+  <button class="btn btn-info" ng-click="submit">Maak Actie</button>
+
+</form>
+
+<pre>{{ actie | json }}</pre>

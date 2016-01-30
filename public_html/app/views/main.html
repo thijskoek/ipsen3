@@ -1,23 +1,84 @@
-<div class="jumbotron">
-  <h1>'Allo, 'Allo!</h1>
-  <p class="lead">
-    <img src="images/yeoman.png" alt="I'm Yeoman"><br>
-    Always a pleasure scaffolding your apps.
-  </p>
-  <p><a class="btn btn-lg btn-success" ng-href="#/">Splendid!<span class="glyphicon glyphicon-ok"></span></a></p>
+<h1>Actieoverzicht</h1>
+
+<p>Lorem Ipsum is slechts een proeftekst uit het drukkerij- en zetterijwezen.
+  Lorem Ipsum is de standaard proeftekst in deze bedrijfstak sinds de 16e eeuw,
+  toen een onbekende drukker een zethaak met letters nam en ze door elkaar husselde om een font-catalogus te maken.
+</p>
+
+<!-- TODO: Aantal meegeven aan de addCart method. Er wordt er nu maar 1 toegevoegd. -->
+
+<div class="row actie-row">
+  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="wijn in wijnen">
+    <div class="item">
+      <div class="item-image">
+        <a href="#/">
+          <img src="/../images/wijn.png">
+        </a>
+      </div>
+      <div class="item-details">
+          <h5>{{ wijn.naam}}</h5>
+        <p>{{ wijn.prijs | currency }}</p>
+        <hr>
+        <div class="col-md-4 col-sm-3 col-xs-3">
+          <input class="form-control" type="text" placeholder="1">
+        </div>
+        <button class="btn btn-success pull-right" type="button" ng-click="addToCart(wijn)">Toevoegen<i class="glyphicon glyphicon-shopping-cart"></i></button>
+      </div>
+    </div>
+  </div>
 </div>
 
-<div class="row marketing">
-  <h4>HTML5 Boilerplate</h4>
+<div class="jumbotron text-center">
+  <h1>Gros Manseng</h1>
   <p>
-    HTML5 Boilerplate is a professional front-end template for building fast, robust, and adaptable web apps or sites.
+    Cotes de Gascogne &mdash; <i>2012</i>
   </p>
-
-  <h4>Angular</h4>
-  <p>
-    AngularJS is a toolset for building the framework most suited to your application development.
+  <p class="price">
+    &euro; 12,10 <small>per fles</small>
   </p>
+  <p><a class="btn btn-lg btn-primary btn-rounded" ng-href="#/">Toevoegen aan winkelwagen</a></p>
+</div>
 
-  <h4>Karma</h4>
-  <p>Spectacular Test Runner for JavaScript.</p>
+<div class="row">
+
+  <h1 class="text-center">
+    Andere mooie wijnen
+  </h1>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
+      alt="Gros et Petit Manseng Doux - Domaine Uby">
+      <div class="caption text-center">
+        <h3>Gros Manseng</h3>
+        <p>&euro; 12,10 <small>per fles</small></p>
+        <p><a href="#" class="btn btn-primary btn-rounded" role="button">Kopen</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
+      alt="Gros et Petit Manseng Doux - Domaine Uby">
+      <div class="caption text-center">
+        <h3>Gros Manseng</h3>
+        <p>&euro; 12,10 <small>per fles</small></p>
+        <p><a href="#" class="btn btn-primary btn-rounded" role="button">Kopen</a></p>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-sm-6 col-md-4">
+    <div class="thumbnail">
+      <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
+      alt="Gros et Petit Manseng Doux - Domaine Uby">
+      <div class="caption text-center">
+        <h3>Gros Manseng</h3>
+        <p>&euro; 12,10 <small>per fles</small></p>
+        <p><a href="#" class="btn btn-primary btn-rounded" role="button">Kopen</a></p>
+      </div>
+    </div>
+  </div>
+
 </div>
