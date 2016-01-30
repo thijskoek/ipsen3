@@ -8,7 +8,8 @@
  * Controller of the appApp
  */
 
-angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService, authenticationService) {
+angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService, authenticationService, 
+  $location) {
   $scope.cart = cartService.retrieve();
   $scope.user = authenticationService.getAuthenticator();
 
@@ -46,10 +47,7 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, 
     order.debiteur = authenticationService.getAuthenticator().debiteur;
     order.regels = JSON.parse(angular.toJson($scope.cart));
 
-    console.log(order);
-
     orderService.create(order, function (data) {
-      console.log(data);
         $location.path('/');
     });
   }
