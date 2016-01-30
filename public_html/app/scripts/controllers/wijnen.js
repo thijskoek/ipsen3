@@ -8,9 +8,9 @@
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('WijnenCtrl', function ($scope, wijnen, cartService) {
+  .controller('WijnenCtrl', function ($scope, wijnen, cartService, actieService) {
     var self = this;
-    $scope.wijnen = [];
+    //$scope.wijnen = [];
     $scope.landen = [];
     $scope.jaren = [];
     $scope.types = [];
@@ -56,7 +56,31 @@ angular.module('appApp')
 
       $scope.jaren = self.ArrNoDupe($scope.jaren);
       $scope.types = self.ArrNoDupe($scope.types);
-      
+
+    }, function() {
+      throw Error;
+    });
+
+
+    $scope.acties = [];
+
+    actieService.all().then(function(data) {
+      $scope.acties = data;
+
+      self.fillLandenArray()
+
+      $scope.acties.forEach(function(actie, index)
+      {
+          $scope.actie.wijnen.forEach(function(wijn, index)
+        {
+          $scope.jaren.push(wijn.jaar);
+          $scope.types.push(wijn.type);
+
+        });
+          $scope.jaren = self.ArrNoDupe($scope.jaren);
+          $scope.types = self.ArrNoDupe($scope.types);
+
+      });
     }, function() {
       throw Error;
     });
