@@ -1,64 +1,120 @@
-<html>
+<html style="font-family: &quot;Helvetica Neue Light&quot;, &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue&quot;, Calibri, Helvetica, Arial;background-color: #FAFAFA;">
 <head>
     <style>
-        html {
+        html, body {
             font-family: "Helvetica Neue Light", "HelveticaNeue-Light", "Helvetica Neue", Calibri, Helvetica, Arial;
+            background-color: #FAFAFA;
         }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        table.container {
+            margin: 50px auto;
+            width: 800px;
+            background-color: #fff;
+        }
+
+        table.container > tbody > tr > td,
+        table.container > tr > td {
+            padding: 40px 40px;
+        }
+
+        table.order > thead > tr > th {
+            text-align: left;
+            padding-bottom: 8px;
+            border: 0;
+            border-bottom: 2px solid #00509E;
+        }
+
+        table.order > tbody > tr > td {
+            padding-top: 8px;
+            padding-bottom: 8px;
+        }
+
+        table.order > tfoot > tr > td {
+            padding-top: 8px;
+            padding-bottom: 8px;
+            font-weight: 700;
+        }
+
+        table.logo {
+            margin: 40px auto;
+            width: 45px;
+        }
+
+        table.logo img {
+            width: 75px;
+        }
+
     </style>
 </head>
-<body>
-    <p>
-        Beste {{debiteur.getFullName}},
-    </p>
-    <p>
-        Bedankt voor uw bestelling #{{factuurnummer}}. In deze mail vind u een factuur als bijlage
-        met een overzicht van uw bestelling.
-    </p>
-    <h4>Besteloverzicht</h4>
-    <table>
-        <thead>
-            <tr>
-                <th>Aantal</th>
-                <th>Wijn</th>
-                <th>Prijs</th>
-                <th>Totaal</th>
-            </tr>
-        </thead>
-        <tbody>
-            {{#factuurregels}}
-            <tr>
-                <td>{{aantal}}</td>
-                <td>{{wijn.naam}}</td>
-                <td>&euro; {{wijn.getPrijs}}</td>
-                <td>&euro; {{ getTotaal }}</td>
-            </tr>
-            {{/factuurregels}}
-        </tbody>
-        <tfoot>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>Subtotaal:</td>
-                <td>&euro; {{ getSubTotaal }}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>BTW(21%):</td>
-                <td>&euro; {{ getBTW }}</td>
-            </tr>
-            <tr>
-                <td></td>
-                <td></td>
-                <td>Totaal:</td>
-                <td>&euro; {{ getTotaal }}</td>
-            </tr>
-        </tfoot>
+<body style="font-family: &quot;Helvetica Neue Light&quot;, &quot;HelveticaNeue-Light&quot;, &quot;Helvetica Neue&quot;, Calibri, Helvetica, Arial;background-color: #FAFAFA;">
+    <table class="logo" style="width: 45px;border-collapse: collapse;margin: 40px auto;">
+        <tr>
+            <td><img src="http://saflc.org/images/lionslogo.png" alt="Lions Club Oegstgeest" style="width: 75px;"></td>
+        </tr>
     </table>
+    <table class="container" style="width: 800px;border-collapse: collapse;margin: 50px auto;background-color: #fff;">
+        <tr>
+            <td style="padding: 40px 40px;">
+                <p>
+                    Beste {{debiteur.getFullName}},
+                </p>
+                <p>
+                    Bedankt voor uw bestelling #{{factuurnummer}}. In deze mail vind u een factuur als bijlage
+                    met een overzicht van uw bestelling.
+                </p>
+                <h4>Besteloverzicht</h4>
+                <table class="order" style="width: 100%;border-collapse: collapse;">
+                    <thead>
+                        <tr>
+                            <th style="text-align: left;padding-bottom: 8px;border: 0;border-bottom: 2px solid #00509E;">Aantal</th>
+                            <th style="text-align: left;padding-bottom: 8px;border: 0;border-bottom: 2px solid #00509E;">Wijn</th>
+                            <th style="text-align: left;padding-bottom: 8px;border: 0;border-bottom: 2px solid #00509E;">Prijs</th>
+                            <th style="text-align: left;padding-bottom: 8px;border: 0;border-bottom: 2px solid #00509E;">Totaal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {{#factuurregels}}
+                        <tr>
+                            <td style="padding-top: 8px;padding-bottom: 8px;">{{aantal}}</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;">{{wijn.naam}}</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;">&euro; {{wijn.getPrijs}}</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;">&euro; {{ getTotaal }}</td>
+                        </tr>
+                        {{/factuurregels}}
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">Subtotaal:</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getSubTotaal }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">BTW(21%):</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getBTW }}</td>
+                        </tr>
+                        <tr>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;"></td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">Totaal:</td>
+                            <td style="padding-top: 8px;padding-bottom: 8px;font-weight: 700;">&euro; {{ getTotaal }}</td>
+                        </tr>
+                    </tfoot>
+                </table>
 
-    <p>
-        Met vriendelijke groet, <br>
-        Groep 4 IPSEN3
-    </p>
+                <p>
+                    Met vriendelijke groet, <br>
+                    Groep 4 IPSEN3
+                </p>
+            </td>
+        </tr>
+    </table>
 </body>
 </html>
