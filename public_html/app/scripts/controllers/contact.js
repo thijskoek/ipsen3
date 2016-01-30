@@ -12,16 +12,12 @@ angular.module('appApp').controller('ContactCtrl', function ($scope, $http, mail
 
         $scope.submitContact = function (valid) {
           if(valid) {
-          console.log("form submitted");
-          console.log($scope.formModel);
             mailservice.send($scope.formModel).then(function succesCallback(result) {
-                    console.log("Send succes");
+              $scope.succes = "Bericht verzonden";
             }, function errorCallback(result) {
-                console.log("Send failed");
             });
         } else {
-            alert("U heeft niet alle velden ingevuld");
-            console.log("invalid!");
+           $scope.error = "U heeft niet alle velden ingevuld";
         }};
 
   });
