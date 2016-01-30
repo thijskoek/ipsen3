@@ -77,6 +77,11 @@ angular.module('appApp')
       return Math.round(total * 100) / 100;
     };
 
+    self.empty = function() {
+      self.cart = [];
+      self.save(self.cart);
+    };
+
     self.init();
 
   });
