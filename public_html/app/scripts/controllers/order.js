@@ -49,6 +49,7 @@ angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, 
 
     orderService.create(order, function (data) {
         $location.path('/');
+        cartService.empty();
     });
   }
 
