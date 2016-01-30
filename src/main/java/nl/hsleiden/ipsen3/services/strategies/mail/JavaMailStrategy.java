@@ -2,7 +2,7 @@ package nl.hsleiden.ipsen3.services.strategies.mail;
 
 
 
-import nl.hsleiden.ipsen3.core.Email;
+import nl.hsleiden.ipsen3.core.helper.Email;
 import nl.hsleiden.ipsen3.services.interfaces.MailStrategy;
 
 import javax.activation.DataHandler;

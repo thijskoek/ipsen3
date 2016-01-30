@@ -1,0 +1,57 @@
+<h2>Winkelwagen</h2>
+
+<div class="row">
+  <div class="col-md-9">
+    <div class="alert alert-info" ng-if="!items || !items.length">
+      Er zit nog niets in uw winkelwagen.
+    </div>
+
+    <form name="cartForm" role="form" ng-submit="submitCart()" novalidate ng-if="items && items.length">
+      
+      <div class="well" >
+  
+        <table class="table table-cart">
+          <thead>
+            <tr>
+              <th>Aantal</th>
+              <th>Product</th>
+              <th>Prijs</th>
+              <th colspan="2">Totaal</th>
+            </tr>
+          </thead>
+            <tr ng-repeat="item in items">
+              <td class="col-md-1">
+                <input type="text" class="form-control input-sm" ng-model="item.aantal" ng-change="save()" 
+                name="quantity" id="quantity" value="1">
+              </td>
+              <td>{{item.wijn.naam}}</td>
+              <td>{{item.wijn.prijs | currency: "€"}}</td>
+              <td>{{ getTotal(item) | currency: "€"  }}</td>
+              <td>
+                <button class="btn btn-danger btn-sm" ng-click="remove($index)" type="button">
+                  <i class="glyphicon glyphicon-remove"></i>
+                </button>
+              </td>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <td><strong>Totaal:</strong></td>
+              <td colspan="2"><strong>{{ getTotalCart() | currency: "€" }}</strong> </td>
+            </tr>
+        </table>
+      </div>
+
+      <button type="submit" class="btn btn-success" value="bestellen" ng-href="#/order"
+        ng-if="items && items.length">Bestel</button>
+
+    </form>      
+  </div>
+
+  <div class="col-md-3">
+    Hier staat nog wat text
+  </div>
+</div>
+
+
+

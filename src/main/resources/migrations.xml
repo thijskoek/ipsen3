@@ -692,4 +692,66 @@
                 referencedTableSchemaName="public"/>
     </changeSet>
 
+    <changeSet id="add_actie_table" author="Thijs Koek">
+        <createTable tableName="actie">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="naam" type="VARCHAR(255)"/>
+            <column name="banner_text" type="VARCHAR(255)"/>
+            <column name="startdatum" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="einddatum" type="TIMESTAMP(29) WITHOUT TIME ZONE">
+                <constraints nullable="false"/>
+            </column>
+            <column name="actief" type="BOOLEAN" defaultValue="true">
+            </column>
+        </createTable>
+    </changeSet>
+
+    <changeSet id="add_product_actie_table" author="Thijs Koek">
+        <createTable tableName="product_to_actie">
+            <column name="id" type="INTEGER" autoIncrement="true">
+                <constraints primaryKey="true" nullable="false" />
+            </column>
+            <column name="product_id" type="int"/>
+            <column name="actie_id" type="int"/>
+        </createTable>
+    </changeSet>
+
+    <changeSet author="Thijs Koek" id="add_foreign_key_for_actie_id">
+        <addForeignKeyConstraint
+                baseColumnNames="actie_id"
+                baseTableCatalogName="panthera"
+                baseTableName="product_to_actie"
+                baseTableSchemaName="public"
+                constraintName="product_to_actie_actie_id_fkey"
+                deferrable="false"
+                initiallyDeferred="false"
+                onDelete="NO ACTION"
+                onUpdate="NO ACTION"
+                referencedColumnNames="id"
+                referencedTableCatalogName="panthera"
+                referencedTableName="actie"
+                referencedTableSchemaName="public"/>
+    </changeSet>
+
+    <changeSet author="Thijs Koek" id="add_foreign_key_for_product_id">
+        <addForeignKeyConstraint
+            baseColumnNames="product_id"
+            baseTableCatalogName="panthera"
+            baseTableName="product_to_actie"
+            baseTableSchemaName="public"
+            constraintName="product_to_actie_product_id_fkey"
+            deferrable="false"
+            initiallyDeferred="false"
+            onDelete="NO ACTION"
+            onUpdate="NO ACTION"
+            referencedColumnNames="id"
+            referencedTableCatalogName="panthera"
+            referencedTableName="product"
+            referencedTableSchemaName="public"/>
+    </changeSet>
+
 </databaseChangeLog>
