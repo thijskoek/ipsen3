@@ -27,7 +27,9 @@
           <a href="javascript:void;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" 
           aria-expanded="false">Profiel <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a href="javascript:void;" ng-click="logout()">Log uit</a></li>
+            <li><a ng-href="#/actie" ng-if="hasRole(ROLES.MSMANGER)">Acties</a></li>
+            <li role="separator" class="divider"></li>
+            <li><a href="#" ng-click="logout()">Log uit</a></li>
           </ul>
         </li>
         <li ng-class="{'active': $route.current.activeTab == 'cart'}">

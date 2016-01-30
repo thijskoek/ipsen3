@@ -191,6 +191,16 @@ angular.module('appApp')
       $window.localStorage.removeItem('authentication');
     };
 
+    self.hasRole = function(role) {
+      var user = self.getAuthenticator();
+      for (var i = 0; i < user.roles.length; i++) {
+        if (user.roles[i].name === role) {
+          return true;
+        }
+      }
+      return false;
+    }
+
     construct();
 
   });
