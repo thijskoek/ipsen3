@@ -11,23 +11,24 @@
 
 angular.module('appApp')
   .service('actieService', function ($http, API_URL, $q) {
+
+    var url = API_URL + 'actie';
     // AngularJS will instantiate a singleton by calling "new" on this function
 
-    var self = this;
-    self.uri = API_URL + 'actie';
-
-    self.create = function(actie, onCreated) {
-
-
-      $http.post(self.uri, actie).success(onCreated).error(function(message, status) {
-        alert('Aanmaken mislukt: ' + message);
-      });
-    };
-
-    //TODO: get maken die alle wijnen ophaalt bij een actieve actie, findall aanroepen in resource, zie userservice
-
-    //self.getAll = function(onReceived) {
-    //  var uri = API_URL + 'maakBestellijst';
+    //var self = this;
+    //
+    //self.create = function(actie, onCreated) {
+    //  var uri = API_URL + 'actie';
+    //
+    //  $http.post(uri, actie).success(onCreated).error(function(message, status) {
+    //    alert('Aanmaken mislukt: ' + message);
+    //  });
+    //};
+    //
+    ////TODO: get maken die alle wijnen ophaalt bij een actieve actie, findall aanroepen in resource, zie userservice
+    //
+    //self.all = function(onReceived) {
+    //  var uri = API_URL + 'actie';
     //
     //  $http.get(uri).success(onReceived).error(function(message, status) {
     //    alert('Ophalen mislukt: ' + message);
@@ -36,11 +37,27 @@ angular.module('appApp')
 
     return {
 
+    create: function(actie) {
+      var deferred = $q.defer();
+      $http({
+        method: 'POST',
+        url: url,
+        data: actie,
+        headers: {'Content-Type': 'application/json'}
+      }).then(function(data){
+        deferred.resolve(data.data);
+      }, function(error){
+        deferred.reject(error);
+      });
+
+      return deferred.promise;
+    },
+
       all: function() {
         var deferred = $q.defer();
         $http({
           method: 'GET',
-          url: self.uri
+          url: url
         }).then(function(data){
           deferred.resolve(data.data);
         }, function(error){
@@ -53,7 +70,7 @@ angular.module('appApp')
       findById: function(id) {
         return $http({
           method: 'GET',
-          url: self.uri + '/' + id
+          url: url + '/' + id
         }).then(function(response){
           return response.data;
         }, function(error){

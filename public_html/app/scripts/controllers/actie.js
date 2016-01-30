@@ -22,8 +22,9 @@ angular.module('appApp')
       'AngularJS',
       'Karma'
     ];
-    $scope.wijnen =[];
 
+    //$scope.wijnen =[];
+    //
     //wijnen.all().then(function(data) {
     //  $scope.wijnen = data;
     //
