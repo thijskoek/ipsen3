@@ -82,15 +82,19 @@ public class App extends Application<AppConfiguration> {
 
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
+
         final GebruikerDAO gebruikerDAO = new GebruikerDAO(hibernate.getSessionFactory());
         final SleutelDAO sleutelDAO = new SleutelDAO(hibernate.getSessionFactory());
         final FactuurDAO factuurDAO = new FactuurDAO(hibernate.getSessionFactory());
         final BestellijstDAO bestellijstDAO = new BestellijstDAO(hibernate.getSessionFactory());
+        final BestellijstDAO bestellijstDao = new BestellijstDAO(hibernate.getSessionFactory());
+
         final ActieDAO actieDAO = new ActieDAO(hibernate.getSessionFactory());
 
         enableCORS(environment);
         setupAuthentication(environment, userDAO, appConfiguration);
         configureClientFilter(environment);
+
 
         final WijnResource wijnResource = new WijnResource(wijnDAO);
         final UserResource userResource = new UserResource(userDAO);
@@ -100,6 +104,8 @@ public class App extends Application<AppConfiguration> {
         final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO, userDAO);
         final ActieResource actieResource = new ActieResource(actieDAO);
         final BestellijstResource bestellijstResource = new BestellijstResource(bestellijstDAO);
+
+
 
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);
