@@ -7,16 +7,16 @@
 
 <!-- TODO: Aantal meegeven aan de addCart method. Er wordt er nu maar 1 toegevoegd. -->
 
-<div class="row actie-row">
-  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="wijn in wijnen">
-    <div class="item">
+<div class="row actie-row" ng-repeat="actie in acties">
+  <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="wijn in actie.wijnen" >
+    <div class="item" >
         <div class="item-image">
           <a href="#/">
             <img src="/../images/wijn.png">
           </a>
         </div>
         <div class="item-details">
-            <h5>{{ wijn.naam}}</h5>
+            <h5>{{ wijn.naam }}</h5>
           <p>{{ wijn.prijs | currency }}</p>
           <hr>
           <div class="col-md-4 col-sm-3 col-xs-3">
@@ -25,4 +25,5 @@
             <button class="btn btn-success pull-right" type="button" ng-click="addToCart(wijn)">Toevoegen<i class="glyphicon glyphicon-shopping-cart"></i></button>
     </div>
   </div>
+</div>
 </div>

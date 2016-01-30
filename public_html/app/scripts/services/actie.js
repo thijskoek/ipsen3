@@ -77,6 +77,5 @@ angular.module('appApp')
           return error;
         });
       }
-
     };
   });
