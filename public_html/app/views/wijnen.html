@@ -4,13 +4,13 @@
 
     <h1>Shop</h1>
 
-    <div class="row" ng-repeat="actie in acties">
+    <div class="row">
 
       <div class="alert alert-info" ng-hide="filteredWijnen.length">
         Geen wijnen gevonden.
       </div>
 
-      <div class="col-sm-4 col-md-4" ng-repeat="wijn in filteredWijnen = (actie.wijnen | filter:searchText)">
+      <div class="col-sm-4 col-md-4" ng-repeat="wijn in filteredWijnen = (wijnen | filter:searchText)">
         <div class="thumbnail">
           <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
           alt="{{wijn.naam}}">

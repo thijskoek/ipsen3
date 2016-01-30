@@ -23,17 +23,6 @@ import nl.hsleiden.ipsen3.resource.*;
 import nl.hsleiden.ipsen3.resources.BestellijstResource;
 import nl.hsleiden.ipsen3.resources.GebruikersResource;
 import nl.hsleiden.ipsen3.resources.WachtwoordResource;
-import nl.hsleiden.ipsen3.dao.ActieDAO;
-import nl.hsleiden.ipsen3.dao.BestellijstDAO;
-import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
-import nl.hsleiden.ipsen3.core.User;
-import nl.hsleiden.ipsen3.dao.UserDAO;
-import nl.hsleiden.ipsen3.dao.WijnDAO;
-import nl.hsleiden.ipsen3.resource.ActieResource;
-import nl.hsleiden.ipsen3.resource.MailResource;
-import nl.hsleiden.ipsen3.resources.BestellijstResource;
-import nl.hsleiden.ipsen3.resource.UserResource;
-import nl.hsleiden.ipsen3.resource.WijnResource;
 import nl.hsleiden.ipsen3.service.AuthenticationService;
 import org.eclipse.jetty.servlet.FilterHolder;
 import org.eclipse.jetty.servlets.CrossOriginFilter;
@@ -104,6 +93,7 @@ public class App extends Application<AppConfiguration> {
         final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO, userDAO);
         final ActieResource actieResource = new ActieResource(actieDAO);
         final BestellijstResource bestellijstResource = new BestellijstResource(bestellijstDAO);
+        final FactuurResource factuurResource = new FactuurResource(factuurDAO);
 
 
 
@@ -115,6 +105,7 @@ public class App extends Application<AppConfiguration> {
         environment.jersey().register(gebruikersResource);
         environment.jersey().register(actieResource);
         environment.jersey().register(bestellijstResource);
+        environment.jersey().register(factuurResource);
     }
 
     /**

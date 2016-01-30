@@ -10,7 +10,7 @@
 angular.module('appApp')
   .controller('WijnenCtrl', function ($scope, wijnen, cartService, actieService) {
     var self = this;
-    //$scope.wijnen = [];
+    $scope.wijnen = [];
     $scope.landen = [];
     $scope.jaren = [];
     $scope.types = [];
@@ -47,7 +47,7 @@ angular.module('appApp')
     wijnen.all().then(function(data) {
       $scope.wijnen = data;
 
-      self.fillLandenArray()
+      self.fillLandenArray();
 
       $scope.wijnen.forEach(function(wijn, index) {
         $scope.jaren.push(wijn.jaar);
@@ -62,28 +62,28 @@ angular.module('appApp')
     });
 
 
-    $scope.acties = [];
+    // $scope.acties = [];
 
-    actieService.all().then(function(data) {
-      $scope.acties = data;
+    // actieService.all().then(function(data) {
+    //   $scope.acties = data;
 
-      self.fillLandenArray()
+    //   self.fillLandenArray()
 
-      $scope.acties.forEach(function(actie, index)
-      {
-          $scope.actie.wijnen.forEach(function(wijn, index)
-        {
-          $scope.jaren.push(wijn.jaar);
-          $scope.types.push(wijn.type);
+    //   $scope.acties.forEach(function(actie, index)
+    //   {
+    //       $scope.actie.wijnen.forEach(function(wijn, index)
+    //     {
+    //       $scope.jaren.push(wijn.jaar);
+    //       $scope.types.push(wijn.type);
 
-        });
-          $scope.jaren = self.ArrNoDupe($scope.jaren);
-          $scope.types = self.ArrNoDupe($scope.types);
+    //     });
+    //       $scope.jaren = self.ArrNoDupe($scope.jaren);
+    //       $scope.types = self.ArrNoDupe($scope.types);
 
-      });
-    }, function() {
-      throw Error;
-    });
+    //   });
+    // }, function() {
+    //   throw Error;
+    // });
 
 
 

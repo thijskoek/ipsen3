@@ -193,6 +193,9 @@ angular.module('appApp')
 
     self.hasRole = function(role) {
       var user = self.getAuthenticator();
+      if (!user || !user.roles.length) {
+        return false;
+      }
       for (var i = 0; i < user.roles.length; i++) {
         if (user.roles[i].name === role) {
           return true;

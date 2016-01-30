@@ -97,6 +97,11 @@ angular
         templateUrl: 'views/testactie.html',
         controller: 'ActieCtrl',
       })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
+      })
       .otherwise({
         redirectTo: '/'
       });

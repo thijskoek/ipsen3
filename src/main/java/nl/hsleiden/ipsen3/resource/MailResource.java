@@ -1,6 +1,6 @@
 package nl.hsleiden.ipsen3.resource;
 
-import nl.hsleiden.ipsen3.core.Email;
+import nl.hsleiden.ipsen3.core.helper.Email;
 import nl.hsleiden.ipsen3.core.Mail;
 import nl.hsleiden.ipsen3.services.MailService;
 
