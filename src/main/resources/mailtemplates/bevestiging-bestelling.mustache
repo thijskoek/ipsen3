@@ -8,7 +8,7 @@
 </head>
 <body>
     <p>
-        Beste {{debiteur.fullName}},
+        Beste {{debiteur.getFullName}},
     </p>
     <p>
         Bedankt voor uw bestelling #{{factuurnummer}}. In deze mail vind u een factuur als bijlage
@@ -21,6 +21,7 @@
                 <th>Aantal</th>
                 <th>Wijn</th>
                 <th>Prijs</th>
+                <th>Totaal</th>
             </tr>
         </thead>
         <tbody>
@@ -28,14 +29,35 @@
             <tr>
                 <td>{{aantal}}</td>
                 <td>{{wijn.naam}}</td>
-                <td>&euro; {{wijn.prijs}}</td>
+                <td>&euro; {{wijn.getPrijs}}</td>
+                <td>&euro; {{ getTotaal }}</td>
             </tr>
             {{/factuurregels}}
         </tbody>
+        <tfoot>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Subtotaal:</td>
+                <td>&euro; {{ getSubTotaal }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>BTW(21%):</td>
+                <td>&euro; {{ getBTW }}</td>
+            </tr>
+            <tr>
+                <td></td>
+                <td></td>
+                <td>Totaal:</td>
+                <td>&euro; {{ getTotaal }}</td>
+            </tr>
+        </tfoot>
     </table>
 
     <p>
-        Met vriendelijke groet,
+        Met vriendelijke groet, <br>
         Groep 4 IPSEN3
     </p>
 </body>

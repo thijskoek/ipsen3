@@ -1,12 +1,11 @@
 package nl.hsleiden.ipsen3.core;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.fasterxml.jackson.annotation.JsonView;
-import nl.hsleiden.ipsen3.View;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by Daan on 30-Nov-15.
@@ -43,6 +42,9 @@ public class Wijn {
     @Column(name = "rang", nullable = true, length = 11)
     private Integer rang;
 
+    @Transient
+    private DecimalFormat df = new DecimalFormat("#.00");
+
     public Wijn() {
     }
 
@@ -78,7 +80,7 @@ public class Wijn {
 
     @JsonProperty
     public double getPrijs() {
-        return prijs;
+        return Double.parseDouble(df.format(prijs));
     }
 
     @JsonProperty

@@ -109,8 +109,8 @@ angular
   })
   .constant('API_URL', "/api/v1/")
   .constant('ROLES', {
-    BEHEERDER: 'beheerder',
-    MSMANGER: 'm&s manager',
-    LID: 'lid',
-    KLANT: 'klant'
+    BEHEERDER:  'beheerder',
+    MSMANGER:   'm&s manager',
+    LID:        'lid',
+    KLANT:      'klant'
   });

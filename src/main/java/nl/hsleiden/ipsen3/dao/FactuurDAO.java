@@ -52,24 +52,14 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         factuur.setVervaldatum(new DateTime().plusDays(14));
         factuur.setStatus("concept");
 
-        Session session = sessionFactory.openSession();
-        try {
-            Transaction transaction = session.beginTransaction();
-            try {
-                session.evict(factuur);
-                session.saveOrUpdate(factuur);
-                transaction.commit();
-                session.flush();
-            } catch (Exception e) {
-                transaction.rollback();
-                logger.error(e.getMessage());
-            }
-        } catch (Exception e) {
-            logger.error(e.getMessage());
-        } finally {
-            session.close();
+        for (OrderRegel orderRegel: order.getRegels()) {
+            Factuurregel factuurregel = new Factuurregel();
+            factuurregel.setAantal(orderRegel.getAantal());
+            factuurregel.setWijn(orderRegel.getWijn());
+            factuurregel.setFactuur(factuur);
+            factuur.addFactuurregel(factuurregel);
         }
-        return factuur.getId();
+        return persist(factuur).getId();
     }
 
     public Factuur findById(long id) {
