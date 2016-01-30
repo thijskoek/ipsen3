@@ -43,9 +43,9 @@ angular.module('appApp')
     self.redirectUser = function (user) {
       user.roles.forEach(function (role, index) {
         if (role.name === ROLES.BEHEERDER) {
-          $location.path('/');
+          $location.path('/bestellijsten');
         } else if (role.name === ROLES.MSMANGER) {
-          $location.path('/');
+          $location.path('/acties');
         } else if (role.name === ROLES.LID) {
           $location.path('/');
         } else if (role.name === ROLES.KLANT) {

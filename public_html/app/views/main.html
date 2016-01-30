@@ -10,21 +10,24 @@
 <div class="row actie-row">
   <div class="col-xs-12 col-sm-6 col-md-4" ng-repeat="wijn in wijnen">
     <div class="item">
-        <div class="item-image">
-          <a href="#/">
-            <img src="/../images/wijn.png">
-          </a>
+      <div class="item-image">
+        <a href="#/">
+          <img src="/../images/wijn.png">
+        </a>
+      </div>
+      <div class="item-details">
+          <h5>{{ wijn.naam}}</h5>
+        <p>{{ wijn.prijs | currency }}</p>
+        <hr>
+        <div class="col-md-4 col-sm-3 col-xs-3">
+          <input class="form-control" type="text" placeholder="1">
         </div>
-        <div class="item-details">
-            <h5>{{ wijn.naam}}</h5>
-          <p>{{ wijn.prijs | currency }}</p>
-          <hr>
-          <div class="col-md-4 col-sm-3 col-xs-3">
-            <input class="form-control" type="text" placeholder="1">
-          </div>
-            <button class="btn btn-success pull-right" type="button" ng-click="addToCart(wijn)">Toevoegen<i class="glyphicon glyphicon-shopping-cart"></i></button>
+        <button class="btn btn-success pull-right" type="button" ng-click="addToCart(wijn)">Toevoegen<i class="glyphicon glyphicon-shopping-cart"></i></button>
+      </div>
     </div>
   </div>
+</div>
+
 <div class="jumbotron text-center">
   <h1>Gros Manseng</h1>
   <p>
