@@ -1,7 +1,10 @@
 package nl.hsleiden.ipsen3.core;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import java.text.DecimalFormat;
 
 /**
  * @author Daan
@@ -20,10 +23,9 @@ public class Factuurregel {
     private int aantal;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "factuur_id")
     private Factuur factuur;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     private Wijn wijn;
 
@@ -59,5 +61,11 @@ public class Factuurregel {
 
     public void setFactuur(Factuur factuur) {
         this.factuur = factuur;
+    }
+
+    @JsonIgnore
+    public double getTotaal() {
+        DecimalFormat df = new DecimalFormat("#.00");
+        return Double.parseDouble(df.format((getAantal() * getWijn().getPrijs())));
     }
 }

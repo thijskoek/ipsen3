@@ -2,9 +2,7 @@ package nl.hsleiden.ipsen3.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.github.mustachejava.TemplateFunction;
 
-import javax.annotation.Nullable;
 import javax.persistence.*;
 
 /**
@@ -49,13 +47,6 @@ public class Debiteur {
     @OneToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "land_id", referencedColumnName = "id")
     private Land land;
-
-    @Transient
-    private TemplateFunction fullName = new TemplateFunction() {
-        @Nullable public String apply(@Nullable String input) {
-            return getFullName();
-        }
-    };
 
     public Debiteur() {
         // Jackson
