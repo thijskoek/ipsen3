@@ -23,10 +23,9 @@ public class Factuurregel {
     private int aantal;
 
     @OneToOne(cascade = {CascadeType.ALL})
-    @JoinColumn(name = "factuur_id")
     private Factuur factuur;
 
-    @OneToOne(cascade = {CascadeType.ALL})
+    @ManyToOne(cascade = {CascadeType.ALL})
     @JoinColumn(name = "product_id")
     private Wijn wijn;
 

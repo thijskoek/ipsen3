@@ -2,7 +2,7 @@
 <html>
   <head>
     <meta charset="utf-8">
-    <title></title>
+    <title>Wijnfestijn - Lions Club Oegstgeest</title>
     <meta name="description" content="">
     <meta name="viewport" content="width=device-width">
     <link href='https://fonts.googleapis.com/css?family=Roboto:400,700' rel='stylesheet' type='text/css'>
@@ -32,6 +32,27 @@
         <div ng-view=""></div>
     </div>
 
+    <div class="footer">
+        <div class="container">
+            <div class="col-md-3">
+                <strong>Lions Club Oegstgeest</strong>
+                <address>
+                    Cartesiuslaan 13 <br>
+                    2341AM Oegstgeest Nederland <br>
+                </address>
+                <strong>KVK</strong> 40446826
+            </div>
+            <div class="col-md-2">
+                <strong>Navigatie</strong>
+                <ul class="list-unstyled">
+                    <li><a href="#/">Home</a></li>
+                    <li><a ng-href="#/wijnen">Shop</a></li>
+                    <li><a ng-href="#/contact">Contact</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
      <script>
@@ -48,6 +69,7 @@
     <!-- bower:js -->
     <script src="bower_components/jquery/dist/jquery.js"></script>
     <script src="bower_components/angular/angular.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_nl-nl.js"></script>
     <script src="bower_components/bootstrap/dist/js/bootstrap.js"></script>
     <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
@@ -58,27 +80,28 @@
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/services/wijnen.js"></script>
-        <script src="scripts/controllers/wijnen.js"></script>
-        <script src="scripts/controllers/contact.js"></script>
-        <script src="scripts/controllers/profielbewerken.js"></script>
-        <script src="scripts/controllers/wachtwoordvergeten.js"></script>
-        <script src="scripts/services/mailservice.js"></script>
-        <script src="scripts/controllers/cart.js"></script>
-        <script src="scripts/services/requestservice.js"></script>
-        <script src="scripts/services/authenticationservice.js"></script>
-        <script src="scripts/services/userservice.js"></script>
-        <script src="scripts/controllers/login.js"></script>
-        <script src="scripts/services/cartservice.js"></script>
-        <script src="scripts/controllers/order.js"></script>
-        <script src="scripts/controllers/menu.js"></script>
-        <script src="scripts/controllers/register.js"></script>
-        <script src="scripts/controllers/app.js"></script>
-        <script src="scripts/services/orderservice.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/about.js"></script>
+    <script src="scripts/services/wijnen.js"></script>
+    <script src="scripts/controllers/wijnen.js"></script>
+    <script src="scripts/controllers/contact.js"></script>
+    <script src="scripts/controllers/profielbewerken.js"></script>
+    <script src="scripts/controllers/wachtwoordvergeten.js"></script>
+    <script src="scripts/services/mailservice.js"></script>
+    <script src="scripts/controllers/cart.js"></script>
+    <script src="scripts/services/requestservice.js"></script>
+    <script src="scripts/services/authenticationservice.js"></script>
+    <script src="scripts/services/userservice.js"></script>
+    <script src="scripts/controllers/login.js"></script>
+    <script src="scripts/services/cartservice.js"></script>
+    <script src="scripts/controllers/order.js"></script>
+    <script src="scripts/controllers/menu.js"></script>
+    <script src="scripts/controllers/register.js"></script>
+    <script src="scripts/controllers/app.js"></script>
+    <script src="scripts/services/orderservice.js"></script>
+    <script src="scripts/directives/animateonchange.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

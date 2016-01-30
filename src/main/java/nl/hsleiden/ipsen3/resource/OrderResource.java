@@ -46,14 +46,6 @@ public class OrderResource {
     public void create(@Auth User user, Order order) {
         long id = factuurDAO.create(order);
         final Factuur factuur = factuurDAO.findById(id);
-        for (OrderRegel orderRegel: order.getRegels()) {
-            Factuurregel factuurregel = new Factuurregel();
-            factuurregel.setAantal(orderRegel.getAantal());
-            factuurregel.setWijn(orderRegel.getWijn());
-            factuurregel.setFactuur(factuur);
-            factuur.addFactuurregel(factuurregel);
-        }
-        factuurDAO.create(factuur);
         new Thread(new Runnable() {
             public void run() {
                 sendOrderEmail(factuur);

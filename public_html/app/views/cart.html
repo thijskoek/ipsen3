@@ -6,10 +6,11 @@
       Er zit nog niets in uw winkelwagen.
     </div>
 
-    <div class="well" ng-if="items && items.length">
-      <form name="cartForm" role="form" ng-submit="submitCart()" novalidate>
+    <form name="cartForm" role="form" ng-submit="submitCart()" novalidate ng-if="items && items.length">
+      
+      <div class="well" >
   
-        <table class="table table-condensed">
+        <table class="table table-cart">
           <thead>
             <tr>
               <th>Aantal</th>
@@ -39,10 +40,12 @@
               <td colspan="2"><strong>{{ getTotalCart() | currency: "€" }}</strong> </td>
             </tr>
         </table>
-      </form>      
-    </div>
-    <button type="submit" class="btn btn-success" value="bestellen" ng-href="#/order"
-    ng-if="items && items.length">Bestel</button>
+      </div>
+
+      <button type="submit" class="btn btn-success" value="bestellen" ng-href="#/order"
+        ng-if="items && items.length">Bestel</button>
+
+    </form>      
   </div>
 
   <div class="col-md-3">

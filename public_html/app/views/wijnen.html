@@ -5,13 +5,18 @@
     <h1>Shop</h1>
 
     <div class="row">
-      <div class="col-sm-4 col-md-4" ng-repeat="wijn in wijnen">
+      
+      <div class="alert alert-info" ng-hide="filteredWijnen.length">
+        Geen wijnen gevonden.
+      </div>
+
+      <div class="col-sm-4 col-md-4" ng-repeat="wijn in filteredWijnen = (wijnen | filter:searchText)">
         <div class="thumbnail">
           <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg" 
           alt="{{wijn.naam}}">
           <div class="caption text-center">
             <h3>{{wijn.naam}}</h3>
-            <p>{{wijn.productnummer}} &mdash; <i>{{wijn.jaar}}</i></p>
+            <p>{{wijn.land.name}} &mdash; <i>{{wijn.jaar}}</i></p>
             <p><strong>{{wijn.prijs | currency}}</strong> <small>per fles</small></p>
             <p>
               <button ng-click="addToCart(wijn)" class="btn btn-primary btn-rounded" type="button">
@@ -24,6 +29,16 @@
     </div>
 
   </div>
+  
+  <div class="col-md-3">
+    <div class="form-group">
+      <label>Zoeken</label>
+      <div class="input-group">
+        <input class="form-control" type="text" ng-model="searchText" placeholder="Zoeken...">
+        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
+      </div>
+    </div>
+  </div>
 
   <div class="col-md-3">
     <div class="panel panel-default">
@@ -31,19 +46,9 @@
         <strong>Type</strong>
       </div>
       <div class="panel-body">
-        <div class="checkbox">
+        <div class="checkbox" ng-repeat="type in types">
           <label>
-            <input type="checkbox" name="" id=""> Rood
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="" id=""> Wit
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="" id=""> Rose
+            <input type="checkbox" name="" id=""> {{type}}
           </label>
         </div>
       </div>
@@ -54,19 +59,9 @@
         <strong>Jaar</strong>
       </div>
       <div class="panel-body">
-        <div class="checkbox">
+        <div class="checkbox" ng-repeat="jaar in jaren">
           <label>
-            <input type="checkbox" name="" id=""> 2015
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="" id=""> 2014
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="" id=""> 2013
+            <input type="checkbox" name="" id=""> {{jaar}}
           </label>
         </div>
       </div>
@@ -77,19 +72,9 @@
         <strong>Land</strong>
       </div>
       <div class="panel-body">
-        <div class="checkbox">
+        <div class="checkbox" ng-repeat="land in landen">
           <label>
-            <input type="checkbox" name="" id=""> Frankrijk
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="" id=""> Italie
-          </label>
-        </div>
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" name="" id=""> Spanje
+            <input type="checkbox" name="" id=""> {{land.name}}
           </label>
         </div>
       </div>

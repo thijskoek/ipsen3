@@ -6021,6 +6021,10 @@ button.close {
   .hidden-print {
     display: none !important; } }
 
+.nav.navbar-nav.navbar-center {
+  display: inline-block;
+  float: none; }
+
 .navbar-nav > li > a {
   text-transform: uppercase;
   font-size: 11px;
@@ -6053,5 +6057,33 @@ button.close {
     background-color: #00529C;
     min-width: 0;
     width: 22px; }
+
+.table-cart > tbody > tr > td {
+  vertical-align: middle; }
+
+html {
+  position: relative;
+  min-height: 100%; }
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 175px; }
+
+.footer {
+  padding-top: 38px;
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  /* Set the fixed height of the footer here */
+  height: 175px;
+  background-color: rgba(243, 243, 243, 0.4);
+  color: rgba(0, 0, 0, 0.4);
+  font-weight: 500;
+  line-height: 2; }
+  .footer a {
+    text-decoration: none;
+    color: rgba(0, 0, 0, 0.4); }
+    .footer a:hover {
+      text-decoration: underline; }
 
 /*# sourceMappingURL=main.css.map */

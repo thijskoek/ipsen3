@@ -12,7 +12,7 @@
       <a class="navbar-brand" href="#/">Lions club Oegstgeest</a>
     </div>
 
-    <div class="collapse navbar-collapse" id="js-navbar-collapse">
+    <div class="collapse navbar-collapse text-center" id="js-navbar-collapse">
 
       <ul class="nav navbar-nav navbar-center">
         <li ng-class="{'active': $route.current.activeTab == 'home'}"><a href="#/"><u>Home</u></a></li>
@@ -31,7 +31,7 @@
           </ul>
         </li>
         <li ng-class="{'active': $route.current.activeTab == 'cart'}">
-          <a class="cart" ng-href="#/cart">
+          <a class="cart" ng-href="#/cart" animate-on-change="cartSize()">
             <i class="glyphicon glyphicon-shopping-cart"></i>
             <span class="badge">{{cartSize()}}</span>
           </a>

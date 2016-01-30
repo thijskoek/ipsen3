@@ -37,10 +37,7 @@ public class Factuur {
     @Column(name = "opmerking")
     private String opmerking;
 
-    @OneToMany(cascade = {CascadeType.ALL})
-    @JoinTable(name = "tbl_order",
-            joinColumns = @JoinColumn(name = "id"),
-            inverseJoinColumns = @JoinColumn(name = "factuur_id"))
+    @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "factuur")
     private List<Factuurregel> factuurregels = new ArrayList<Factuurregel>();
 
     @Transient
