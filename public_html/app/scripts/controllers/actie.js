@@ -13,20 +13,27 @@
  */
 
 angular.module('appApp')
-  .controller('ActieCtrl',  function($scope, wijnen, cartService){
+
+  .controller('ActieCtrl',  function($scope, wijnen, cartService, actieService){
+
     $scope.checkboxModel = {
       value1 : true,
     }
-    this.awesomeThings = [
-      'HTML5 Bolerplate',
-      'AngularJS',
-      'Karma'
-    ];
-    $scope.wijnen =[];
 
-    wijnen.all().then(function(data) {
-      $scope.wijnen = data;
+    //$scope.wijnen =[];
+    //
+    //wijnen.all().then(function(data) {
+    //  $scope.wijnen = data;
+    //
+    //}, function() {
+    //  throw Error;
+    //});
 
+    $scope.acties = [];
+
+    actieService.all().then(function(data) {
+      $scope.acties = data;
+      console.log("Actie: " + data)
     }, function() {
       throw Error;
     });

@@ -93,6 +93,10 @@ angular
         controller: 'MaakBestellijstCtrl',
         controllerAs: 'maakbestellijst'
       })
+      .when('/testactie', {
+        templateUrl: 'views/testactie.html',
+        controller: 'ActieCtrl',
+      })
       .otherwise({
         redirectTo: '/'
       });
