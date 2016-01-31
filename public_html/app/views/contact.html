@@ -41,7 +41,8 @@
        }
        ">
         <label for="message">Bericht:*</label>
-        <input type="text" class="form-control" name="message" ng-model="formModel.message" id="message"  placeholder="Bericht" required>
+        <textarea class="form-control" name="message" ng-model="formModel.message" id="message"  placeholder="Bericht" 
+        required cols="30" rows="5"></textarea>
 
         <p class="help-block" ng-show="contactForm.message.$error.required && (!contactForm.$pristine || contactForm.$submitted)">
           Dit veld is verplicht
