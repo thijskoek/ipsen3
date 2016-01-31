@@ -22,8 +22,7 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'MainCtrl',
-        controllerAs: 'main',
+        controller: 'ActieCtrl',
         activeTab: 'home'
       })
       .when('/about', {
@@ -78,6 +77,30 @@ angular
         templateUrl: 'views/order.html',
         controller: 'OrderCtrl',
         controllerAs: 'orderctrl'
+      })
+      .when('/actie', {
+        templateUrl: 'views/actie.html',
+        controller: 'ActieCtrl',
+        controllerAs: 'actie'
+      })
+      .when('/bestellijsten', {
+        templateUrl: 'views/bestellijsten.html',
+        controller: 'BestellijstenCtrl',
+        controllerAs: 'bestellijsten'
+      })
+      .when('/maakbestellijst', {
+        templateUrl: 'views/maakbestellijst.html',
+        controller: 'MaakBestellijstCtrl',
+        controllerAs: 'maakbestellijst'
+      })
+      .when('/testactie', {
+        templateUrl: 'views/testactie.html',
+        controller: 'ActieCtrl',
+      })
+      .when('/dashboard', {
+        templateUrl: 'views/dashboard.html',
+        controller: 'DashboardCtrl',
+        controllerAs: 'dashboard'
       })
       .otherwise({
         redirectTo: '/'

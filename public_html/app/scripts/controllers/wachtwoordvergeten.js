@@ -50,8 +50,21 @@ angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, m
     });
   }
 
+  $scope.controleer_sleutel = function() {
+    $http({
+      method: 'POST',
+      url: API_URL + 'wachtwoord/controleersleutel',
+      params: {
+        sleutel: $location.search().key
+      }
+    }).then(function successCallback(response) {
+      if(response.data == false) {
+        $location.url('/'); //Invalid key, return to index.
+      }
+    })
+  }
+
   $scope.verander_wachtwoord = function() {
-    alert($location.search().email);
     if(!$scope.compare()) {
       alert("Wachtwoorden komen niet overeen.");
     } else {
@@ -59,8 +72,8 @@ angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, m
         method: 'POST',
         url: API_URL + 'wachtwoord/herstellen',
         params: {
-          wachtwoord: $scope.wachtwoord,
-          email: $location.search().email
+          sleutel: $location.search().key,
+          wachtwoord: $scope.wachtwoord
         }
       }).then(function successCallback() {
         alert('Wachtwoord wijziging aangevraagd.');
