@@ -1,0 +1,18 @@
+<h1>Bestellijsten overzicht</h1>
+
+
+<table class="table table-striped">
+  <thead>
+  <tr>
+    <th>Datum</th>
+    <th>Naam</th>
+  </tr>
+  </thead>
+  <tr ng-repeat="bestellijst in bestellijsten">
+    <td>{{bestellijst.date}}</td>
+    <td>{{bestellijst.name}}</td>
+  </tr>
+
+  <pre>{{ bestellijsten | json }}</pre>
+</table>
+<a href="#/maakbestellijst" class="btn btn-default" role="button">Maak Bestellijst</a>

@@ -1,10 +1,8 @@
-package nl.hsleiden.ipsen3.core;
+package nl.hsleiden.ipsen3.core.helper;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import org.hibernate.validator.constraints.Length;
+import nl.hsleiden.ipsen3.core.Debiteur;
 
-import javax.persistence.*;
-import java.io.Serializable;
 import java.util.List;
 
 /**

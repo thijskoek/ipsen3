@@ -10,6 +10,7 @@ import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.GebruikerDAO;
 import nl.hsleiden.ipsen3.dao.SleutelDAO;
 import nl.hsleiden.ipsen3.dao.UserDAO;
+import org.apache.commons.codec.binary.Hex;
 
 import javax.ws.rs.POST;
 import javax.ws.rs.Path;
@@ -19,10 +20,12 @@ import javax.ws.rs.core.MediaType;
 import java.io.UnsupportedEncodingException;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.Arrays;
+import java.util.Random;
 
 /**
  * Created by Roy on 13-1-2016.
- * De link moet gehashed worden met een uniek salt, zodat per opvraag een altijd unieke link wordt gegeven.
+ * De link moet gehashed worden met een unique salt, zodat per opvraag een altijd unieke link wordt gegeven.
  */
 @Path("wachtwoord")
 @Produces(MediaType.APPLICATION_JSON)
@@ -53,42 +56,47 @@ public class WachtwoordResource {
         Sleutel sleutel = new Sleutel();
         sleutel.setUser_id(user.getId());
         sleutel.setSleutel(generate_key(email));
-        sleutelDao.create(sleutel);
+        sleutelDao.update(sleutel);
         return sleutel.getSleutel();
     }
 
     private String generate_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
+        Random random = new Random();
+        byte[] salt = new byte[12];
+        random.nextBytes(salt);
+
         String key;
         byte[] bytesOfMessage = email.getBytes("UTF-8");
         MessageDigest md = MessageDigest.getInstance("MD5");
+        md.update(salt);
         byte[] thedigest = md.digest(bytesOfMessage);
-        key = thedigest.toString();
+        key = Hex.encodeHexString(thedigest);
         return key;
     }
 
-   /* private String add_key(String email) throws UnsupportedEncodingException, NoSuchAlgorithmException {
-        String key;
-        byte[] bytesOfMessage = email.getBytes("UTF-8");
-        MessageDigest md = MessageDigest.getInstance("MD5");
-        byte[] thedigest = md.digest(bytesOfMessage);
-        key = thedigest.toString();
-        //Add email to key
-        key += "&email=" + email;
-        sleutelDao.create()
-        return key;
-    }*/
+    @POST
+    @Timed
+    @UnitOfWork
+    @Path("/controleersleutel")
+    public boolean controleer_sleutel(@QueryParam("sleutel") String sleutel) {
+        return sleutelDao.exists(sleutel);
+    }
 
-  /*  @POST
+    @POST
     @Timed
     @UnitOfWork
     @Path("/herstellen")
-    //Pas email along, fetch gebruiker by email et voila@
-    public void veranderWachtwoord(@QueryParam("wachtwoord") String wachtwoord,
-                                   @QueryParam("email") String email) {
-        Gebruiker gebruiker = dao.findByMail(email);
-        //gebruiker.setWachtwoord(wachtwoord);
-        dao.create(gebruiker);
-    }*/
-
+    public void herstellen(@QueryParam("sleutel") String sleutel, @QueryParam("wachtwoord") String wachtwoord) {
+        if(sleutelDao.exists(sleutel)) {
+            Sleutel sleutelObject = sleutelDao.findByKey(sleutel);
+            User user = userDao.findById(sleutelObject.getUser_id());
+            user.setPassword(wachtwoord);
+            user.hashPassword();
+            userDao.update(user);
+            sleutelDao.update(sleutelObject.used());
+        } else {
+            System.out.println("Key is overtime, invalid or used already!\n\n\n\n\n\n\n\n\n");
+        }
+    }
 
 }

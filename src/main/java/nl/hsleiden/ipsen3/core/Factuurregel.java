@@ -3,7 +3,6 @@ package nl.hsleiden.ipsen3.core;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.text.DecimalFormat;
 
 /**
@@ -18,7 +17,6 @@ public class Factuurregel {
     @Column(name = "id")
     private long id;
 
-    @NotNull
     @Column(name = "aantal")
     private int aantal;
 
@@ -55,10 +53,12 @@ public class Factuurregel {
         this.wijn = wijn;
     }
 
+    @JsonIgnore
     public Factuur getFactuur() {
         return factuur;
     }
 
+    @JsonIgnore
     public void setFactuur(Factuur factuur) {
         this.factuur = factuur;
     }

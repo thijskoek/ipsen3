@@ -62,6 +62,10 @@ public class UserDAO extends AbstractDAO<User> {
         return persist(user).getId();
     }
 
+    public void update(User user) {
+        currentSession().saveOrUpdate(user);
+    }
+
     /**
      * Finds a user by email.
      *
