@@ -82,7 +82,7 @@ public class FactuurPdf {
     private void addTitlePage(Document document) throws Exception {
         
 
-        Image image1 = Image.getInstance("C:/Users/Brandon/Desktop/logo_lions.jpg");
+        Image image1 = Image.getInstance(getClass().getClassLoader().getResource("logo_lions.jpg"));
         document.add(image1);
         Paragraph lionsInfo = new Paragraph();
         addEmptyLine(lionsInfo,1);
