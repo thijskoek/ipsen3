@@ -102,6 +102,11 @@ angular
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
       })
+      .when('/bedrijf', {
+        templateUrl: 'views/company.html',
+        controller: 'CompanyCtrl',
+        controllerAs: 'company'
+      })
       .otherwise({
         redirectTo: '/'
       });

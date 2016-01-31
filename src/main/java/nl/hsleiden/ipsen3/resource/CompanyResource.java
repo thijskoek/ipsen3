@@ -3,6 +3,7 @@ package nl.hsleiden.ipsen3.resource;
 import com.codahale.metrics.annotation.Timed;
 import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.Company;
+import nl.hsleiden.ipsen3.dao.CompanyDAO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
