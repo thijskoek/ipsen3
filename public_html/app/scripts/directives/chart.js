@@ -31,7 +31,7 @@ angular.module('appApp')
               dataArr.push(newVal.datasets[0].data[i]);
               chart.addData(dataArr, newVal.labels[i]);
             }
-          }, 1);
+          }, 20);
           chart.update();
         });
       }
