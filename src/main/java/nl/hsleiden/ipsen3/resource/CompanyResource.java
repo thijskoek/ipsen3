@@ -1,8 +1,13 @@
 package nl.hsleiden.ipsen3.resource;
 
 import com.codahale.metrics.annotation.Timed;
+import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.Company;
+import nl.hsleiden.ipsen3.core.Gebruiker;
+import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.CompanyDAO;
 
 import javax.ws.rs.*;
@@ -15,6 +20,7 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class CompanyResource {
 
+    private ObjectMapper mapper = new ObjectMapper();
     private final CompanyDAO dao;
 
     public CompanyResource(CompanyDAO dao) {
@@ -24,8 +30,14 @@ public class CompanyResource {
     @GET
     @Timed
     @UnitOfWork
-    @Path("/{id}")
-    public Company getById(@PathParam("id") Long id) { return dao.findById(id); }
+    @Path("/getBedrijf")
+    public String get_gebruiker() throws JsonProcessingException {
+        Company company = dao.findById((long) 2);
+        String jsonString = mapper.writeValueAsString(company);
+        return jsonString;
+    }
+
+    //public Company getById(@PathParam("id") Long id) { return dao.findById(id); }
 
     @POST
     @Timed

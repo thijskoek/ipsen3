@@ -71,6 +71,7 @@ public class App extends Application<AppConfiguration> {
 
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
+        final CompanyDAO companyDAO = new CompanyDAO(hibernate.getSessionFactory());
 
         final GebruikerDAO gebruikerDAO = new GebruikerDAO(hibernate.getSessionFactory());
         final SleutelDAO sleutelDAO = new SleutelDAO(hibernate.getSessionFactory());
@@ -94,6 +95,7 @@ public class App extends Application<AppConfiguration> {
         final ActieResource actieResource = new ActieResource(actieDAO);
         final BestellijstResource bestellijstResource = new BestellijstResource(bestellijstDAO);
         final FactuurResource factuurResource = new FactuurResource(factuurDAO);
+        final CompanyResource companyResource = new CompanyResource(companyDAO);
 
 
 
@@ -106,6 +108,7 @@ public class App extends Application<AppConfiguration> {
         environment.jersey().register(actieResource);
         environment.jersey().register(bestellijstResource);
         environment.jersey().register(factuurResource);
+        environment.jersey().register(companyResource);
     }
 
     /**

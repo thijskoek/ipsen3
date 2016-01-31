@@ -27,7 +27,7 @@ public class Company {
     private String telefoon;
     @Column(name = "kvk")
     private String kvk;
-    @Column(name = "btwnummer")
+    @Column(name = "btw_nummer")
     private String btwnummer;
     @Column(name = "iban")
     private String iban;

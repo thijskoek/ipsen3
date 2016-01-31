@@ -1,1 +1,57 @@
-<p>This is the company view.</p>
+<h1 class="text-center">Bedrijf</h1>
+<div class="col-sm-6 col-md-6 col-md-offset-3">
+  <div class="well">
+    <form ng-init="loadCompany()" name="companyForm" role="form" ng-submit="submitCompany(contactForm.$valid)" ng-controller="CompanyCtrl" novalidate>
+      <div class="form-group">
+        <label for="bedrijfsnaam">Bedrijfsnaam:*</label>
+        <input type="text" class="form-control" name="bedrijfsnaam" ng-model="bedrijfsnaam" placeholder="Bedrijfsnaam" id="bedrijfsnaam" required>
+      </div>
+
+      <div class="form-group">
+        <label for="adres">Adres:</label>
+        <input type="text" class="form-control" name="adres" ng-model="adres" id="adres">
+      </div>
+
+      <div class="form-group">
+        <label for="woonplaats">Woonplaats:*</label>
+        <input type="text" class="form-control" name="woonplaats" ng-model="woonplaats" id="woonplaats" required>
+      </div>
+
+      <div class="form-group">
+        <label for="postcode">Postcode:*</label>
+        <input type="text" class="form-control" name="postcode" ng-model="postcode" id="postcode" required>
+      </div>
+
+      <div class="form-group">
+        <label for="email">Email:*</label>
+        <input type="email" class="form-control" name="email" ng-model="email" id="email" required>
+      </div>
+
+      <div class="form-group">
+        <label for="telefoon">Telefoon:</label>
+        <input type="text" class="form-control" name="telefoon" ng-model="telefoon" id="telefoon">
+      </div>
+
+      <div class="form-group">
+        <label for="kvk">KVK:*</label>
+        <input type="text" class="form-control" name="kvk" ng-model="kvk" id="kvk" required>
+      </div>
+
+      <div class="form-group">
+        <label for="btwnummer">BTW_nummer:*</label>
+        <input type="text" class="form-control" name="btwnummer" ng-model="btwnummer" id="btwnummer" required>
+      </div>
+
+      <div class="form-group">
+        <label for="iban">IBAN:*</label>
+        <input type="text" class="form-control" name="iban" ng-model="iban" id="iban" required>
+      </div>
+
+      <div class="form-group">
+        <label for="bic">BIC:*</label>
+        <input type="text" class="form-control" name="bic" ng-model="bic" id="bic" required>
+      </div>
+      <button type="submit" class="btn btn-primary" value="versturen">Opslaan</button>
+    </form>
+  </div>
+</div>

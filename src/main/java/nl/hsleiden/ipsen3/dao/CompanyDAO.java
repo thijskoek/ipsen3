@@ -4,6 +4,8 @@ import io.dropwizard.hibernate.AbstractDAO;
 import nl.hsleiden.ipsen3.core.Company;
 import org.hibernate.SessionFactory;
 
+import java.util.List;
+
 /**
  * Created by Brandon on 31-Jan-16.
  */
@@ -20,4 +22,6 @@ public class CompanyDAO extends AbstractDAO<Company> {
     public Company findById(Long id) { return get(id); }
 
     public long create(Company company) { return persist(company).getId(); }
+
+    public List<Company> findAll() { return currentSession().createCriteria(Company.class).list(); }
 }
