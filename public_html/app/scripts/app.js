@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngNotify'
+    'ngNotify',
+    'ngHolder'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -104,6 +105,11 @@ angular
       })
       .when('/wijnen', {
         templateUrl: 'views/wijnen.html',
+        controller: 'WijnenCtrl',
+        controllerAs: 'wijnen'
+      })
+      .when('/wijnen/:id', {
+        templateUrl: 'views/wijnen-edit.html',
         controller: 'WijnenCtrl',
         controllerAs: 'wijnen'
       })

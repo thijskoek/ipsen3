@@ -24,6 +24,10 @@ public class AppConfiguration extends Configuration implements AssetsBundleConfi
     @JsonProperty
     private String apiName;
 
+    @NotEmpty
+    @JsonProperty
+    private String uploadDir;
+
     @Valid
     @NotNull
     @JsonProperty
@@ -53,5 +57,10 @@ public class AppConfiguration extends Configuration implements AssetsBundleConfi
     @JsonProperty
     public CacheBuilderSpec getAuthenticationCachePolicy() {
         return CacheBuilderSpec.parse(authenticationCachePolicy);
+    }
+
+    public String getUploadDir() {
+
+        return uploadDir;
     }
 }

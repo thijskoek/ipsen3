@@ -12,8 +12,8 @@
 
       <div class="col-sm-4 col-md-4" ng-repeat="wijn in filteredWijnen = (wijnen | filter:searchText)">
         <div class="thumbnail">
-          <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
-          alt="{{wijn.naam}}">
+          <img class="wijn-img" holder="holder.js/260x260?text={{wijn.naam}}" alt="{{wijn.naam}}" ng-if="!wijn.images.length">
+          <img class="wijn-img" ng-src="{{wijn.images[0].url}}" alt="{{wijn.naam}}" ng-if="wijn.images.length" height="150">
           <div class="caption text-center">
             <h3>{{wijn.naam}}</h3>
             <p>{{wijn.land.name}} &mdash; <i>{{wijn.jaar}}</i></p>
