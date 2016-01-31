@@ -8,7 +8,7 @@
  * Controller of the appApp
  */
 angular.module('appApp')
-  .controller('WijnenCtrl', function ($scope, wijnen, cartService, actieService) {
+  .controller('ShopCtrl', function ($scope, wijnen, cartService, actieService) {
     var self = this;
     $scope.wijnen = [];
     $scope.landen = [];

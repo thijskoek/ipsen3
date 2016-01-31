@@ -31,11 +31,11 @@ angular
         controllerAs: 'about',
         activeTab: 'about'
       })
-      .when('/wijnen', {
+      .when('/shop', {
         templateUrl: 'views/wijnen.html',
-        controller: 'WijnenCtrl',
-        controllerAs: 'wijnen',
-        activeTab: 'wijnen'
+        controller: 'ShopCtrl',
+        controllerAs: 'shop',
+        activeTab: 'shop'
       })
       .when('/contact', {
         templateUrl: 'views/contact.html',
