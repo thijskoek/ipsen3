@@ -6,6 +6,8 @@ import com.github.mustachejava.MustacheFactory;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
 import nl.hsleiden.ipsen3.core.*;
+import nl.hsleiden.ipsen3.core.helper.Email;
+import nl.hsleiden.ipsen3.core.helper.Order;
 import nl.hsleiden.ipsen3.dao.FactuurDAO;
 import nl.hsleiden.ipsen3.services.MailService;
 import nl.hsleiden.ipsen3.services.strategies.mail.JavaMailStrategy;

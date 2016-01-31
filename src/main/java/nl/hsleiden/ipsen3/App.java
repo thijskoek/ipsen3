@@ -19,10 +19,8 @@ import nl.hsleiden.ipsen3.config.HibernateConfiguration;
 import nl.hsleiden.ipsen3.config.MigrationsConfiguration;
 import nl.hsleiden.ipsen3.core.User;
 import nl.hsleiden.ipsen3.dao.*;
-import nl.hsleiden.ipsen3.resource.MailResource;
-import nl.hsleiden.ipsen3.resource.OrderResource;
-import nl.hsleiden.ipsen3.resource.UserResource;
-import nl.hsleiden.ipsen3.resource.WijnResource;
+import nl.hsleiden.ipsen3.resource.*;
+import nl.hsleiden.ipsen3.resources.BestellijstResource;
 import nl.hsleiden.ipsen3.resources.GebruikersResource;
 import nl.hsleiden.ipsen3.resources.WachtwoordResource;
 import nl.hsleiden.ipsen3.service.AuthenticationService;
@@ -63,7 +61,7 @@ public class App extends Application<AppConfiguration> {
     public void initialize(Bootstrap<AppConfiguration> bootstrap) {
         bootstrap.addBundle(hibernate);
         bootstrap.addBundle((ConfiguredBundle)
-            new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
+                new ConfiguredAssetsBundle("/bower_components/", "/client", "index.html"));
         bootstrap.addBundle(liquibase);
     }
 
@@ -73,13 +71,19 @@ public class App extends Application<AppConfiguration> {
 
         final UserDAO userDAO = new UserDAO(hibernate.getSessionFactory());
         final WijnDAO wijnDAO = new WijnDAO(hibernate.getSessionFactory());
+
         final GebruikerDAO gebruikerDAO = new GebruikerDAO(hibernate.getSessionFactory());
         final SleutelDAO sleutelDAO = new SleutelDAO(hibernate.getSessionFactory());
         final FactuurDAO factuurDAO = new FactuurDAO(hibernate.getSessionFactory());
+        final BestellijstDAO bestellijstDAO = new BestellijstDAO(hibernate.getSessionFactory());
+        final BestellijstDAO bestellijstDao = new BestellijstDAO(hibernate.getSessionFactory());
+
+        final ActieDAO actieDAO = new ActieDAO(hibernate.getSessionFactory());
 
         enableCORS(environment);
         setupAuthentication(environment, userDAO, appConfiguration);
         configureClientFilter(environment);
+
 
         final WijnResource wijnResource = new WijnResource(wijnDAO);
         final UserResource userResource = new UserResource(userDAO);
@@ -87,6 +91,11 @@ public class App extends Application<AppConfiguration> {
         final MailResource mailResource = new MailResource();
         final WachtwoordResource wachtwoordResource = new WachtwoordResource(userDAO, sleutelDAO);
         final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO, userDAO);
+        final ActieResource actieResource = new ActieResource(actieDAO);
+        final BestellijstResource bestellijstResource = new BestellijstResource(bestellijstDAO);
+        final FactuurResource factuurResource = new FactuurResource(factuurDAO);
+
+
 
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);
@@ -94,6 +103,9 @@ public class App extends Application<AppConfiguration> {
         environment.jersey().register(orderResource);
         environment.jersey().register(wachtwoordResource);
         environment.jersey().register(gebruikersResource);
+        environment.jersey().register(actieResource);
+        environment.jersey().register(bestellijstResource);
+        environment.jersey().register(factuurResource);
     }
 
     /**
@@ -104,7 +116,7 @@ public class App extends Application<AppConfiguration> {
     private void enableCORS(Environment environment) {
         // Enable CORS headers
         final FilterRegistration.Dynamic cors =
-            environment.servlets().addFilter("CORS", CrossOriginFilter.class);
+                environment.servlets().addFilter("CORS", CrossOriginFilter.class);
 
         // Configure CORS parameters
         cors.setInitParameter("allowedOrigins", "*");
@@ -123,25 +135,26 @@ public class App extends Application<AppConfiguration> {
      * @param appConfiguration
      */
     private void setupAuthentication(Environment environment, UserDAO userDAO,
-        AppConfiguration appConfiguration) {
+                                     AppConfiguration appConfiguration) {
         AuthenticationService authenticationService = new AuthenticationService(userDAO);
         ApiUnauthorizedHandler unauthorizedHandler = new ApiUnauthorizedHandler();
         CachingAuthenticator<BasicCredentials, User> cachingAuthenticator =
-            new CachingAuthenticator<BasicCredentials, User>(
-            metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
-        );
+                new CachingAuthenticator<BasicCredentials, User>(
+                        metricRegistry, authenticationService, appConfiguration.getAuthenticationCachePolicy()
+                );
 
         environment.jersey().register(new AuthDynamicFeature(
-                new BasicCredentialAuthFilter.Builder<User>()
-                        .setAuthenticator(cachingAuthenticator)
-                        .setAuthorizer(authenticationService)
-                        .setRealm("SUPER SECRET STUFF")
-                        .setUnauthorizedHandler(unauthorizedHandler)
-                        .buildAuthFilter())
+                        new BasicCredentialAuthFilter.Builder<User>()
+                                .setAuthenticator(cachingAuthenticator)
+                                .setAuthorizer(authenticationService)
+                                .setRealm("SUPER SECRET STUFF")
+                                .setUnauthorizedHandler(unauthorizedHandler)
+                                .buildAuthFilter())
         );
 
         environment.jersey().register(RolesAllowedDynamicFeature.class);
         environment.jersey().register(new AuthValueFactoryProvider.Binder<User>(User.class));
+
     }
 
     /**
@@ -151,9 +164,9 @@ public class App extends Application<AppConfiguration> {
      */
     private void configureClientFilter(Environment environment) {
         environment.getApplicationContext().addFilter(
-            new FilterHolder(new ClientFilter()),
-            "/*",
-            EnumSet.allOf(DispatcherType.class)
+                new FilterHolder(new ClientFilter()),
+                "/*",
+                EnumSet.allOf(DispatcherType.class)
         );
     }
 }

@@ -1,4 +1,6 @@
-package nl.hsleiden.ipsen3.core;
+package nl.hsleiden.ipsen3.core.helper;
+
+import nl.hsleiden.ipsen3.core.Wijn;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonView;

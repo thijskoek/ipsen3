@@ -1,7 +1,7 @@
 package nl.hsleiden.ipsen3.services.interfaces;
 
 
-import nl.hsleiden.ipsen3.core.Email;
+import nl.hsleiden.ipsen3.core.helper.Email;
 
 /**
  * Strategy pattern used to change from MailStrategy during runtime.

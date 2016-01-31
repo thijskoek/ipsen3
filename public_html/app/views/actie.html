@@ -1,0 +1,38 @@
+<!-- Created by Thijs Koek -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Actie</title>
+</head>
+<body>
+  <h1>Dit is de Actie pagina</h1>
+
+
+
+
+    <table class="table table-striped">
+      <thead>
+      <tr>
+        <th><input type="checkbox"></th>
+        <th>Productnummer</th>
+        <th>Naam</th>
+        <th>Jaar</th>
+        <th>Prijs</th>
+      </tr>
+      </thead>
+      <tr ng-repeat="wijn in wijnen">
+        <td><input type="checkbox" ng-model="wijn.active"></td>
+        <td>{{wijn.productnummer}}</td>
+        <td>{{wijn.naam}}</td>
+        <td>{{wijn.jaar}}</td>
+        <td>{{wijn.prijs | currency}}</td>
+      </tr>
+
+    </table>
+
+    <pre>{{ wijnen | json }}</pre>
+
+  </form>
+</body>
+</html>

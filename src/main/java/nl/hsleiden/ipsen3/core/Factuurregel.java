@@ -4,7 +4,6 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotNull;
 import java.text.DecimalFormat;
 
 /**
@@ -19,7 +18,6 @@ public class Factuurregel {
     @Column(name = "id")
     private long id;
 
-    @NotNull
     @Column(name = "aantal")
     private int aantal;
 
@@ -62,12 +60,14 @@ public class Factuurregel {
         this.wijn = wijn;
     }
 
-    @JsonProperty
+
+    @JsonIgnore
     public Factuur getFactuur() {
         return factuur;
     }
 
-    @JsonProperty
+
+    @JsonIgnore
     public void setFactuur(Factuur factuur) {
         this.factuur = factuur;
     }
