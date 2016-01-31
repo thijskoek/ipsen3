@@ -32,7 +32,7 @@ angular
         activeTab: 'about'
       })
       .when('/shop', {
-        templateUrl: 'views/wijnen.html',
+        templateUrl: 'views/shop.html',
         controller: 'ShopCtrl',
         controllerAs: 'shop',
         activeTab: 'shop'
@@ -101,6 +101,11 @@ angular
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
+      })
+      .when('/wijnen', {
+        templateUrl: 'views/wijnen.html',
+        controller: 'WijnenCtrl',
+        controllerAs: 'wijnen'
       })
       .otherwise({
         redirectTo: '/'
