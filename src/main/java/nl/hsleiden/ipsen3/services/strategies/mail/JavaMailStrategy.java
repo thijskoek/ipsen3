@@ -61,6 +61,7 @@ public class JavaMailStrategy implements MailStrategy {
      * @param email
      */
     @Override public void send(Email email) {
+
         try{
             // Create a default MimeMessage object.
             MimeMessage message = new MimeMessage(session);
