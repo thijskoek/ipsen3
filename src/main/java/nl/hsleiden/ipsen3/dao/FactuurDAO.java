@@ -3,6 +3,11 @@ package nl.hsleiden.ipsen3.dao;
 import io.dropwizard.hibernate.AbstractDAO;
 import nl.hsleiden.ipsen3.App;
 import nl.hsleiden.ipsen3.core.Factuur;
+import nl.hsleiden.ipsen3.core.Factuurregel;
+import nl.hsleiden.ipsen3.core.helper.Order;
+import nl.hsleiden.ipsen3.core.helper.OrderRegel;
+import nl.hsleiden.ipsen3.core.helper.Revenue;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
@@ -32,6 +37,7 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         this.sessionFactory = sessionFactory;
     }
 
+
     public List<Factuur> findByDebiteur(long debiteurId) {
         Criteria criteria = currentSession().createCriteria(Factuur.class);
         return criteria.list();
@@ -45,6 +51,30 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         return persist(factuur).getId();
     }
 
+    /**
+     * Creates a invoice for a given order.
+     *
+     * @param order
+     * @return
+     */
+    public long create(Order order)
+    {
+        Factuur factuur = new Factuur();
+        factuur.setFactuurnummer(getLastFactuurNummer()+1);
+        factuur.setDebiteur(order.getDebiteur());
+        factuur.setFactuurdatum(new DateTime());
+        factuur.setVervaldatum(new DateTime().plusDays(14));
+        factuur.setStatus("concept");
+
+        for (OrderRegel orderRegel: order.getRegels()) {
+            Factuurregel factuurregel = new Factuurregel();
+            factuurregel.setAantal(orderRegel.getAantal());
+            factuurregel.setWijn(orderRegel.getWijn());
+            factuurregel.setFactuur(factuur);
+            factuur.addFactuurregel(factuurregel);
+        }
+        return persist(factuur).getId();
+    }
 
 
     public Factuur findById(long id) {
@@ -66,6 +96,20 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         return facturen;
     }
 
+    public Map<String, Double> getRevenue(DateTime year) {
+        double revenue = 0.00;
+        Criteria criteria = currentSession().createCriteria(Factuur.class);
+        if (year != null) {
+            criteria.add(buildYearQuery(year));
+        }
+
+        List<Factuur> facturen = criteria.list();
+        for (Factuur factuur: facturen) {
+            initialize(factuur.getFactuurregels());
+        }
+
+        return new Revenue(facturen).getRevenue();
+    }
 
 
     private Conjunction buildYearQuery(DateTime year) {
@@ -77,4 +121,7 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         and.add(Restrictions.lt("factuurdatum", maxJaar));
         return and;
     }
+
 }
+
+

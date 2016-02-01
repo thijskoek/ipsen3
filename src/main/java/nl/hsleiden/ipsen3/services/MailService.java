@@ -1,7 +1,7 @@
 package nl.hsleiden.ipsen3.services;
 
 
-import nl.hsleiden.ipsen3.core.Email;
+import nl.hsleiden.ipsen3.core.helper.Email;
 import nl.hsleiden.ipsen3.services.interfaces.MailStrategy;
 import nl.hsleiden.ipsen3.services.strategies.mail.JavaMailStrategy;
 

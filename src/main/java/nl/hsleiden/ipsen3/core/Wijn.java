@@ -1,9 +1,12 @@
 package nl.hsleiden.ipsen3.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nl.hsleiden.ipsen3.core.helper.WijnImage;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
+import java.text.DecimalFormat;
+import java.util.List;
 
 /**
  * Created by Daan on 30-Nov-15.
@@ -11,14 +14,12 @@ import javax.persistence.*;
 @Entity
 @Table(name = "product")
 public class Wijn {
-
     @Id
     @GeneratedValue
     @Column(name = "id")
     private long id;
 
     @Column(name = "productnummer", nullable = false, length = 11)
-    @Length(max = 11)
     private long productnummer;
 
     @Column(name = "naam", nullable = false, length = 255)
@@ -26,11 +27,9 @@ public class Wijn {
     private String naam;
 
     @Column(name = "jaar", nullable = false, length = 11)
-    @Length(max = 11)
     private int jaar;
 
     @Column(name = "prijs", nullable = false, length = 11)
-    @Length(max = 11)
     private double prijs;
 
     @Column(name = "type", nullable = false, length = 255)
@@ -43,6 +42,15 @@ public class Wijn {
 
     @Column(name = "rang", nullable = true, length = 11)
     private Integer rang;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "product_to_image",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "image_id"))
+    private List<WijnImage> images;
+
+    @Transient
+    private DecimalFormat df = new DecimalFormat("#.00");
 
     public Wijn() {
     }
@@ -79,7 +87,7 @@ public class Wijn {
 
     @JsonProperty
     public double getPrijs() {
-        return prijs;
+        return Double.parseDouble(df.format(prijs));
     }
 
     @JsonProperty
@@ -95,5 +103,10 @@ public class Wijn {
     @JsonProperty
     public Integer getRang() {
         return rang;
+    }
+
+    @JsonProperty
+    public List<WijnImage> getImages() {
+        return images;
     }
 }

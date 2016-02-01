@@ -3,7 +3,7 @@ package nl.hsleiden.ipsen3.services.strategies.mail;
 
 import com.sendgrid.SendGrid;
 import com.sendgrid.SendGridException;
-import nl.hsleiden.ipsen3.core.Email;
+import nl.hsleiden.ipsen3.core.helper.Email;
 import nl.hsleiden.ipsen3.services.interfaces.MailStrategy;
 
 import java.io.IOException;

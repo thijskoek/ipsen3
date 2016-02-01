@@ -111,4 +111,34 @@ public class Factuur {
         this.factuurregels.add(factuurregel);
     }
 
+
+    @JsonIgnore
+    public double getTotaal() {
+        double total = 0.00;
+        for (Factuurregel regel: factuurregels) {
+            total += (regel.getAantal()*regel.getWijn().getPrijs());
+        }
+        return Double.parseDouble(df.format(total));
+    }
+
+    @JsonIgnore
+    public String getTotaalString() {
+        return df.format(getTotaal());
+    }
+
+    @JsonIgnore
+    public String getSubTotaalString() {
+        return df.format((getTotaal() - getBTW()));
+    }
+
+    @JsonIgnore
+    public double getBTW() {
+        return Double.parseDouble(df.format(((getTotaal() / 121) * 21)));
+    }
+
+    @JsonIgnore
+    public String getBTWString() {
+        return df.format(((getTotaal() / 121) * 21));
+    }
 }
+

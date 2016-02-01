@@ -1,0 +1,108 @@
+$font-family-sans-serif: 		'Avenir Next', 'Montserrat', sans-serif;
+
+$icon-font-path: '/bower_components/bootstrap-sass/assets/fonts/bootstrap/';
+
+$navbar-height: 				70px;
+$navbar-default-bg: 			rgba(#F3F3F3, 0.4);
+$navbar-default-border:			rgba(#F3F3F3, 0.55);
+$navbar-default-link-color: 	#26364B;
+$navbar-default-link-active-bg: transparent;
+
+$thumbnail-border:				transparent;
+
+$brand-primary:					#00529C;
+
+$btn-border-radius-base:        45px;
+$btn-border-radius-large:       45px;
+$btn-border-radius-small:       45px;
+
+$padding-base-vertical:     	13px;
+$padding-base-horizontal:   	32px;
+
+$padding-large-vertical:    	20px;
+$padding-large-horizontal:  	43px;
+
+@import "../../bower_components/bootstrap-sass/assets/stylesheets/bootstrap";
+
+.nav.navbar-nav.navbar-center {
+	display: inline-block;
+	float: none;
+}
+
+.navbar-nav > li > a {
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 700;
+	letter-spacing: 0.2em;
+}
+
+.navbar-nav > li > a > u {
+	text-decoration: none;
+}
+
+.navbar-default .navbar-nav > .active > a > u {
+	border-bottom: 3px solid #00529C;
+	text-decoration: none;
+}
+
+.navbar-brand {
+	text-transform: uppercase;
+	font-size: 11px;
+	font-weight: 500;
+	letter-spacing: 0.1em;
+}
+
+.cart {
+	/* Nice hack */
+	position: relative !important;
+	font-size: 22px !important;
+    padding-top: 22px !important;
+    padding-bottom: 22px !important;
+
+    .badge {
+	    position: absolute;
+	    top: 22%;
+	    right: 7px;
+	    background-color: $brand-primary;
+	    min-width: 0;
+	    width: 22px;
+    }
+}
+
+.table-cart > tbody > tr > td {
+	vertical-align: middle; 
+}
+
+html {
+  position: relative;
+  min-height: 100%;
+}
+
+body {
+  /* Margin bottom by footer height */
+  margin-bottom: 175px;
+}
+
+.footer {
+	padding-top: 38px;
+  	position: absolute;
+  	bottom: 0;
+  	width: 100%;
+  	/* Set the fixed height of the footer here */
+  	height: 175px;
+	background-color: $navbar-default-bg;
+	color: rgba(#000, 0.4);
+	font-weight: 500;
+	line-height: 2;
+
+	a {
+		text-decoration: none;
+		color: rgba(#000, 0.4);
+
+		&:hover {text-decoration: underline;}
+	}
+}
+
+.wijn-img {
+	height: 260px !important;
+}

@@ -1,19 +1,44 @@
-<p>This is the wijnen view.</p>
+<h1>Wijnen</h1>
 
-<table class="table table-striped">
-  <thead>
-  <tr>
-    <th>Productnummer</th>
-    <th>Naam</th>
-    <th>Jaar</th>
-    <th>Prijs</th>
-  </tr>
-  </thead>
-  <tr ng-repeat="wijn in wijnen">
-    <td>{{wijn.productnummer}}</td>
-    <td>{{wijn.naam}}</td>
-    <td>{{wijn.jaar}}</td>
-    <td>{{wijn.prijs | currency}}</td>
-  </tr>
+<div class="alert alert-info">
+	<strong>Let op!</strong> U kunt hier alleen de afbeeldingen wijzigen. Het wijzigen van de wijnen loopt via IPSEN2.
+</div>
 
-</table>
+<div class="row" ng-repeat="wijn in wijnen">
+	<div class="col-md-3">
+		<div class="thumbnail">
+		  	<img class="wijn-img" ng-src="{{wijn.images[0].url}}" alt="{{wijn.naam}}"
+		  		ng-if="wijn.images.length">
+		  	<img class="wijn-img" holder="holder.js/260x260?text={{wijn.naam}}" alt="{{wijn.naam}}" 
+		  		ng-if="!wijn.images.length">
+		</div>
+	</div>
+	<div class="col-md-9">
+		<h4 class="media-heading">{{wijn.naam}}</h4>
+		<div class="row">
+			<div class="col-md-8">
+				<table class="table">
+					<tr>
+						<th>Productnummer</th>
+						<th>Jaar</th>
+						<th>Prijs</th>
+						<th>Type</th>
+						<th>Land</th>
+						<th>Rang</th>
+					</tr>
+					<tr>
+						<td>{{wijn.productnummer}}</td>
+						<td>{{wijn.jaar}}</td>
+						<td>{{wijn.prijs | currency}}</td>
+						<td>{{wijn.type}}</td>
+						<td>{{wijn.land.name}}</td>
+						<td>{{wijn.rang}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-4 text-right">
+				<a href="#/wijnen/{{wijn.id}}" class="btn btn-default">Bewerken</a>
+			</div>
+		</div>
+	</div>
+</div>
