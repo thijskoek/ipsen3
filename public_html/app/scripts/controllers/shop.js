@@ -44,8 +44,8 @@ angular.module('appApp')
         return r;
     };
 
-    wijnen.all().then(function(data) {
-      $scope.wijnen = data;
+    actieService.all().then(function(data) {
+      $scope.wijnen = data.wijnen;
 
       self.fillLandenArray();
 

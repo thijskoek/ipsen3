@@ -40,7 +40,7 @@ public class ActieResource {
     @GET
     @Timed
     @UnitOfWork
-    public List<Actie> findAll(){
+    public Actie findActive(){
         return dao.findAll();
     }
 
