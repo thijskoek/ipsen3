@@ -1,0 +1,63 @@
+<h1>Dashboard</h1>
+
+<div class="row">
+
+  <div class="col-md-8">
+    <div class="panel panel-default">
+      <div class="panel-heading">Omzet {{year}} <small>in Euro's</small></div>
+      <div class="panel-body">
+        <chart chart-data="data" chart-width="400" chart-height="400" chart-type="bar"></chart>
+      </div>
+    </div>
+
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Onverwerkte orders
+      </div>
+      <div class="panel-body">
+        <div class="alert alert-warning">
+          <strong>Let op!</strong> Versturen van facturen loopt via de IPSEN2 applicatie.
+        </div>
+        <table class="table">
+          <thead>
+            <tr>
+              <th>Factuurnummer</th>
+              <th>Klant</th>
+              <th>Bedrag</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="invoice in invoices | limitTo:limit">
+              <td>{{invoice.factuurnummer}}</td>
+              <td>{{invoice.debiteur.voornaam}} {{invoice.debiteur.tussenvoegsel}} {{invoice.debiteur.naam}}</td>
+              <td>{{getInvoiceTotal(invoice) | currency}}</td>
+              <td>
+                <span class="label" ng-class="{
+                  'label-default': invoice.status === 'concept',
+                  'label-primary': invoice.status === 'verstuurd',
+                  'label-success': invoice.status === 'betaald'
+                }">
+                  {{invoice.status}}
+                </span>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+        <div class="text-center">
+          <button class="btn btn-default" ng-click="showMoreOrders()" ng-if="limit < invoices.length">Meer orders tonen</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-4">
+    <div class="panel panel-default">
+      <div class="panel-heading">Stand van zaken</div>
+      <div class="panel-body">
+        <h1>{{ getTotalRevenue() | currency }}<small>omzet</small></h1>
+      </div>
+    </div>
+  </div>
+
+</div>

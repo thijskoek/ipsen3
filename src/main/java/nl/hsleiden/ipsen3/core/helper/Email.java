@@ -1,4 +1,6 @@
-package nl.hsleiden.ipsen3.core;
+package nl.hsleiden.ipsen3.core.helper;
+
+import nl.hsleiden.ipsen3.core.Model;
 
 import java.util.ArrayList;
 
@@ -22,8 +24,8 @@ public class Email extends Model {
      * @author Daan Rosbergen
      */
     public Email() {
-        this.recipients = new ArrayList<>();
-        this.attachments = new ArrayList<>();
+        this.recipients = new ArrayList<String>();
+        this.attachments = new ArrayList<ArrayList<String>>();
         this.contentType = "text/plain";
     }
 
@@ -108,7 +110,7 @@ public class Email extends Model {
      * @param filename
      */
     public void addAttachment(String filelocation, String filename) {
-        ArrayList<String> attachmentData = new ArrayList<>();
+        ArrayList<String> attachmentData = new ArrayList<String>();
         attachmentData.add(filelocation);
         attachmentData.add(filename);
         this.attachments.add(attachmentData);

@@ -12,19 +12,23 @@ public class WijnDAO extends AbstractDAO<Wijn> {
      *
      * @param sessionFactory a session provider
      */
-    public WijnDAO(SessionFactory sessionFactory) {
-        super(sessionFactory);
-    }
+    public WijnDAO(SessionFactory sessionFactory) {super(sessionFactory); }
 
     public Wijn findById(Long id) {
-        return get(id);
+        Wijn wijn = get(id);
+        initialize(wijn.getImages());
+        return wijn;
     }
 
-    public long create(Wijn wijn) {
-        return persist(wijn).getId();
-    }
+    public long create(Wijn wijn) { return persist(wijn).getId(); }
+
+    public long update(Wijn wijn) { return persist(wijn).getId(); }
 
     public List<Wijn> findAll() {
-        return currentSession().createCriteria(Wijn.class).list();
+        List<Wijn> wijnen = currentSession().createCriteria(Wijn.class).list();
+        for (Wijn wijn : wijnen) {
+            initialize(wijn.getImages());
+        }
+        return wijnen;
     }
 }

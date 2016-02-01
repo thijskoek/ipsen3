@@ -1,0 +1,82 @@
+<h1>Bestelling</h1>
+
+<p>Hieronder een overzicht van uw bestelling.</p>
+
+<form name="orderForm" role="form" ng-submit="submitOrder()" novalidate>
+
+  <div class="row">
+
+    <div class="col-md-4">
+      <div class="well">
+        <strong>Contactgegevens</strong>
+        <address>
+          {{user.debiteur.aanhef}} {{user.debiteur.voornaam}} {{user.debiteur.tussenvoegsel}} {{user.debiteur.naam}} <br>
+          {{user.debiteur.adres}} <br>
+          {{user.debiteur.postcode}} {{user.debiteur.woonplaats}} <br>
+          {{user.debiteur.land.name}} <br><br>
+          {{user.debiteur.telefoon}} <br>
+          {{user.debiteur.email}}
+        </address>
+      </div>
+    </div>
+
+    <div class="col-md-9"></div>
+    
+    <div class="col-md-9">
+      <div class="well">
+        <h4>Overzicht</h4>
+        <table class="table table-condensed">
+          <thead>
+            <tr>
+              <th>Aantal</th>
+              <th>Product</th>
+              <th>Prijs</th>
+              <th>Totaal</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="item in cart">
+              <td> {{ item.aantal }}</td>
+              <td>{{item.wijn.naam}}</td>
+              <td>{{ item.wijn.prijs | currency: "€"}}</td>
+              <td>{{ getTotal(item) | currency: "€"}}</td>
+            </tr>
+          </tbody>
+          <tfoot>
+            <tr>
+              <td></td>
+              <td></td>
+              <th>Subtotaal:</th>
+              <th>{{ getSubtotaal() | currency: "€" }}</th>
+            </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <th>BTW(21%):</th>
+              <th>{{ getBtwPrice() | currency: "€" }}</th>
+              </tr>
+            <tr>
+              <td></td>
+              <td></td>
+              <th>Totaal:</th>
+              <th>{{ getCartTotal() | currency: "€" }}</th>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+    </div>
+
+    <div class="col-md-9">
+      <div class="alert alert-info">
+        Wanneer u op bestellen klikt wordt er een bevestiging gemaild naar <strong>{{user.debiteur.email}}</strong>. 
+        Vervolgens ontvangt u een factuur met de betaalgegevens. Na ontvangts van betaling worden de goederen verstuurd 
+        naar uw adres.
+      </div>
+    </div>
+
+  </div>
+
+  <button type="submit" class="btn btn-success" value="opslaan">Bestellen</button>
+
+</form>
+
