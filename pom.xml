@@ -127,6 +127,12 @@
             <version>0.8.18</version>
         </dependency>
 
+        <dependency>
+            <groupId>io.dropwizard</groupId>
+            <artifactId>dropwizard-forms</artifactId>
+            <version>0.9.1</version>
+        </dependency>
+
     </dependencies>
 
 </project>
