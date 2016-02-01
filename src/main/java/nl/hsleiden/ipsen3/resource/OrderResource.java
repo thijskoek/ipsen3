@@ -48,6 +48,17 @@ public class OrderResource {
     public void create(@Auth User user, Order order) {
         long id = factuurDAO.create(order);
         final Factuur factuur = factuurDAO.findById(id);
+
+        for (OrderRegel orderRegel: order.getRegels()) {
+            Factuurregel factuurregel = new Factuurregel();
+            factuurregel.setAantal(orderRegel.getAantal());
+            factuurregel.setWijn(orderRegel.getWijn());
+            factuurregel.setFactuur(factuur);
+            factuur.addFactuurregel(factuurregel);
+        }
+        factuurDAO.create(factuur);
+        new FactuurPdf(factuur, factuur.getFactuurregels(), factuur.getDebiteur());
+
         new Thread(new Runnable() {
             public void run() {
                 sendOrderEmail(factuur);
@@ -66,6 +77,8 @@ public class OrderResource {
         email.setContent(content.toString(), "text/html");
         email.setTo(factuur.getDebiteur().getEmail());
         email.setFrom("no-reply@groep4.ipsen3.nl");
+        //System.out.print("Pdf path: " + factuur.getPdfPath());
+        email.addAttachment(factuur.getPdfPath(), factuur.getFactuurnummer() + factuur.getDebiteur().getNaam()+".pdf");
 
         mailService.send(email);
     }

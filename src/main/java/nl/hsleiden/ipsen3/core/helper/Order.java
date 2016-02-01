@@ -30,10 +30,12 @@ public class Order {
         this.debiteur = debiteur;
     }
 
+    @JsonProperty
     public List<OrderRegel> getRegels() {
         return regels;
     }
 
+    @JsonProperty
     public void setRegels(List<OrderRegel> regels) {
         this.regels = regels;
     }

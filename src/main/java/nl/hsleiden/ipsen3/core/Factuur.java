@@ -37,11 +37,27 @@ public class Factuur {
     @Column(name = "opmerking")
     private String opmerking;
 
+    @Column(name = "pdfpath")
+    private String pdfPath;
+
     @OneToMany(cascade = {CascadeType.ALL}, mappedBy = "factuur")
+
     private List<Factuurregel> factuurregels = new ArrayList<Factuurregel>();
+
+
 
     @Transient
     DecimalFormat df = new DecimalFormat("#.00");
+
+
+
+    public String getPdfPath() {
+        return pdfPath;
+    }
+
+    public void setPdfPath(String pdfPath) {
+        this.pdfPath = pdfPath;
+    }
 
     public List<Factuurregel> getFactuurregels() {
         return factuurregels;

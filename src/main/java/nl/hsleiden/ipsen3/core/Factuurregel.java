@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen3.core;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.persistence.*;
 import java.text.DecimalFormat;
@@ -29,34 +30,42 @@ public class Factuurregel {
 
     public Factuurregel() {}
 
+    @JsonProperty
     public long getId() {
         return id;
     }
 
+    @JsonProperty
     public void setId(long id) {
         this.id = id;
     }
 
+    @JsonProperty
     public int getAantal() {
         return aantal;
     }
 
+    @JsonProperty
     public Wijn getWijn() {
         return wijn;
     }
 
+    @JsonProperty
     public void setAantal(int aantal) {
         this.aantal = aantal;
     }
 
+    @JsonProperty
     public void setWijn(Wijn wijn) {
         this.wijn = wijn;
     }
+
 
     @JsonIgnore
     public Factuur getFactuur() {
         return factuur;
     }
+
 
     @JsonIgnore
     public void setFactuur(Factuur factuur) {
