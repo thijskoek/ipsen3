@@ -111,6 +111,7 @@ public class Factuur {
         this.factuurregels.add(factuurregel);
     }
 
+
     @JsonIgnore
     public double getTotaal() {
         double total = 0.00;
@@ -140,3 +141,4 @@ public class Factuur {
         return df.format(((getTotaal() / 121) * 21));
     }
 }
+

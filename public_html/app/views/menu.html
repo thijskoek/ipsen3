@@ -16,7 +16,7 @@
 
       <ul class="nav navbar-nav navbar-center">
         <li ng-class="{'active': $route.current.activeTab == 'home'}"><a href="#/"><u>Home</u></a></li>
-        <li ng-class="{'active': $route.current.activeTab == 'wijnen'}"><a ng-href="#/wijnen"><u>Shop</u></a></li>
+        <li ng-class="{'active': $route.current.activeTab == 'shop'}"><a ng-href="#/shop"><u>Shop</u></a></li>
         <li ng-class="{'active': $route.current.activeTab == 'contact'}"><a ng-href="#/contact"><u>Contact</u></a></li>
       </ul>
 
@@ -27,10 +27,14 @@
           <a href="javascript:void;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="false">Profiel <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href="/#/profielbewerken">Profiel</a></li>
+            <li><a href="/#/besteloverzicht">Besteloverzicht</a></li>
+
             <li><a ng-href="#/actie" ng-if="hasRole(ROLES.MSMANGER)">Acties</a></li>
             <li><a ng-href="#/dashboard" ng-if="hasRole(ROLES.MSMANGER)">Dashboard</a></li>
+            <li><a ng-href="#/wijnen" ng-if="hasRole(ROLES.MSMANGER)">Wijnen bewerken</a></li>
             <li role="separator" class="divider"></li>
-            <li><a href="#" ng-click="logout()">Log uit</a></li>
+            <li><a href="javascript:void;" ng-click="logout()">Log uit</a></li>
           </ul>
         </li>
         <li ng-class="{'active': $route.current.activeTab == 'cart'}">

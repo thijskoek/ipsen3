@@ -1,12 +1,12 @@
 <div class="jumbotron text-center">
-  <h1>Gros Manseng</h1>
+  <h1>{{wijnen[0].naam}}</h1>
   <p>
-    Cotes de Gascogne &mdash; <i>2012</i>
+    {{wijnen[0].land.name}} &mdash; <i>{{wijnen[0].jaar}}</i>
   </p>
   <p class="price">
-    &euro; 12,10 <small>per fles</small>
+    {{wijnen[0].prijs | currency}} <small>per fles</small>
   </p>
-  <p><a class="btn btn-lg btn-primary btn-rounded" ng-href="#/">Toevoegen aan winkelwagen</a></p>
+  <p><a class="btn btn-lg btn-primary btn-rounded" ng-click="addToCart(wijnen[0])">Toevoegen aan winkelwagen</a></p>
 </div>
 
 <div class="row">
@@ -15,38 +15,19 @@
     Andere mooie wijnen
   </h1>
 
-  <div class="col-sm-6 col-md-4">
+  <div class="col-sm-6 col-md-4" ng-repeat="wijn in wijnen | limitTo: 3">
     <div class="thumbnail">
-      <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
-      alt="Gros et Petit Manseng Doux - Domaine Uby">
+      <img class="wijn-img" holder="holder.js/260x260?text={{wijn.naam}}" alt="{{wijn.naam}}" ng-if="!wijn.images.length">
+      <img class="wijn-img" ng-src="{{wijn.images[0].url}}" alt="{{wijn.naam}}" ng-if="wijn.images.length" height="150">
       <div class="caption text-center">
-        <h3>Gros Manseng</h3>
-        <p>&euro; 12,10 <small>per fles</small></p>
-        <p><a href="#" class="btn btn-primary btn-rounded" role="button">Kopen</a></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
-      alt="Gros et Petit Manseng Doux - Domaine Uby">
-      <div class="caption text-center">
-        <h3>Gros Manseng</h3>
-        <p>&euro; 12,10 <small>per fles</small></p>
-        <p><a href="#" class="btn btn-primary btn-rounded" role="button">Kopen</a></p>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-sm-6 col-md-4">
-    <div class="thumbnail">
-      <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
-      alt="Gros et Petit Manseng Doux - Domaine Uby">
-      <div class="caption text-center">
-        <h3>Gros Manseng</h3>
-        <p>&euro; 12,10 <small>per fles</small></p>
-        <p><a href="#" class="btn btn-primary btn-rounded" role="button">Kopen</a></p>
+        <h3>{{wijn.naam}}</h3>
+        <p>{{wijn.land.name}} &mdash; <i>{{wijn.jaar}}</i></p>
+        <p><strong>{{wijn.prijs | currency}}</strong> <small>per fles</small></p>
+        <p>
+          <button ng-click="addToCart(wijn)" class="btn btn-primary btn-rounded" type="button">
+            <span class="glyphicon glyphicon-shopping-cart"></span> In winkelwagen
+          </button>
+        </p>
       </div>
     </div>
   </div>

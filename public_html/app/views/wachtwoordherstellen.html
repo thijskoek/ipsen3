@@ -1,5 +1,5 @@
-<form ng-init="controleer_sleutel()" ng-submit="verander_wachtwoord()" autocomplete="off">
-  <table>
+<form ng-init="controleer_sleutel()" ng-submit="verander_wachtwoord()" autocomplete="off" class="form">
+  <table class="table table-condensed">
     <tr>
       <td>Nieuw Wachtwoord:</td>
       <td><input ng-model="wachtwoord" type="password" /></td>
@@ -10,6 +10,13 @@
       <td><input ng-model="bevestiging" ng-class="{ error: !compare() }" type="password" /></td>
     </tr>
   </table>
-  <button>Annuleer</button>
-  <button type="submit">Wijzigen</button>
+  <div ng-show="gewijzigd" class="alert alert-success">
+    Het wachtwoord is gewijzigd.
+  </div>
+  <div ng-show="foutesleutel" class="alert alert-danger">
+    Het wachtwoord is <b>niet</b> gewijzigd,<br />
+    mogelijk is de link verlopen.
+  </div>
+  <button class="btn btn-primary">Annuleer</button>
+  <button class="btn btn-success" type="submit">Wijzigen</button>
 </form>

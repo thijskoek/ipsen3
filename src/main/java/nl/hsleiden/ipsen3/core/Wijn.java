@@ -1,6 +1,7 @@
 package nl.hsleiden.ipsen3.core;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import nl.hsleiden.ipsen3.core.helper.WijnImage;
 import org.hibernate.validator.constraints.Length;
 
 import javax.persistence.*;
@@ -41,6 +42,12 @@ public class Wijn {
 
     @Column(name = "rang", nullable = true, length = 11)
     private Integer rang;
+
+    @OneToMany(cascade = {CascadeType.ALL})
+    @JoinTable(name = "product_to_image",
+        joinColumns = @JoinColumn(name = "product_id"),
+        inverseJoinColumns = @JoinColumn(name = "image_id"))
+    private List<WijnImage> images;
 
     @Transient
     private DecimalFormat df = new DecimalFormat("#.00");
@@ -98,4 +105,8 @@ public class Wijn {
         return rang;
     }
 
+    @JsonProperty
+    public List<WijnImage> getImages() {
+        return images;
+    }
 }

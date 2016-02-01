@@ -18,6 +18,7 @@ angular.module('appApp')
   $scope.invoices = [];
   $scope.revenue = {};
   $scope.year = moment().format('YYYY');
+  $scope.limit = 10;
 
   $scope.data = {
     labels: $scope.labels,
@@ -77,6 +78,10 @@ angular.module('appApp')
     });
     return total;
   };
+
+  $scope.showMoreOrders = function() {
+    $scope.limit += 15;
+  }
 
   self.init();
 

@@ -16,13 +16,14 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngNotify'
+    'ngNotify',
+    'ngHolder'
   ])
   .config(function ($routeProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'ActieCtrl',
+        controller: 'ShopCtrl',
         activeTab: 'home'
       })
       .when('/about', {
@@ -31,11 +32,11 @@ angular
         controllerAs: 'about',
         activeTab: 'about'
       })
-      .when('/wijnen', {
-        templateUrl: 'views/wijnen.html',
-        controller: 'WijnenCtrl',
-        controllerAs: 'wijnen',
-        activeTab: 'wijnen'
+      .when('/shop', {
+        templateUrl: 'views/shop.html',
+        controller: 'ShopCtrl',
+        controllerAs: 'shop',
+        activeTab: 'shop'
       })
       .when('/contact', {
         templateUrl: 'views/contact.html',
@@ -73,6 +74,16 @@ angular
         controller: 'RegisterCtrl',
         controllerAs: 'register'
       })
+      .when('/besteloverzicht', {
+        templateUrl: 'views/besteloverzicht.html',
+        controller: 'ProfielCtrl',
+        controllerAs: 'bestel'
+      })
+      .when('/factuur', {
+        templateUrl: 'views/factuur.html',
+        controller: 'ProfielCtrl',
+        controllerAs: 'bestel'
+      })
       .when('/order', {
         templateUrl: 'views/order.html',
         controller: 'OrderCtrl',
@@ -106,6 +117,16 @@ angular
         templateUrl: 'views/company.html',
         controller: 'CompanyCtrl',
         controllerAs: 'company'
+      })
+      .when('/wijnen', {
+        templateUrl: 'views/wijnen.html',
+        controller: 'WijnenCtrl',
+        controllerAs: 'wijnen'
+      })
+      .when('/wijnen/:id', {
+        templateUrl: 'views/wijnen-edit.html',
+        controller: 'WijnenCtrl',
+        controllerAs: 'wijnen'
       })
       .otherwise({
         redirectTo: '/'

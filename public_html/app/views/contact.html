@@ -1,46 +1,54 @@
-<h1>Contact</h1>
+<h1 class="text-center">Contact</h1>
 
-<form name="contactForm" role="form" ng-submit="submitContact(contactForm.$valid)" novalidate>
-  <div class="form-group">
-    <label for="name">Naam:</label>
-    <input type="text" class="form-control" name="name" ng-model="formModel.name" placeholder="Brandon van Wijk" id="name">
+<div class="col-sm-6 col-md-6 col-md-offset-3">
+  <div class="well">
+    <div class="alert alert-danger" ng-show="error">
+      <strong>Fout!</strong> {{error}}
+    </div>
+    <div class="alert alert-success" ng-show="success">
+      <strong>Gelukt!</strong> {{success}}
+    </div>
+    <form name="contactForm" role="form" ng-submit="submitContact(contactForm.$valid)" novalidate>
+      <div class="form-group">
+        <label for="name">Naam:</label>
+        <input type="text" class="form-control" name="name" ng-model="formModel.name" placeholder="Naam" id="name">
+      </div>
+
+      <div class="form-group" ng-class="{
+        'has-error':!contactForm.email.$valid && (!contactForm.$pristine || contactForm.$submitted),
+        'has-success':contactForm.email.$valid && (!contactForm.$pristine || contactForm.$submitted)
+       }
+       ">
+        <label for="email">Emailadres:*</label>
+        <input type="email" class="form-control" name="email" ng-model="formModel.email" placeholder="Email@voorbeeld.com" id="email" required>
+
+      <p class="help-block" ng-show="contactForm.email.$error.required && (!contactForm.$pristine || contactForm.$submitted)">
+        Dit veld is verplicht
+      </p>
+        <p class="help-block" ng-show="contactForm.email.$error.email && (!contactForm.$pristine || contactForm.$submitted)">
+          Vul een valide mailadres in
+        </p>
+      </div>
+
+      <div class="form-group">
+        <label for="subject">Onderwerp:</label>
+        <input type="text" class="form-control" name="subject" ng-model="formModel.subject" id="subject" placeholder="Onderwerp">
+      </div>
+
+      <div class="form-group" ng-class="{
+        'has-error':!contactForm.message.$valid && (!contactForm.$pristine || contactForm.$submitted),
+        'has-success':contactForm.message.$valid && (!contactForm.$pristine || contactForm.$submitted)
+       }
+       ">
+        <label for="message">Bericht:*</label>
+        <textarea class="form-control" name="message" ng-model="formModel.message" id="message"  placeholder="Bericht" 
+        required cols="30" rows="5"></textarea>
+
+        <p class="help-block" ng-show="contactForm.message.$error.required && (!contactForm.$pristine || contactForm.$submitted)">
+          Dit veld is verplicht
+        </p>
+      </div>
+      <button type="submit" class="btn btn-primary" value="versturen">Verstuur</button>
+    </form>
   </div>
-
-  <div class="form-group" ng-class="{
-    'has-error':!contactForm.email.$valid && (!contactForm.$pristine || contactForm.$submitted),
-    'has-success':contactForm.email.$valid && (!contactForm.$pristine || contactForm.$submitted)
-   }
-   ">
-    <label for="email">Emailadres:*</label>
-    <input type="email" class="form-control" name="email" ng-model="formModel.email" placeholder="Brandonvanwijk@example.com" id="email" required>
-
-  <p class="help-block" ng-show="contactForm.email.$error.required && (!contactForm.$pristine || contactForm.$submitted)">
-    Dit veld is verplicht
-  </p>
-    <p class="help-block" ng-show="contactForm.email.$error.email && (!contactForm.$pristine || contactForm.$submitted)">
-      Vul een valide mailadres in
-    </p>
-  </div>
-
-  <div class="form-group">
-    <label for="subject">Onderwerp:</label>
-    <input type="text" class="form-control" name="subject" ng-model="formModel.subject" id="subject">
-  </div>
-
-  <div class="form-group" ng-class="{
-    'has-error':!contactForm.message.$valid && (!contactForm.$pristine || contactForm.$submitted),
-    'has-success':contactForm.message.$valid && (!contactForm.$pristine || contactForm.$submitted)
-   }
-   ">
-    <label for="message">Bericht:*</label>
-    <input type="text" class="form-control" name="message" ng-model="formModel.message" id="message" required>
-
-    <p class="help-block" ng-show="contactForm.message.$error.required && (!contactForm.$pristine || contactForm.$submitted)">
-      Dit veld is verplicht
-    </p>
-
-  </div>
-  <button type="submit" class="btn btn-default" value="versturen">Verstuur</button>
-
-  <pre> {{ formModel | json }}</pre>
-</form>
+</div>

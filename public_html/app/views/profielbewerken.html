@@ -1,5 +1,5 @@
-<form ng-init="laad_gebruiker()" ng-submit="submit()" ng-controller="ProfielCtrl">
-  <table>
+<form ng-init="laad_gebruiker()" ng-submit="submit()" ng-controller="ProfielCtrl" class="form">
+  <table class="table table-condensed">
 
     <tr>
       <td>Aanhef</td>
@@ -23,7 +23,7 @@
 
     <tr>
       <td>Adres</td>
-      <td><input ng-model="adres" type="text"/> </td>
+      <td><input ng-model="adres" type="text" /> </td>
     </tr>
 
     <tr>
@@ -38,7 +38,7 @@
 
     <tr>
       <td>Email</td>
-      <td><input ng-model="email" type="text" /> </td>
+      <td><input ng-model="email" type="email" /> </td>
     </tr>
 
     <tr>
@@ -46,5 +46,12 @@
       <td><input ng-model="telefoon" type="text" /></td>
     </tr>
   </table>
-  <input type="submit" value="submit" />
+  <div ng-show="gewijzigd" class="alert alert-success">
+    De profielgegevens zijn gewijzigd.
+  </div>
+  <div ng-show="foutmelding" class="alert alert-danger">
+    Er is iets fout gegaan bij het wijzigen, probeer het opnieuw.
+  </div>
+  <button ng-click="terug()" class="btn btn-primary">Terug</button>
+  <input class="btn btn-success" type="submit" value="Wijzigen" />
 </form>

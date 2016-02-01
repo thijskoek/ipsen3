@@ -1,14 +1,17 @@
 apiName: "IPSEN3"
 
+uploadDir: public_html/uploads
+
 database:
   # the name of your JDBC driver
   driverClass: org.postgresql.Driver
 
   # the username
-  user: daanrosbergen
+  user: postgres
+
 
   # the password
-  password:
+  password: Welkom#1
 
   # the JDBC URL
   url: jdbc:postgresql://127.0.0.1/panthera
@@ -46,6 +49,7 @@ assets:
   overrides:
     /: public_html/app/
     /bower_components: public_html/bower_components
+    /uploads: public_html/uploads
 
 server:
   rootPath: /api/v1/*

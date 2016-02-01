@@ -2,11 +2,9 @@ package nl.hsleiden.ipsen3.dao;
 
 import io.dropwizard.hibernate.AbstractDAO;
 import nl.hsleiden.ipsen3.core.Actie;
-import nl.hsleiden.ipsen3.core.Bestellijst;
 import nl.hsleiden.ipsen3.core.Wijn;
 import org.hibernate.SessionFactory;
-
-import java.util.List;
+import org.hibernate.criterion.Restrictions;
 
 /**
  * Created by Thijs Koek on 1/20/2016.
@@ -24,12 +22,14 @@ public class ActieDAO extends AbstractDAO<Actie> {
         return persist(actie).getId();
     }
 
-    public List<Actie> findAll() {
-        List<Actie> acties = currentSession().createCriteria(Actie.class).list();
-        for (Actie actie : acties) {
-            initialize(actie.getWijnen());
+    public Actie findAll() {
+        Actie actie = (Actie) currentSession().createCriteria(Actie.class)
+                .add(Restrictions.eq("actief", true)).uniqueResult();
+        initialize(actie.getWijnen());
+        for (Wijn wijn: actie.getWijnen()) {
+            initialize(wijn.getImages());
         }
-        return acties;
+        return actie;
     }
 
 }
