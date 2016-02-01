@@ -11,7 +11,34 @@
  /*
   Created by Roy on 12-1-2016.
  */
-angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_URL) {
+angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_URL, $location) {
+
+    $scope.gewijzigd = false;
+    $scope.foutmelding = false;
+    $scope.personen = [
+      'jaap',
+      'henk',
+      'klaas'
+    ];
+
+    $scope.haal_factuur = function(id) {
+      $http({
+        method: 'GET',
+        url: API_URL + 'bestelling/haalfactuur',
+        params: {
+          id: $location.search().f
+        }
+      }).then(function successCallback(response) {
+        $scope.factuurregels = response.data['factuurregels'];
+        for(var i = 0; i < $scope.factuurregels.length; i++) {
+          console.log(console.log($scope.factuurregels[i]));
+        }
+      })
+    }
+
+    $scope.open_factuuroverzicht = function() {
+      $location.url('/besteloverzicht');
+    }
 
     //Submit function.
     $scope.submit = function() {
@@ -21,7 +48,11 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
         params: {
           gebruiker: $scope.fetch_gebruiker()
         }
-      })
+      }).then(function successCallback(response) {
+        $scope.gewijzigd = true;
+      }, function errorCallback(response) {
+        $scope.foutmelding = true;
+      });
     }
 
     //Set id function.
@@ -38,6 +69,23 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
       }, function errorCallback(response) {
         console.log(response);
       });
+    }
+    $scope.prijs = function(i) {
+      console.log($scope.factuurs[0][0]);
+    }
+
+    $scope.open_factuur = function(id) {
+      $location.url('/factuur?f=' + id);
+    }
+
+    $scope.test = function() {
+      $http({
+          method: 'POST',
+          url: API_URL + 'bestelling/test'
+        }).then(function successCallback(response) {
+          $scope.factuurs = response.data;
+          console.log(response.data);
+        });
     }
 
     //Fetch gebruiker data from the inputform and return it.
@@ -62,5 +110,9 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
       for(var property in gebruiker) {
         $scope[property] = gebruiker[property];
       }
+    }
+
+    $scope.terug = function() {
+      $location.url('/');
     }
  });

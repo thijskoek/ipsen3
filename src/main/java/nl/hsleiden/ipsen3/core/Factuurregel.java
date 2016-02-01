@@ -68,4 +68,7 @@ public class Factuurregel {
         DecimalFormat df = new DecimalFormat("#.00");
         return Double.parseDouble(df.format((getAantal() * getWijn().getPrijs())));
     }
+
 }
+
+
