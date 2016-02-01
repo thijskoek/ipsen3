@@ -8,10 +8,14 @@
  * Controller of the appApp
  */
 
-angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService, authenticationService, 
+angular.module('appApp').controller('OrderCtrl', function ($scope, cartService, orderService, authenticationService,
   $location, ngNotify) {
   $scope.cart = cartService.retrieve();
   $scope.user = authenticationService.getAuthenticator();
+
+  if (!$scope.cart.length || $scope.cart.length === 0) {
+    $location.path('/cart');
+  }
 
   $scope.getTotal = function(item) {
     return parseInt(item.aantal) * item.wijn.prijs;
