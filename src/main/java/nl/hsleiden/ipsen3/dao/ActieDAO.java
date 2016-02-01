@@ -5,6 +5,7 @@ import nl.hsleiden.ipsen3.core.Actie;
 import nl.hsleiden.ipsen3.core.Bestellijst;
 import nl.hsleiden.ipsen3.core.Wijn;
 import org.hibernate.SessionFactory;
+import org.hibernate.criterion.Restrictions;
 
 import java.util.List;
 
@@ -24,12 +25,11 @@ public class ActieDAO extends AbstractDAO<Actie> {
         return persist(actie).getId();
     }
 
-    public List<Actie> findAll() {
-        List<Actie> acties = currentSession().createCriteria(Actie.class).list();
-        for (Actie actie : acties) {
-            initialize(actie.getWijnen());
-        }
-        return acties;
+    public Actie findAll() {
+        Actie actie = (Actie) currentSession().createCriteria(Actie.class)
+                .add(Restrictions.eq("actief", true)).uniqueResult();
+        initialize(actie.getWijnen());
+        return actie;
     }
 
 }
