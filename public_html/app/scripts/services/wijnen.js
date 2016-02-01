@@ -8,7 +8,7 @@
  * Service in the appApp.
  */
 angular.module('appApp')
-  .service('wijnen', function ($http, $q) {
+  .service('wijnen', function ($http, $q, authenticationService) {
     // AngularJS will instantiate a singleton by calling "new" on this function
     var url = '/api/v1/wijnen';
 
@@ -37,6 +37,27 @@ angular.module('appApp')
         }, function(error){
           return error;
         });
+      },
+
+      fileUpload: function(id, fd) {
+        var deferred = $q.defer();
+        $.ajax({
+          type: 'POST',
+          url: url + '/' + id,
+          data: fd,
+          processData: false,
+          contentType: false,
+          beforeSend: function (request) {
+            request.setRequestHeader("Authorization", authenticationService.createAuthorizationString());
+          },
+          success: function(data) {
+            deferred.resolve(data);  
+          },
+          error: function(xhr, textStatus, errorMessage) {
+            deferred.reject(textStatus, errorMessage);
+          }
+        });
+        return deferred.promise;
       }
 
     };

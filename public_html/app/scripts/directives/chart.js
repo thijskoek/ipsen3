@@ -7,7 +7,7 @@
  * # chart
  */
 angular.module('appApp')
-  .directive('chart', function () {
+  .directive('chart', function ($timeout) {
     return {
       templateUrl: 'views/directives/chart.html',
       restrict: 'E',
@@ -25,13 +25,13 @@ angular.module('appApp')
 
         scope.$watch('chartData', function(oldVal, newVal) {
           chart.removeData();
-          setTimeout(function() {
+          $timeout(function() {
             for (var i = 0; i < newVal.datasets[0].data.length; i++) {
               var dataArr = [];
               dataArr.push(newVal.datasets[0].data[i]);
               chart.addData(dataArr, newVal.labels[i]);
             }
-          }, 1);
+          }, 100);
           chart.update();
         });
       }
