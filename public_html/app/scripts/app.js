@@ -23,7 +23,7 @@ angular
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
-        controller: 'ActieCtrl',
+        controller: 'ShopCtrl',
         activeTab: 'home'
       })
       .when('/about', {
