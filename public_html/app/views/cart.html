@@ -21,7 +21,7 @@
           </thead>
             <tr ng-repeat="item in items">
               <td class="col-md-1">
-                <input type="number" min="0" class="form-control input-sm" ng-model="item.aantal" ng-change="save()"
+                <input type="number" min="1" ng-minlength="1" class="form-control input-sm" ng-model="item.aantal" ng-change="save()"
                 name="quantity" id="quantity" value="1">
               </td>
               <td>{{item.wijn.naam}}</td>
