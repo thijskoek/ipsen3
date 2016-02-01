@@ -24,10 +24,9 @@
         <li ng-if="!authenticated" ng-class="{'active': $route.current.activeTab == 'login'}">
         <a ng-href="#/login">Login</a></li>
         <li ng-if="authenticated" class="dropdown">
-          <a href="javascript:void;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
-          aria-expanded="false">Profiel <span class="caret"></span></a>
+          <a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+          aria-expanded="false" dropdown>Profiel <span class="caret"></span></a>
           <ul class="dropdown-menu">
-            <li><a ng-href="#/actie" ng-if="hasRole(ROLES.MSMANGER)">Acties</a></li>
             <li><a ng-href="#/dashboard" ng-if="hasRole(ROLES.MSMANGER)">Dashboard</a></li>
             <li><a ng-href="#/wijnen" ng-if="hasRole(ROLES.MSMANGER)">Wijnen bewerken</a></li>
             <li role="separator" class="divider"></li>

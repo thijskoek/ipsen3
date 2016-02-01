@@ -1,6 +1,6 @@
 $font-family-sans-serif: 		'Avenir Next', 'Montserrat', sans-serif;
 
-$icon-font-path: '/bower_components/bootstrap-sass/assets/fonts/bootstrap/';
+$icon-font-path: '/fonts';
 
 $navbar-height: 				70px;
 $navbar-default-bg: 			rgba(#F3F3F3, 0.4);
@@ -70,7 +70,7 @@ $padding-large-horizontal:  	43px;
 }
 
 .table-cart > tbody > tr > td {
-	vertical-align: middle; 
+	vertical-align: middle;
 }
 
 html {
