@@ -7,6 +7,7 @@ import nl.hsleiden.ipsen3.core.Factuurregel;
 import nl.hsleiden.ipsen3.core.helper.Order;
 import nl.hsleiden.ipsen3.core.helper.OrderRegel;
 import nl.hsleiden.ipsen3.core.helper.Revenue;
+
 import org.hibernate.Criteria;
 import org.hibernate.SessionFactory;
 import org.hibernate.criterion.Conjunction;
@@ -34,6 +35,12 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
     public FactuurDAO(SessionFactory sessionFactory) {
         super(sessionFactory);
         this.sessionFactory = sessionFactory;
+    }
+
+
+    public List<Factuur> findByDebiteur(long debiteurId) {
+        Criteria criteria = currentSession().createCriteria(Factuur.class);
+        return criteria.list();
     }
 
     public int getLastFactuurNummer() {
@@ -69,6 +76,7 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         return persist(factuur).getId();
     }
 
+
     public Factuur findById(long id) {
         return get(id);
     }
@@ -103,6 +111,7 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         return new Revenue(facturen).getRevenue();
     }
 
+
     private Conjunction buildYearQuery(DateTime year) {
         Conjunction and = Restrictions.conjunction();
         DateTime minJaar = year;
@@ -112,4 +121,7 @@ public class FactuurDAO extends AbstractDAO<Factuur> {
         and.add(Restrictions.lt("factuurdatum", maxJaar));
         return and;
     }
+
 }
+
+

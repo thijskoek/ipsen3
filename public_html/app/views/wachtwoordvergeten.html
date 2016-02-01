@@ -1,10 +1,16 @@
-<form ng-submit="generate_link()" autocomplete="off">
-  <table>
+<form ng-submit="generate_link()" autocomplete="off" class="form">
+  <table class="table table-condensed">
     <tr>
       <td>Email</td>
-      <td><input ng-model="email" type="email" /></td>
+      <td><input ng-model="email" type="email" value="test" /></td>
     </tr>
   </table>
-  <button>Annuleer</button>
-  <button type="submit">Wijzigen</button>
+  <div ng-show="verstuurd" class="alert alert-success">
+    Er is een mail gestuurd naar het opgegeven email adres.
+  </div>
+  <div ng-show="foutemail" class="alert alert-danger">
+    Er is geen gebruiker gevonden met het opgegeven email adres!
+  </div>
+  <button class="btn btn-primary">Annuleer</button>
+  <button class="btn btn-success" type="submit">Wijzigen</button>
 </form>

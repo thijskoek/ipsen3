@@ -27,6 +27,10 @@
           <a href="javascript:void;" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
           aria-expanded="false">Profiel <span class="caret"></span></a>
           <ul class="dropdown-menu">
+            <li><a href="/#/profielbewerken">Profiel</a></li>
+            <li><a href="/#/besteloverzicht">Besteloverzicht</a></li>
+
+            <li><a href="javascript:void;" ng-click="logout()">Log uit</a></li>
             <li><a ng-href="#/actie" ng-if="hasRole(ROLES.MSMANGER)">Acties</a></li>
             <li><a ng-href="#/dashboard" ng-if="hasRole(ROLES.MSMANGER)">Dashboard</a></li>
             <li><a ng-href="#/wijnen" ng-if="hasRole(ROLES.MSMANGER)">Wijnen bewerken</a></li>
