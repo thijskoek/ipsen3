@@ -1,7 +1,7 @@
 <h1 class="text-center">Bedrijf</h1>
 <div class="col-sm-6 col-md-6 col-md-offset-3">
   <div class="well">
-    <form ng-init="loadCompany()" name="companyForm" role="form" ng-submit="submitCompany(contactForm.$valid)" ng-controller="CompanyCtrl" novalidate>
+    <form ng-init="loadCompany()" name="companyForm" role="form" ng-submit="submit()" ng-controller="CompanyCtrl" novalidate>
       <div class="form-group">
         <label for="bedrijfsnaam">Bedrijfsnaam:*</label>
         <input type="text" class="form-control" name="bedrijfsnaam" ng-model="bedrijfsnaam" placeholder="Bedrijfsnaam" id="bedrijfsnaam" required>

@@ -2,6 +2,7 @@ package nl.hsleiden.ipsen3.resource;
 
 import com.codahale.metrics.annotation.Timed;
 import com.fasterxml.jackson.core.JsonProcessingException;
+import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import io.dropwizard.auth.Auth;
 import io.dropwizard.hibernate.UnitOfWork;
@@ -12,6 +13,7 @@ import nl.hsleiden.ipsen3.dao.CompanyDAO;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.io.IOException;
 
 /**
  * Created by Brandon on 31-Jan-16.
@@ -42,5 +44,16 @@ public class CompanyResource {
     @POST
     @Timed
     @UnitOfWork
+    @Path("/createBedrijf")
     public long createCompany(Company company) { return dao.create(company); }
+
+    @POST
+    @Timed
+    @UnitOfWork
+    @Path("/wijzig")
+    public void wijzig(@QueryParam("company") String company) throws IOException {
+        JsonNode jsonNode = mapper.readTree(company);
+        Company localGebruiker = mapper.treeToValue(jsonNode, Company.class);
+        dao.update(localGebruiker);
+    }
 }

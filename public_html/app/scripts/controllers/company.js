@@ -15,9 +15,9 @@ angular.module('appApp')
     $scope.submit = function() {
       $http({
         method: 'POST',
-        url: API_URL + 'gebruiker/wijzig',
+        url: API_URL + 'bedrijf/wijzig',
         params: {
-          gebruiker: $scope.fetch_gebruiker()
+          company: $scope.fetch_company()
         }
       })
     }
