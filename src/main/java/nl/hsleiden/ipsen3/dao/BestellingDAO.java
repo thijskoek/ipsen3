@@ -22,7 +22,7 @@ public class BestellingDAO extends AbstractDAO<Product> {
     }
 
     public List<Product> findByUser(long userId) {
-        List<Product> producten = new ArrayList<>();
+        List<Product> producten = new ArrayList<Product>();
         producten.add(new Product(1, 1, "Bordeaux", 1992, 19.50, "Rood", 1, 7));
         producten.add(new Product(2, 2, "Côtes du Rhône", 1772, 30.00, "Rood", 1, 7));
         producten.add(new Product(3, 3, "Bourgogne", 2002, 17.99, "Rood", 1, 7));
