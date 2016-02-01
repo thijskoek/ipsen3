@@ -8,17 +8,17 @@
     <form name="loginForm" role="form" ng-submit="login(loginForm.$valid)" novalidate>
 
       <div class="form-group" ng-class="{
-          'has-error':!loginForm.email.$valid && (!loginForm.$pristine || loginForm.$submitted), 
+          'has-error':!loginForm.email.$valid && (!loginForm.$pristine || loginForm.$submitted),
           'has-success':loginForm.email.$valid && (!loginForm.$pristine || loginForm.$submitted)
         }
         ">
         <label for="email">E-mailadres</label>
         <input id="email" name="email" type="email" class="form-control" ng-model="email" ng-required="true">
-        <span class="help-block" 
+        <span class="help-block"
         ng-show="loginForm.email.$error.required && (!loginForm.$pristine || loginForm.$submitted)">
           Dit veld is verplicht.
         </span>
-        <span  class="help-block" 
+        <span  class="help-block"
         ng-show="loginForm.email.$error.email && (!loginForm.$pristine || loginForm.$submitted)">
           Vul een valide mailadres in.
         </span>
@@ -31,7 +31,7 @@
         ">
         <label for="password">Wachtwoord</label>
         <input type="password" class="form-control" id="password" ng-model="password" ng-required="true">
-        <span class="help-block" 
+        <span class="help-block"
         ng-show="loginForm.password.$error.required && (!loginForm.$pristine || loginForm.$submitted)">
           Dit veld is verplicht.
         </span>
@@ -42,6 +42,10 @@
           <input id="remember" type="checkbox" name="remember" ng-model="remember">
           Gegevens onthouden?
         </label>
+      </div>
+
+      <div class="form-group">
+        <a ng-href="#/wachtwoordvergeten">Wachtwoord vergeten?</a>
       </div>
 
       <div class="form-group text-center">
