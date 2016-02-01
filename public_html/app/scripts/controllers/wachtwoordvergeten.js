@@ -12,6 +12,10 @@
   Created by Roy on 12-1-2016.
  */
 angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, mailservice, API_URL, $location) {
+  $scope.verstuurd = false;
+  $scope.foutemail = false;
+  $scope.gewijzigd = false;
+  $scope.foutesleutel = false;
 
   $scope.test = function() {
     var email = $location.search().email;
@@ -28,7 +32,7 @@ angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, m
 
   $scope.stuur_link = function(link) {
       var mail = {
-        name: 'roy',
+        name: 'Lions',
         subject: 'Wachtwoord vergeten',
         message: link,
         email: $scope.email
@@ -47,6 +51,11 @@ angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, m
     }).then(function successCallback(response) {
       link = response.data;
       $scope.stuur_link(link);
+      $scope.verstuurd = true;
+      $scope.foutemail = false;
+    }, function errorCallback(response) {
+      $scope.foutemail = true;
+      $scope.verstuurd = false;
     });
   }
 
@@ -76,7 +85,11 @@ angular.module('appApp').controller('WachtwoordCtrl', function ($scope, $http, m
           wachtwoord: $scope.wachtwoord
         }
       }).then(function successCallback() {
-        alert('Wachtwoord wijziging aangevraagd.');
+        $scope.gewijzigd = true;
+        $scope.foutesleutel = false;
+      }, function errorCallback(response) {
+        $scope.gewijzigd = false;
+        $scope.foutesleutel = true;
       });
     }
   }

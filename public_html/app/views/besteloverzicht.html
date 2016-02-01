@@ -1,0 +1,14 @@
+<div ng-init="test()">
+  <table class="table table-hover">
+    <tr>
+      <th>Factuurnummer</th>
+      <th>Datum</th>
+      <th>Meer Informatie</th>
+    </tr>
+    <tr ng-repeat="factuur in factuurs">
+      <td>{{factuur['factuurnummer']}}</td>
+      <td>{{factuur['factuurdatum']['millis'] | date:'dd-MM-yyyy'}}</td>
+      <td><button ng-click="open_factuur(factuur['id'])" class="btn btn-primary">Open</button></td>
+    </tr>
+  </table>
+</div>
