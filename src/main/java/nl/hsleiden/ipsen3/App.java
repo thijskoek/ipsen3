@@ -76,6 +76,7 @@ public class App extends Application<AppConfiguration> {
         final GebruikerDAO gebruikerDAO = new GebruikerDAO(hibernate.getSessionFactory());
         final SleutelDAO sleutelDAO = new SleutelDAO(hibernate.getSessionFactory());
         final BestellingDAO bestellingDAO = new BestellingDAO(hibernate.getSessionFactory());
+        final FactuurDAO factuurDAO = new FactuurDAO(hibernate.getSessionFactory());
 
         enableCORS(environment);
         setupAuthentication(environment, userDAO, appConfiguration);
@@ -86,7 +87,7 @@ public class App extends Application<AppConfiguration> {
         final MailResource mailResource = new MailResource();
         final WachtwoordResource wachtwoordResource = new WachtwoordResource(userDAO, sleutelDAO);
         final GebruikersResource gebruikersResource = new GebruikersResource(gebruikerDAO, userDAO);
-        final BestellingResource bestellingResource = new BestellingResource(bestellingDAO);
+        final BestellingResource bestellingResource = new BestellingResource(factuurDAO);
 
         environment.jersey().register(wijnResource);
         environment.jersey().register(userResource);

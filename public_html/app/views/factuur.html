@@ -1,0 +1,19 @@
+<div ng-init="haal_factuur()">
+  <button ng-click="open_factuuroverzicht()" class="btn btn-primary">Terug</button>
+  <table class="table table-hover">
+    <tr>
+      <th>Id</th>
+      <th>Naam</th>
+      <th>Prijs</th>
+      <th>Aantal</th>
+      <th>Totaal</th>
+    </tr>
+    <tr ng-repeat ="factuurregel in factuurregels">
+      <td>{{factuurregel['wijn']['id']}}</td>
+      <td>{{factuurregel['wijn']['naam']}}</td>
+      <td>{{factuurregel['wijn']['prijs']}}</td>
+      <td>{{factuurregel['aantal']}}</td>
+      <td>{{factuurregel['aantal'] * factuurregel['wijn']['prijs'] | number:2}}</td>
+    </tr>
+  </table>
+</div>

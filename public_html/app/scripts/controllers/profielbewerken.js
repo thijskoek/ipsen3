@@ -21,13 +21,24 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
       'klaas'
     ];
 
-    $scope.test = function() {
-      console.log('Test method called');
+    $scope.haal_factuur = function(id) {
       $http({
         method: 'GET',
-        url: API_URL + 'bestelling/test'
-      });
-    };
+        url: API_URL + 'bestelling/haalfactuur',
+        params: {
+          id: $location.search().f
+        }
+      }).then(function successCallback(response) {
+        $scope.factuurregels = response.data['factuurregels'];
+        for(var i = 0; i < $scope.factuurregels.length; i++) {
+          console.log(console.log($scope.factuurregels[i]));
+        }
+      })
+    }
+
+    $scope.open_factuuroverzicht = function() {
+      $location.url('/besteloverzicht');
+    }
 
     //Submit function.
     $scope.submit = function() {
@@ -58,6 +69,23 @@ angular.module('appApp').controller('ProfielCtrl', function ($scope, $http, API_
       }, function errorCallback(response) {
         console.log(response);
       });
+    }
+    $scope.prijs = function(i) {
+      console.log($scope.factuurs[0][0]);
+    }
+
+    $scope.open_factuur = function(id) {
+      $location.url('/factuur?f=' + id);
+    }
+
+    $scope.test = function() {
+      $http({
+          method: 'POST',
+          url: API_URL + 'bestelling/test'
+        }).then(function successCallback(response) {
+          $scope.factuurs = response.data;
+          console.log(response.data);
+        });
     }
 
     //Fetch gebruiker data from the inputform and return it.

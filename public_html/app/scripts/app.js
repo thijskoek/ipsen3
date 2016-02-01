@@ -73,6 +73,11 @@ angular
         controller: 'ProfielCtrl',
         controllerAs: 'bestel'
       })
+      .when('/factuur', {
+        templateUrl: 'views/factuur.html',
+        controller: 'ProfielCtrl',
+        controllerAs: 'bestel'
+      })
       .otherwise({
         redirectTo: '/'
       });
