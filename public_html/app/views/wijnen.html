@@ -1,84 +1,44 @@
-<div class="row">
+<h1>Wijnen</h1>
 
-  <div class="col-md-9">
+<div class="alert alert-info">
+	<strong>Let op!</strong> U kunt hier alleen de afbeeldingen wijzigen. Het wijzigen van de wijnen loopt via IPSEN2.
+</div>
 
-    <h1>Shop</h1>
-
-    <div class="row">
-
-      <div class="alert alert-info" ng-hide="filteredWijnen.length">
-        Geen wijnen gevonden.
-      </div>
-
-      <div class="col-sm-4 col-md-4" ng-repeat="wijn in filteredWijnen = (wijnen | filter:searchText)">
-        <div class="thumbnail">
-          <img src="http://www.vinatis.co.uk/14282-thickbox_default/gros-et-petit-manseng-doux-domaine-uby.jpg"
-          alt="{{wijn.naam}}">
-          <div class="caption text-center">
-            <h3>{{wijn.naam}}</h3>
-            <p>{{wijn.land.name}} &mdash; <i>{{wijn.jaar}}</i></p>
-            <p><strong>{{wijn.prijs | currency}}</strong> <small>per fles</small></p>
-            <p>
-              <button ng-click="addToCart(wijn)" class="btn btn-primary btn-rounded" type="button">
-                <span class="glyphicon glyphicon-shopping-cart"></span> In winkelwagen
-              </button>
-            </p>
-          </div>
-        </div>
-      </div>
-    </div>
-
-  </div>
-
-  <div class="col-md-3">
-    <div class="form-group">
-      <label>Zoeken</label>
-      <div class="input-group">
-        <input class="form-control" type="text" ng-model="searchText" placeholder="Zoeken...">
-        <div class="input-group-addon"><span class="glyphicon glyphicon-search"></span></div>
-      </div>
-    </div>
-  </div>
-
-  <div class="col-md-3">
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Type</strong>
-      </div>
-      <div class="panel-body">
-        <div class="checkbox" ng-repeat="type in types">
-          <label>
-            <input type="checkbox" name="" id=""> {{type}}
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Jaar</strong>
-      </div>
-      <div class="panel-body">
-        <div class="checkbox" ng-repeat="jaar in jaren">
-          <label>
-            <input type="checkbox" name="" id=""> {{jaar}}
-          </label>
-        </div>
-      </div>
-    </div>
-
-    <div class="panel panel-default">
-      <div class="panel-heading">
-        <strong>Land</strong>
-      </div>
-      <div class="panel-body">
-        <div class="checkbox" ng-repeat="land in landen">
-          <label>
-            <input type="checkbox" name="" id=""> {{land.name}}
-          </label>
-        </div>
-      </div>
-    </div>
-  </div>
-
+<div class="row" ng-repeat="wijn in wijnen">
+	<div class="col-md-3">
+		<div class="thumbnail">
+		  	<img class="wijn-img" ng-src="{{wijn.images[0].url}}" alt="{{wijn.naam}}"
+		  		ng-if="wijn.images.length">
+		  	<img class="wijn-img" holder="holder.js/260x260?text={{wijn.naam}}" alt="{{wijn.naam}}" 
+		  		ng-if="!wijn.images.length">
+		</div>
+	</div>
+	<div class="col-md-9">
+		<h4 class="media-heading">{{wijn.naam}}</h4>
+		<div class="row">
+			<div class="col-md-8">
+				<table class="table">
+					<tr>
+						<th>Productnummer</th>
+						<th>Jaar</th>
+						<th>Prijs</th>
+						<th>Type</th>
+						<th>Land</th>
+						<th>Rang</th>
+					</tr>
+					<tr>
+						<td>{{wijn.productnummer}}</td>
+						<td>{{wijn.jaar}}</td>
+						<td>{{wijn.prijs | currency}}</td>
+						<td>{{wijn.type}}</td>
+						<td>{{wijn.land.name}}</td>
+						<td>{{wijn.rang}}</td>
+					</tr>
+				</table>
+			</div>
+			<div class="col-md-4 text-right">
+				<a href="#/wijnen/{{wijn.id}}" class="btn btn-default">Bewerken</a>
+			</div>
+		</div>
+	</div>
 </div>

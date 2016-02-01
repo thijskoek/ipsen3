@@ -16,7 +16,8 @@ angular
     'ngRoute',
     'ngSanitize',
     'ngTouch',
-    'ngNotify'
+    'ngNotify',
+    'ngHolder'
   ])
   .config(function ($routeProvider) {
     $routeProvider
@@ -31,11 +32,11 @@ angular
         controllerAs: 'about',
         activeTab: 'about'
       })
-      .when('/wijnen', {
-        templateUrl: 'views/wijnen.html',
-        controller: 'WijnenCtrl',
-        controllerAs: 'wijnen',
-        activeTab: 'wijnen'
+      .when('/shop', {
+        templateUrl: 'views/shop.html',
+        controller: 'ShopCtrl',
+        controllerAs: 'shop',
+        activeTab: 'shop'
       })
       .when('/contact', {
         templateUrl: 'views/contact.html',
@@ -101,6 +102,16 @@ angular
         templateUrl: 'views/dashboard.html',
         controller: 'DashboardCtrl',
         controllerAs: 'dashboard'
+      })
+      .when('/wijnen', {
+        templateUrl: 'views/wijnen.html',
+        controller: 'WijnenCtrl',
+        controllerAs: 'wijnen'
+      })
+      .when('/wijnen/:id', {
+        templateUrl: 'views/wijnen-edit.html',
+        controller: 'WijnenCtrl',
+        controllerAs: 'wijnen'
       })
       .otherwise({
         redirectTo: '/'
