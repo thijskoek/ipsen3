@@ -9,7 +9,10 @@
  * Made by Thijs Koek
  */
 angular.module('appApp')
-  .controller('MaakBestellijstCtrl', function ($scope, wijnen, actieService) {
+  .controller('MaakBestellijstCtrl', function ($scope, wijnen, actieService, authenticationService, ROLES, $location) {
+    if (!authenticationService.hasRole(ROLES.MSMANGER)) {
+      $location.path('/');
+    }
     var currentDate = moment().unix();
 
     $scope.actie = {};
