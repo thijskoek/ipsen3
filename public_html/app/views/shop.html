@@ -10,7 +10,7 @@
         Geen wijnen gevonden.
       </div>
 
-      <div class="col-sm-4 col-md-4" ng-repeat="wijn in filteredWijnen = (wijnen | filter:searchText)">
+      <div class="col-sm-4 col-md-4 col-lg-4" ng-repeat="wijn in filteredWijnen = (wijnen | filter:searchText)">
         <div class="thumbnail">
           <img class="wijn-img" holder="holder.js/260x260?text={{wijn.naam}}" alt="{{wijn.naam}}" ng-if="!wijn.images.length">
           <img class="wijn-img" ng-src="{{wijn.images[0].url}}" alt="{{wijn.naam}}" ng-if="wijn.images.length" height="150">
